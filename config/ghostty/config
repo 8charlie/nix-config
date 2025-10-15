@@ -1,0 +1,6 @@
+window-decoration = server
+window-padding-x = 10
+window-padding-y = 10
+confirm-close-surface = false
+font-family = Cascadia Mono
+font-size = 12
