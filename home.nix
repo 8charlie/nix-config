@@ -8,6 +8,7 @@ let
     nvim = "nvim";
     ghostty = "ghostty";
     fish = "fish";
+	hypr = "hypr";
     tmux = "tmux";
     zathura = "zathura";
   };
