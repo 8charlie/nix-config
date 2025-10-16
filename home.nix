@@ -7,10 +7,9 @@ let
   configs = {
     nvim = "nvim";
     ghostty = "ghostty";
-    fish = "fish";
-	hypr = "hypr";
+    #    fish = "fish";
+    hypr = "hypr";
     tmux = "tmux";
-	vesktop = "vesktop";
     zathura = "zathura";
   };
 
@@ -28,12 +27,11 @@ in {
   programs.yazi.enable = true;
 
   home.packages = with pkgs; [
-    fish
     ghostty
     tmux
     librewolf
     zathura
-	vesktop
+    vesktop
 
     p7zip
     htop

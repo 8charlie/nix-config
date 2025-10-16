@@ -66,7 +66,8 @@
   };
 
   home-manager.users.charlie = { pkgs, ... }: {
-    programs.bash.enable = true;
+    #programs.bash.enable = true;
+    programs.fish.enable = true;
     home.stateVersion = "25.05";
   };
 
@@ -77,17 +78,15 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  hardware.graphics = {
-		enable = true;
-	};
-  services.xserver.videoDrivers = ["nvidia"];
+  hardware.graphics = { enable = true; };
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-	nvidiaSettings = true;
+    nvidiaSettings = true;
 
-	open = false;
-	package = config.boot.kernelPackages.nvidiaPackages.stable;
-	};
+    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   system.stateVersion = "25.05";
 }
