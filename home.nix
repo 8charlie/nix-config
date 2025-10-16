@@ -10,6 +10,7 @@ let
     fish = "fish";
 	hypr = "hypr";
     tmux = "tmux";
+	vesktop = "vesktop";
     zathura = "zathura";
   };
 
@@ -30,9 +31,9 @@ in {
     fish
     ghostty
     tmux
-    zathura
     librewolf
     zathura
+	vesktop
 
     p7zip
     htop

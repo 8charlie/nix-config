@@ -25,6 +25,7 @@
             useUserPackages = true;
             users.charlie = import ./home.nix;
             extraSpecialArgs = { inherit inputs; };
+			backupFileExtension = "backup";
           };
         }
       ];

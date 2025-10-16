@@ -27,16 +27,12 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
   services.displayManager.ly.enable = true;
   services.desktopManager.plasma6.enable = true;
   #services.displayManager.sddm.enable = true;
 
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -74,16 +70,24 @@
     home.stateVersion = "25.05";
   };
 
-  # Enable automatic login for the user.
-  #  services.displayManager.autoLogin.enable = true;
-  #  services.displayManager.autoLogin.user = "charlie";
-
   nixpkgs.config.allowUnfree = true;
 
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [ vim wget ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  hardware.graphics = {
+		enable = true;
+	};
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    modesetting.enable = true;
+	nvidiaSettings = true;
+
+	open = false;
+	package = config.boot.kernelPackages.nvidiaPackages.stable;
+	};
 
   system.stateVersion = "25.05";
 }
