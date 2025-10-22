@@ -8,6 +8,7 @@ let
     nvim = "nvim";
     ghostty = "ghostty";
     hypr = "hypr";
+    niri = "niri";
     tmux = "tmux";
     zathura = "zathura";
   };
@@ -24,8 +25,8 @@ in {
   }) configs;
 
   programs.yazi.enable = true;
-
   home.packages = with pkgs; [
+    niri
     ghostty
     tmux
     librewolf

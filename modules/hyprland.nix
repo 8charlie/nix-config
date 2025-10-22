@@ -2,6 +2,7 @@
   home.packages = [
     inputs.caelestia-shell.packages.${pkgs.system}.caelestia-shell
     pkgs.hyprland
+    pkgs.wofi
   ];
   
   wayland.windowManager.hyprland = {
