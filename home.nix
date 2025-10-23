@@ -17,22 +17,15 @@ in {
   home.username = "charlie";
   home.homeDirectory = "/home/charlie";
 
-  imports = [
-    ./modules/neovim.nix
-    #    ./modules/hyprland.nix
-    #    ./modules/niri.nix
-    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-  ];
+  imports = [ ./modules/display.nix ./modules/fonts.nix ./modules/neovim.nix ];
 
   xdg.configFile = builtins.mapAttrs (name: subpath: {
     source = create_symlink "${dotfiles}/${subpath}";
     recursive = true;
   }) configs;
 
-  programs.dankMaterialShell.enable = true;
   programs.yazi.enable = true;
   home.packages = with pkgs; [
-    niri
     ghostty
     tmux
     librewolf
@@ -44,6 +37,13 @@ in {
     git
     gcc
   ];
+
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
+    gtk.enable = true;
+  };
 
   home.stateVersion = "25.11";
 }
