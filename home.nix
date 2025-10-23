@@ -17,13 +17,20 @@ in {
   home.username = "charlie";
   home.homeDirectory = "/home/charlie";
 
-  imports = [ ./modules/neovim.nix ./modules/hyprland.nix ];
+  imports = [
+    ./modules/neovim.nix
+    ./modules/hyprland.nix
+    #    ./modules/niri.nix
+
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+  ];
 
   xdg.configFile = builtins.mapAttrs (name: subpath: {
     source = create_symlink "${dotfiles}/${subpath}";
     recursive = true;
   }) configs;
 
+  programs.dankMaterialShell.enable = true;
   programs.yazi.enable = true;
   home.packages = with pkgs; [
     niri

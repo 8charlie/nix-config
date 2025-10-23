@@ -28,6 +28,7 @@ input {
     trackpoint {
     }
 }
+
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 // The built-in laptop monitor is usually called "eDP-1".
@@ -39,6 +40,10 @@ output "DP-1" {
     position x=2560 y=0
     //variable-refresh-rate (seems to cause flickering but unsure)
 }
+
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store"
+
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -102,23 +107,18 @@ layout {
     struts {
     }  
 }
+
 layer-rule {
     match namespace="^quickshell$"
     place-within-backdrop true
 }
+
 overview {
     workspace-shadow {
         off
     }
 }
-// Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
-// See the binds section below for more spawn examples.
-// This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-spawn-at-startup "dms" "run"
-spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
+
 environment {
   XDG_CURRENT_DESKTOP "niri"
   QT_QPA_PLATFORM "wayland"
@@ -127,11 +127,15 @@ environment {
   QT_QPA_PLATFORMTHEME_QT6 "gtk3"
   TERMINAL "ghostty"
 }
+
 hotkey-overlay {
     skip-at-startup
 }
+
 prefer-no-csd
+
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
 animations {
 	off
     workspace-switch {
@@ -165,6 +169,7 @@ animations {
         spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
     }
 }
+
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
@@ -177,12 +182,14 @@ window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
 }
+
 window-rule {
     match app-id=r#"^org\.gnome\."#
     draw-border-with-background false
     geometry-corner-radius 12
     clip-to-geometry true
 }
+
 window-rule {
     match app-id=r#"^gnome-control-center$"#
     match app-id=r#"^pavucontrol$"#
@@ -190,6 +197,7 @@ window-rule {
     default-column-width { proportion 0.5; }
     open-floating false
 }
+
 window-rule {
     match app-id=r#"^gnome-calculator$"#
     match app-id=r#"^galculator$"#
@@ -199,6 +207,7 @@ window-rule {
     match app-id=r#"^xdg-desktop-portal$"#
     open-floating true
 }
+
 window-rule {
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     match app-id="Alacritty"
@@ -207,78 +216,33 @@ window-rule {
     match app-id="kitty"
     draw-border-with-background false
 }
+
 window-rule { 
     match is-active=false
     opacity 0.9
 }
+
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id="zoom"
     open-floating true
 }
+
 window-rule {
     geometry-corner-radius 0 // was 12
     clip-to-geometry true
 }
+
 binds {
     // === System & Overview ===
+	    Mod+T hotkey-overlay-title="Open Terminal" { spawn "ghostty" "-e" "tmux"; }
+	    Mod+Space hotkey-overlay-title="Open Wofi" { spawn "wofi" "--show" "drun"; }
     Mod+D { spawn "niri" "msg" "action" "toggle-overview"; }
     Mod+O repeat=false { toggle-overview; }
     Mod+Shift+Slash { show-hotkey-overlay; }
     
-    // === Application Launchers ===
-    Mod+T hotkey-overlay-title="Open Terminal" { spawn "ghostty" "-e" "tmux"; }
-    Mod+Space hotkey-overlay-title="Application Launcher" { 
-        spawn "dms" "ipc" "call" "spotlight" "toggle"; 
-    }
-    Mod+V hotkey-overlay-title="Clipboard Manager" { 
-        spawn "dms" "ipc" "call" "clipboard" "toggle"; 
-    }
-    Mod+M hotkey-overlay-title="Task Manager" { 
-        spawn "dms" "ipc" "call" "processlist" "toggle"; 
-    }
-    Mod+Comma hotkey-overlay-title="Settings" { 
-        spawn "dms" "ipc" "call" "settings" "toggle"; 
-    }
-    Mod+N hotkey-overlay-title="Notification Center" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
-    Mod+Shift+N hotkey-overlay-title="Notepad" { spawn "dms" "ipc" "call" "notepad" "toggle"; }
-    
     // === Security ===
-    Mod+Alt+L hotkey-overlay-title="Lock Screen" { 
-        spawn "dms" "ipc" "call" "lock" "lock"; 
-    }
     Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete hotkey-overlay-title="Task Manager" { 
-        spawn "dms" "ipc" "call" "processlist" "toggle"; 
-    }
-    
-    // === Audio Controls ===
-    XF86AudioRaiseVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "increment" "3";
-    }
-    XF86AudioLowerVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "decrement" "3";
-    }
-    XF86AudioMute allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "mute";
-    }
-    XF86AudioMicMute allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "micmute";
-    }
-    
-    XF86KbdBrightnessUp allow-when-locked=true {
-        spawn "kbdbrite.sh" "up";
-    }
-    XF86KbdBrightnessDown allow-when-locked=true {
-        spawn "kbdbrite.sh" "down";
-    }
-    // === Brightness Controls ===
-    XF86MonBrightnessUp allow-when-locked=true {
-       spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
-    }
-    XF86MonBrightnessDown allow-when-locked=true {
-       spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
-    }  
     
     // === Window Management ===
     Mod+Q repeat=false { close-window; }
@@ -415,6 +379,7 @@ binds {
     Print { screenshot; }    
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    
     // === System Controls ===
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+P { power-off-monitors; }
