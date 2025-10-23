@@ -70,16 +70,16 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  ## nvidia drivers
-  #  hardware.graphics = { enable = true; };
-  #  services.xserver.videoDrivers = [ "nvidia" ];
-  #  hardware.nvidia = {
-  #    modesetting.enable = true;
-  #    nvidiaSettings = true;
-  #
-  #    open = false;
-  #    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  #  };
+  # nvidia drivers
+  hardware.graphics = { enable = true; };
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    nvidiaSettings = true;
+
+    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   system.stateVersion = "25.11";
 }
