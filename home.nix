@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, inputs, pkgs, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/.dotfiles/config";
@@ -8,7 +8,6 @@ let
     nvim = "nvim";
     fish = "fish";
     ghostty = "ghostty";
-    hypr = "hypr";
     niri = "niri";
     tmux = "tmux";
     zathura = "zathura";
@@ -18,7 +17,12 @@ in {
   home.username = "charlie";
   home.homeDirectory = "/home/charlie";
 
-  imports = [ ./modules/display.nix ./modules/fonts.nix ./modules/neovim.nix ];
+  imports = [
+    ./modules/cursor.nix
+    ./modules/display.nix
+    ./modules/fonts.nix
+    ./modules/neovim.nix
+  ];
 
   xdg.configFile = builtins.mapAttrs (name: subpath: {
     source = create_symlink "${dotfiles}/${subpath}";
@@ -28,23 +32,16 @@ in {
   programs.yazi.enable = true;
   home.packages = with pkgs; [
     ghostty
-    tmux
-    librewolf
-    zathura
-    vesktop
-
-    p7zip
     htop
-    git
-    gcc
-  ];
+    librewolf
+    tmux
+    vesktop
+    zathura
 
-  home.pointerCursor = {
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-    size = 24;
-    gtk.enable = true;
-  };
+    gcc
+    git
+    p7zip
+  ];
 
   home.stateVersion = "25.11";
 }

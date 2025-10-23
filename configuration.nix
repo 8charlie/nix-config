@@ -31,7 +31,7 @@
   #services.desktopManager.plasma6.enable = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  #services.printing.enable = true;
 
   # Enable sound with pipewire.
   #  services.pulseaudio.enable = false;
@@ -81,5 +81,5 @@
   #    package = config.boot.kernelPackages.nvidiaPackages.stable;
   #  };
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
