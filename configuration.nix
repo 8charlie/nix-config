@@ -30,7 +30,7 @@
   services.xserver.enable = true;
 
   services.displayManager.ly.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  #services.desktopManager.plasma6.enable = true;
   #services.displayManager.sddm.enable = true;
 
   services.xserver.xkb = {
@@ -62,7 +62,7 @@
     isNormalUser = true;
     description = "charlie";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ kdePackages.kate ];
+    packages = with pkgs; [ ];
   };
 
   home-manager.users.charlie = { pkgs, ... }: {
