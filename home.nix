@@ -19,9 +19,8 @@ in {
 
   imports = [
     ./modules/neovim.nix
-    ./modules/hyprland.nix
+    #    ./modules/hyprland.nix
     #    ./modules/niri.nix
-
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
   ];
 
@@ -46,5 +45,5 @@ in {
     gcc
   ];
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 }

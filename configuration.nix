@@ -68,7 +68,7 @@
   home-manager.users.charlie = { pkgs, ... }: {
     #programs.bash.enable = true;
     programs.fish.enable = true;
-    home.stateVersion = "25.05";
+    home.stateVersion = "25.11";
   };
 
   nixpkgs.config.allowUnfree = true;
