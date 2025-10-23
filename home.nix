@@ -27,6 +27,7 @@ in {
   programs.yazi.enable = true;
 
   home.packages = with pkgs; [
+    baobab
     ghostty
     htop
     librewolf

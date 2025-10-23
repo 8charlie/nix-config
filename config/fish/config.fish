@@ -12,5 +12,6 @@ fish_vi_key_bindings
 set fish_cursor_default block
 set fish_cursor_insert line
 
+alias swch='sudo nixos-rebuild switch --flake ~/.dotfiles'
 alias vim=nvim
 alias fd=fdfind
