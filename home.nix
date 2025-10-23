@@ -6,6 +6,7 @@ let
   # Standard .config/directory
   configs = {
     nvim = "nvim";
+    fish = "fish";
     ghostty = "ghostty";
     hypr = "hypr";
     niri = "niri";

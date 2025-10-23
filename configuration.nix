@@ -27,16 +27,8 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  services.xserver.enable = true;
-
   services.displayManager.ly.enable = true;
   #services.desktopManager.plasma6.enable = true;
-  #services.displayManager.sddm.enable = true;
-
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -57,17 +49,17 @@
   #    #media-session.enable = true;
   #  };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs.fish.enable = true;
   users.users.charlie = {
     isNormalUser = true;
     description = "charlie";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.fish;
     packages = with pkgs; [ ];
   };
 
   home-manager.users.charlie = { pkgs, ... }: {
-    #programs.bash.enable = true;
-    programs.fish.enable = true;
+    #programs.fish.enable = true;
     home.stateVersion = "25.11";
   };
 
