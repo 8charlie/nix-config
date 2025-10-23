@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }: {
 
   home.packages = with pkgs; [
+    material-symbols
     cascadia-code
     noto-fonts
     noto-fonts-cjk-sans
