@@ -1,5 +1,7 @@
 { pkgs, inputs, ... }: {
-  home.packages = with pkgs; [ niri wofi wl-clipboard ];
+
+  # niri pkg is in configuration.nix
+  home.packages = with pkgs; [ wofi wl-clipboard xwayland ];
 
   imports = [ inputs.dankMaterialShell.homeModules.dankMaterialShell.default ];
 

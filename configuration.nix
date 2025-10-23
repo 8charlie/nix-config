@@ -50,6 +50,7 @@
   #  };
 
   programs.fish.enable = true;
+  programs.niri.enable = true;
   users.users.charlie = {
     isNormalUser = true;
     description = "charlie";

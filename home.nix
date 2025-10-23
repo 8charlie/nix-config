@@ -24,12 +24,8 @@ in {
     ./modules/neovim.nix
   ];
 
-  xdg.configFile = builtins.mapAttrs (name: subpath: {
-    source = create_symlink "${dotfiles}/${subpath}";
-    recursive = true;
-  }) configs;
-
   programs.yazi.enable = true;
+
   home.packages = with pkgs; [
     ghostty
     htop
@@ -42,6 +38,14 @@ in {
     git
     p7zip
   ];
+
+  services.syncthing = { enable = true; };
+
+  # makes the symlinks in ./config to ~/.config
+  xdg.configFile = builtins.mapAttrs (name: subpath: {
+    source = create_symlink "${dotfiles}/${subpath}";
+    recursive = true;
+  }) configs;
 
   home.stateVersion = "25.11";
 }

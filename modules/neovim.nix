@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
@@ -10,9 +10,9 @@
     # Language Servers
     lua-language-server
     nil # nix language server
-    nixpkgs-fmt # nix formatter
-	clang-tools # needed for clangd
-	cargo # needed for nil
+    cargo # needed for nil
+    nixpkgs-fmt
+    clang-tools # needed for clangd
 
     # Needed for lazy.nvim
     nodejs
