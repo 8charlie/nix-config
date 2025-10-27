@@ -31,6 +31,7 @@ in {
     efibootmgr
     baobab
     gparted
+    nix-search-cli
 
     # apps
     ghostty
@@ -40,12 +41,18 @@ in {
     vesktop
     zathura
     freetube
+    spotify
+    xfce.thunar
 
-    # libs/tools
+    # tools
     gcc
     git
     p7zip
+    gtk3
+    gtk4
   ];
+
+  services.syncthing.enable = true;
 
   # makes the symlinks in ./config to ~/.config
   xdg.configFile = builtins.mapAttrs (name: subpath: {

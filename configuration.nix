@@ -3,7 +3,6 @@
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-h.nix
-    ./modules/syncthing.nix
   ];
 
   # Bootloader.
@@ -28,6 +27,21 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
+  nixpkgs.config.allowUnfree = true;
+
+  hardware.bluetooth.enable = true;
+
+  # nvidia drivers
+  hardware.graphics = { enable = true; };
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    nvidiaSettings = true;
+
+    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
   services.displayManager.ly.enable = true;
   #services.desktopManager.plasma6.enable = true;
 
@@ -41,9 +55,18 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.extraConfig.bluetoothEnhancements = {
+      "monitor.bluez.properties" = {
+        "bluez5.enable-sbc-xq" = true;
+        "bluez5.enable-msbc" = true;
+        "bluez5.enable-hw-volume" = true;
+        "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+      };
+    };
   };
 
   programs.fish.enable = true;
+  documentation.man.generateCaches = false; # very slow rebuild times if enabled
   programs.niri.enable = true;
   users.users.charlie = {
     isNormalUser = true;
@@ -55,23 +78,10 @@
 
   home-manager.users.charlie = { pkgs, ... }: { home.stateVersion = "25.11"; };
 
-  nixpkgs.config.allowUnfree = true;
-
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [ vim wget ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # nvidia drivers
-  hardware.graphics = { enable = true; };
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    nvidiaSettings = true;
-
-    open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
 
   system.stateVersion = "25.11";
 }

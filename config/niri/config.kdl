@@ -17,6 +17,8 @@ gestures {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 input {
     keyboard {
+		repeat-delay 225
+		repeat-rate 15
         xkb {
         }
         numlock
