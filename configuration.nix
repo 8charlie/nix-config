@@ -2,7 +2,8 @@
 
 {
   imports = [ # Include the results of the hardware scan.
-    ./u-hardware.nix
+    ./hardware-h.nix
+    ./modules/syncthing.nix
   ];
 
   # Bootloader.
@@ -33,21 +34,14 @@
   # Enable CUPS to print documents.
   #services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  #  services.pulseaudio.enable = false;
-  #  security.rtkit.enable = true;
-  #  services.pipewire = {
-  #    enable = true;
-  #    alsa.enable = true;
-  #    alsa.support32Bit = true;
-  #    pulse.enable = true;
-  #    # If you want to use JACK applications, uncomment this
-  #    #jack.enable = true;
-  #
-  #    # use the example session manager (no others are packaged yet so this is enabled by default,
-  #    # no need to redefine it in your config for now)
-  #    #media-session.enable = true;
-  #  };
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
 
   programs.fish.enable = true;
   programs.niri.enable = true;
@@ -56,13 +50,10 @@
     description = "charlie";
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.fish;
-    packages = with pkgs; [ ];
+    packages = [ ];
   };
 
-  home-manager.users.charlie = { pkgs, ... }: {
-    #programs.fish.enable = true;
-    home.stateVersion = "25.11";
-  };
+  home-manager.users.charlie = { pkgs, ... }: { home.stateVersion = "25.11"; };
 
   nixpkgs.config.allowUnfree = true;
 

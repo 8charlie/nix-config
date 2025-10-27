@@ -10,7 +10,7 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		dependencies = { "nvim-lspconfig" },
 		opts = {
-			ensure_installed = {},
+			ensure_installed = {"nil_ls", "clangd"},
 		},
 	},
 }

@@ -27,20 +27,25 @@ in {
   programs.yazi.enable = true;
 
   home.packages = with pkgs; [
+    # utils 
+    efibootmgr
     baobab
+    gparted
+
+    # apps
     ghostty
     htop
     librewolf
     tmux
     vesktop
     zathura
+    freetube
 
+    # libs/tools
     gcc
     git
     p7zip
   ];
-
-  services.syncthing = { enable = true; };
 
   # makes the symlinks in ./config to ~/.config
   xdg.configFile = builtins.mapAttrs (name: subpath: {

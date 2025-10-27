@@ -2,27 +2,29 @@
 
 {
   home.packages = with pkgs; [
-    # Tools required for Telescope
+
+    # for lazyvim
+    nodejs
+
+    # for telescope
     ripgrep
     fd
     fzf
 
-    # Language Servers
+    # language Servers
     lua-language-server
     nil # nix language server
     cargo # needed for nil
-    nixpkgs-fmt
     clang-tools # needed for clangd
+    unzip # needed for mason
 
-    # Needed for lazy.nvim
-    nodejs
-
+    # formatters
+    nixpkgs-fmt
   ];
 
   programs.neovim = {
     enable = true;
-    #viAlias = true;
-    #vimAlias = true;
+    vimAlias = true;
   };
 
 }
