@@ -25,7 +25,6 @@ in {
   ];
 
   programs.yazi.enable = true;
-
   home.packages = with pkgs; [
     # utils
     efibootmgr
@@ -56,7 +55,6 @@ in {
     gtk3
     gtk4
   ];
-
   services.syncthing.enable = true;
 
   # makes the symlinks in ./config to ~/.config
