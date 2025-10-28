@@ -27,22 +27,27 @@ in {
   programs.yazi.enable = true;
 
   home.packages = with pkgs; [
-    # utils 
+    # utils
     efibootmgr
     baobab
     gparted
     nix-search-cli
+    magic-wormhole
 
     # apps
     ghostty
+    tmux
     htop
     librewolf
-    tmux
+    brave
+    chromium
     vesktop
     zathura
     freetube
     spotify
     xfce.thunar
+    steam
+
 
     # tools
     gcc

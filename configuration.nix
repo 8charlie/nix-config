@@ -29,8 +29,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  hardware.bluetooth.enable = true;
-
   # nvidia drivers
   hardware.graphics = { enable = true; };
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -41,12 +39,6 @@
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-
-  services.displayManager.ly.enable = true;
-  #services.desktopManager.plasma6.enable = true;
-
-  # Enable CUPS to print documents.
-  #services.printing.enable = true;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -65,8 +57,19 @@
     };
   };
 
-  programs.fish.enable = true;
+  hardware.bluetooth.enable = true;
+
+  services.xserver.enable = true;
+
+  services.displayManager.ly.enable = true;
+  #services.desktopManager.plasma6.enable = true;
+
+  # Enable CUPS to print documents.
+  #services.printing.enable = true;
+
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
+
+  programs.fish.enable = true;
   programs.niri.enable = true;
   users.users.charlie = {
     isNormalUser = true;

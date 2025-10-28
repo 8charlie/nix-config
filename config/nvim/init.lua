@@ -31,12 +31,16 @@ vim.o.inccommand = "split" -- previews what youll replace stuff with during repl
 vim.o.splitbelow = true
 vim.o.splitright = true
 
+local lspconfig = require('lspconfig')
+
 vim.diagnostic.config({
 	virtual_text = {
 		prefix = "●",
 		source = false,
 	},
 })
+
+vim.lsp.enable({ "lua_ls", "clangd", "nil" })
 
 -- keybinds
 local keyset = vim.keymap.set

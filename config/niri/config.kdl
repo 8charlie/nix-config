@@ -47,7 +47,7 @@ output "DP-3" {
 layout {
     // Set gaps around windows in logical pixels.
 
-    gaps 0 // was 5
+    gaps 0 
     background-color "transparent"
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
