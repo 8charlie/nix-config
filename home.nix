@@ -26,7 +26,6 @@ in {
 
   programs.yazi.enable = true;
   home.packages = with pkgs; [
-    # utils
     bluez
     bluez-tools
     efibootmgr
@@ -34,8 +33,8 @@ in {
     gparted
     nix-search-cli
     magic-wormhole
+    p7zip
 
-    # apps
     ghostty
     tmux
     htop
@@ -49,13 +48,11 @@ in {
     xfce.thunar
     steam
 
-
-    # tools
     gcc
     git
-    p7zip
     gtk3
     gtk4
+    xwayland-satellite # necessary for xwayland to work on niri
   ];
   services.syncthing.enable = true;
 
