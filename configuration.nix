@@ -36,6 +36,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  hardware.bluetooth.enable = true;
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -53,15 +54,12 @@
     };
   };
 
-  hardware.bluetooth.enable = true;
+  services.displayManager.ly.enable = true;
 
   services.xserver.enable = true;
-
-  services.displayManager.ly.enable = true;
   #services.desktopManager.plasma6.enable = true;
 
-  # Enable CUPS to print documents.
-  #services.printing.enable = true;
+  #services.printing.enable = true; # Enable CUPS to print documents.
 
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 

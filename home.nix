@@ -27,6 +27,8 @@ in {
   programs.yazi.enable = true;
   home.packages = with pkgs; [
     # utils
+    bluez
+    bluez-tools
     efibootmgr
     baobab
     gparted

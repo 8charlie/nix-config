@@ -27,7 +27,7 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        ./hardware-h.nix
+        ./hosts/home/hardware.nix
         home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -44,7 +44,7 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        ./hardware-u.nix
+        ./hosts/nixos/hardware.nix
         home-manager.nixosModules.home-manager
         {
           home-manager = {
