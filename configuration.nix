@@ -1,16 +1,16 @@
 { config, pkgs, ... }:
 
 {
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_GB.UTF-8";
     LC_IDENTIFICATION = "en_GB.UTF-8";
@@ -26,7 +26,9 @@
   nixpkgs.config.allowUnfree = true;
 
   # nvidia drivers
-  hardware.graphics = { enable = true; };
+  hardware.graphics = {
+    enable = true;
+  };
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
@@ -41,8 +43,6 @@
   #  powerOnBoot = true;
   #  settings = {
   #    General = {
-  #      # Shows battery charge of connected devices on supported
-  #      # Bluetooth adapters. Defaults to 'false'.
   #      Experimental = true;
   #      # When enabled other devices can connect faster to us, however
   #      # the tradeoff is increased power consumption. Defaults to
@@ -50,9 +50,6 @@
   #      FastConnectable = true;
   #    };
   #    Policy = {
-  #      # Enable all controllers when they are found. This includes
-  #      # adapters present on start as well as adapters that are plugged
-  #      # in later on. Defaults to 'true'.
   #      AutoEnable = true;
   #    };
   #  };
@@ -90,17 +87,30 @@
   users.users.charlie = {
     isNormalUser = true;
     description = "charlie";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.fish;
     packages = [ ];
   };
 
-  home-manager.users.charlie = { pkgs, ... }: { home.stateVersion = "25.11"; };
+  home-manager.users.charlie =
+    { pkgs, ... }:
+    {
+      home.stateVersion = "25.11";
+    };
 
   programs.firefox.enable = true;
-  environment.systemPackages = with pkgs; [ vim wget ];
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+  ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   system.stateVersion = "25.11";
 }

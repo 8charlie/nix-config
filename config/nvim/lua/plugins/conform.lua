@@ -6,5 +6,8 @@ return {
 			async = false, -- Synchronous formatting
 			timeout_ms = 500, -- Timeout for formatting
 		},
+		formatters_by_ft = {
+			nix = { "alejandra" },
+		},
 	},
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   home.packages = with pkgs; [
@@ -19,7 +24,7 @@
     unzip # needed for mason
 
     # formatters
-    nixpkgs-fmt
+    alejandra
   ];
 
   programs.neovim = {

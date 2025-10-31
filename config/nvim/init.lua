@@ -40,7 +40,7 @@ vim.diagnostic.config({
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "nil" })
+vim.lsp.enable({ "lua_ls", "clangd", "nil_ls" })
 
 -- keybinds
 local keyset = vim.keymap.set

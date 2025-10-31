@@ -5,7 +5,15 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     dgop = {
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,40 +30,34 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations.home = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        ./hosts/home/hardware.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.charlie = import ./home.nix;
-            extraSpecialArgs = { inherit inputs; };
-            backupFileExtension = "backup";
-          };
-        }
-      ];
-    };
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        ./hosts/nixos/hardware.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.charlie = import ./home.nix;
-            extraSpecialArgs = { inherit inputs; };
-            backupFileExtension = "backup";
-          };
-        }
-      ];
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  }: let
+    mkSystem = hardwareModule:
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          hardwareModule
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.charlie = import ./home.nix;
+              extraSpecialArgs = {inherit inputs;};
+              backupFileExtension = "backup";
+            };
+          }
+        ];
+      };
+  in {
+    nixosConfigurations = {
+      home = mkSystem ./hosts/home/hardware.nix;
+      nixos = mkSystem ./hosts/nixos/hardware.nix;
     };
   };
 }
