@@ -6,14 +6,18 @@
     bluez
     bluez-tools
     brave
+    cargo
+    clang-tools
     chromium
     efibootmgr
     fd
     feh
     freetube
+    fzf
     gcc
     ghostty
     git
+    gnumake
     gparted
     gtk3
     gtk4
@@ -25,7 +29,9 @@
     mpv
     nautilus
     nix-search-cli
+    nodejs
     p7zip
+    ripgrep
     sbctl
     spotify
     starship

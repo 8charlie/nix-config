@@ -21,12 +21,13 @@ in {
 
   imports = [
     ./modules/desktop.nix
+    ./modules/firefox.nix
     ./modules/fonts.nix
     ./modules/packages.nix
     ./modules/neovim.nix
+    ./modules/services.nix
   ];
 
-  services.syncthing.enable = true;
   # makes the symlinks in ./config to ~/.config
   xdg.configFile =
     builtins.mapAttrs (name: subpath: {

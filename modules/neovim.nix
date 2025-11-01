@@ -3,11 +3,8 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   home.packages = with pkgs; [
-
     # for lazyvim
     nodejs
 
@@ -15,6 +12,9 @@
     ripgrep
     fd
     fzf
+
+    luarocks # some plugins need this
+    tree-sitter
 
     # language Servers
     lua-language-server
@@ -31,5 +31,4 @@
     enable = true;
     vimAlias = true;
   };
-
 }

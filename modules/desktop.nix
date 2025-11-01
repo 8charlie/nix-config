@@ -7,22 +7,17 @@
   programs.dankMaterialShell.enable = true;
 
   home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    TERM = "xterm-ghostty";
+
     XDG_CURRENT_DESKTOP = "niri";
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "niri";
-  };
 
-  # set icons
-  gtk = {
-    enable = true;
-    iconTheme.name = "Adwaita";
-  };
-
-  home.pointerCursor = {
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-    size = 24;
-    gtk.enable = true;
+    XDG_DOWNLOAD_DIR = "$HOME/down";
+    XDG_DOCUMENTS_DIR = "$HOME/doc";
+    XDG_PICTURES_DIR = "$HOME/pics";
   };
 
   # set default apps
@@ -55,5 +50,18 @@
         "x-scheme-handler/https" = "librewolf.desktop";
       };
     };
+  };
+
+  gtk = {
+    enable = true;
+    iconTheme.name = "Adwaita";
+    colorScheme = "dark";
+  };
+
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.adwaita-icon-theme;
+    size = 24;
+    gtk.enable = true;
   };
 }
