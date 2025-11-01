@@ -20,16 +20,13 @@ in {
   home.homeDirectory = "/home/charlie";
 
   imports = [
-    ./modules/packages.nix
-    ./modules/mime.nix
-    ./modules/cursor.nix
-    ./modules/display.nix
+    ./modules/desktop.nix
     ./modules/fonts.nix
+    ./modules/packages.nix
     ./modules/neovim.nix
   ];
 
   services.syncthing.enable = true;
-
   # makes the symlinks in ./config to ~/.config
   xdg.configFile =
     builtins.mapAttrs (name: subpath: {

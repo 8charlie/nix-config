@@ -1,0 +1,7 @@
+binds {
+    Mod+Space hotkey-overlay-title="Application Launcher" { 
+        spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
+    }
+}
+
+

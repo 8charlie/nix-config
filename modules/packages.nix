@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    adwaita-icon-theme
     baobab
     bluetui
     bluez
@@ -20,11 +21,14 @@
     htop
     librewolf
     magic-wormhole
+    morewaita-icon-theme
     mpv
+    nautilus
     nix-search-cli
     p7zip
     sbctl
     spotify
+    starship
     steam
     tmux
     vesktop

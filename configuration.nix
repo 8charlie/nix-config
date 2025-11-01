@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
@@ -25,35 +27,33 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # nvidia drivers
   hardware.graphics = {
     enable = true;
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaSettings = true;
-
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  #  hardware.bluetooth = {
-  #  enable = true;
-  #  powerOnBoot = true;
-  #  settings = {
-  #    General = {
-  #      Experimental = true;
-  #      # When enabled other devices can connect faster to us, however
-  #      # the tradeoff is increased power consumption. Defaults to
-  #      # 'false'.
-  #      FastConnectable = true;
-  #    };
-  #    Policy = {
-  #      AutoEnable = true;
-  #    };
-  #  };
-  #};
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
+  };
 
   #  services.ofono.enable = true;  # maybe delete
   #services.pulseaudio.enable = false;
@@ -92,14 +92,11 @@
       "wheel"
     ];
     shell = pkgs.fish;
-    packages = [ ];
   };
 
-  home-manager.users.charlie =
-    { pkgs, ... }:
-    {
-      home.stateVersion = "25.11";
-    };
+  home-manager.users.charlie = {pkgs, ...}: {
+    home.stateVersion = "25.11";
+  };
 
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
