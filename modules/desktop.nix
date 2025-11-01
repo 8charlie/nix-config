@@ -15,9 +15,9 @@
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "niri";
 
-    XDG_DOWNLOAD_DIR = "$HOME/down";
-    XDG_DOCUMENTS_DIR = "$HOME/doc";
-    XDG_PICTURES_DIR = "$HOME/pics";
+    XDG_DOWNLOAD_DIR = "$HOME/Downloads";
+    XDG_DOCUMENTS_DIR = "$HOME/Documents";
+    XDG_PICTURES_DIR = "$HOME/Pictures";
   };
 
   # set default apps

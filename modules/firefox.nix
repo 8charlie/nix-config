@@ -38,8 +38,10 @@
 
     # this is just the betterfox user.js, shoutout claude
     profiles.default = {
-      userchrome = builtins.readFile ../assets/firefox/userChrome.css;
+      userChrome = builtins.readFile ../assets/firefox/userChrome.css;
       settings = {
+        "general.autoscroll" = true;
+
         # GFX
         "gfx.content.skia-font-cache-size" = 32;
         "gfx.canvas.accelerated.cache-items" = 32768;
