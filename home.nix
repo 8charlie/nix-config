@@ -1,9 +1,4 @@
-{
-  config,
-  inputs,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   dotfiles = "${config.home.homeDirectory}/.dotfiles/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   # Standard .config/directory

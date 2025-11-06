@@ -19,9 +19,9 @@
     # language Servers
     lua-language-server
     nil # nix language server
-    cargo # needed for nil
-    clang-tools # needed for clangd
-    unzip # needed for mason
+    cargo # for nil
+    clang-tools # for clangd
+    unzip # for mason
 
     # formatters
     alejandra

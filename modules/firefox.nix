@@ -36,7 +36,7 @@
       };
     };
 
-    # this is just the betterfox user.js, shoutout claude
+    # this is just the betterfox user.js
     profiles.default = {
       userChrome = builtins.readFile ../assets/firefox/userChrome.css;
       settings = {

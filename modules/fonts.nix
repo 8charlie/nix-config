@@ -1,11 +1,14 @@
-{ pkgs, inputs, ... }: {
-
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
     material-symbols
     cascadia-code
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     liberation_ttf
     fira-code
     fira-code-symbols
@@ -18,10 +21,10 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [ "Noto Serif" "DejaVu Serif" ];
-      sansSerif = [ "Noto Sans" "DejaVu Sans" ];
-      monospace = [ "JetBrainsMono Nerd Font" "Fira Code" "DejaVu Sans Mono" ];
-      emoji = [ "Noto Color Emoji" ];
+      serif = ["Noto Serif" "DejaVu Serif"];
+      sansSerif = ["Noto Sans" "DejaVu Sans"];
+      monospace = ["JetBrainsMono Nerd Font" "Fira Code" "DejaVu Sans Mono"];
+      emoji = ["Noto Color Emoji"];
     };
   };
 }

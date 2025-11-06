@@ -1,4 +1,11 @@
-theme = Gruvbox Dark Hard
+config-file = ~/.config/ghostty/config-dankcolors
+
+#theme = Gruvbox Dark Hard
+#background = #141314
+#foreground = #e6e1e3
+#cursor-color = #cec2d8
+#selection-background = #4c4456
+#selection-foreground = #e6e1e3
 
 window-decoration = server
 window-padding-x = 10

@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     adwaita-icon-theme
+    alsa-utils
     baobab
     bluetui
     bluez
@@ -25,12 +26,12 @@
     htop
     librewolf
     magic-wormhole
-    morewaita-icon-theme
     mpv
     nautilus
     nix-search-cli
     nodejs
     p7zip
+    python3
     ripgrep
     sbctl
     spotify
@@ -40,7 +41,7 @@
     vesktop
     xfce.thunar
     wl-clipboard
-    xwayland-satellite # necessary for xwayland to work on niri
+    xwayland-satellite # necessary for xwayland on niri
     yazi
     zathura
   ];

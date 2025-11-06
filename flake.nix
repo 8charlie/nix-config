@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,7 +11,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,6 +34,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    lanzaboote,
     home-manager,
     ...
   }: let
@@ -43,6 +44,31 @@
         modules = [
           ./configuration.nix
           hardwareModule
+
+          lanzaboote.nixosModules.lanzaboote
+
+          ({
+            pkgs,
+            lib,
+            ...
+          }: {
+            environment.systemPackages = [
+              # For debugging and troubleshooting Secure Boot.
+              pkgs.sbctl
+            ];
+
+            # Lanzaboote currently replaces the systemd-boot module.
+            # This setting is usually set to true in configuration.nix
+            # generated at installation time. So we force it to false
+            # for now.
+            boot.loader.systemd-boot.enable = lib.mkForce false;
+
+            boot.lanzaboote = {
+              enable = true;
+              pkiBundle = "/var/lib/sbctl";
+            };
+          })
+
           home-manager.nixosModules.home-manager
           {
             home-manager = {
