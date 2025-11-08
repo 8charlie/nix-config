@@ -33,11 +33,13 @@
     p7zip
     python3
     ripgrep
+    rustc
     sbctl
     spotify
     starship
     steam
     tmux
+    unzip
     vesktop
     wl-clipboard
     xwayland-satellite # necessary for xwayland on niri

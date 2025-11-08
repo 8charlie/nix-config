@@ -21,7 +21,7 @@
     nil # nix language server
     cargo # for nil
     clang-tools # for clangd
-    unzip # for mason
+    rust-analyzer
 
     # formatters
     alejandra

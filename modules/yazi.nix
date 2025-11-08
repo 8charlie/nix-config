@@ -3,15 +3,11 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
-      open = {
-        rules = [
+      opener = {
+        edit = [
           {
-            mime = "text/*";
-            use = "edit";
-          }
-          {
-            mime = "video/*";
-            use = "play";
+            run = "nvim \"$@\"";
+            block = true;
           }
         ];
       };

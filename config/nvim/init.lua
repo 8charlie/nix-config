@@ -40,31 +40,31 @@ vim.diagnostic.config({
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "nil_ls" })
+vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rust_analyzer" })
 
 -- keybinds
-local keyset = vim.keymap.set
+local key = vim.keymap.set
 
-keyset({ 'n', 'v' }, '<leader>y', '"+y')
-keyset({ 'n', 'v' }, '<leader>d', '"+d')
-keyset("n", "<leader>rc", ":%s/<C-r><C-w>//g<Left><Left>") -- replace under cursor
-keyset("n", "<down>", ":resize +2<cr>")                    -- resizes windows
-keyset("n", "<up>", ":resize -2<cr>")
-keyset("n", "<right>", ":vertical resize +2<cr>")
-keyset("n", "<left>", ":vertical resize -2<cr>")
-keyset("n", ",h", "<c-w>h") -- switch between windows
-keyset("n", ",j", "<c-w>j")
-keyset("n", ",k", "<c-w>k")
-keyset("n", ",l", "<c-w>l")
-keyset("n", "<TAB>", ":bnext<cr>")                               -- next buffer
-keyset("n", "<S-TAB>", ":bprevious<cr>")                         -- previous buffer
-keyset("n", "<C-d>", "<C-d>zz")                                  -- centers screen after ctrl d
-keyset("n", "<C-u>", "<C-u>zz")                                  -- centers screen after ctrl u
-keyset("n", "<leader>b", ":lua vim.diagnostic.open_float<cr>")   -- open floating window for error/warnings
-keyset("n", "<leader>n", ":lua vim.diagnostic.setloclist()<cr>") -- show all errors
-keyset("n", "<leader>d", ":put =strftime('%d/%m/%y %H:%M')<cr>")
+key({ 'n', 'v' }, '<leader>y', '"+y')
+key({ 'n', 'v' }, '<leader>d', '"+d')
+key("n", "<leader>rc", ":%s/<C-r><C-w>//g<Left><Left>") -- replace under cursor
+key("n", "<down>", ":resize +2<cr>")                    -- resizes windows
+key("n", "<up>", ":resize -2<cr>")
+key("n", "<right>", ":vertical resize +2<cr>")
+key("n", "<left>", ":vertical resize -2<cr>")
+key("n", ",h", "<c-w>h") -- switch between windows
+key("n", ",j", "<c-w>j")
+key("n", ",k", "<c-w>k")
+key("n", ",l", "<c-w>l")
+key("n", "<TAB>", ":bnext<cr>")                               -- next buffer
+key("n", "<S-TAB>", ":bprevious<cr>")                         -- previous buffer
+key("n", "<C-d>", "<C-d>zz")                                  -- centers screen after ctrl d
+key("n", "<C-u>", "<C-u>zz")                                  -- centers screen after ctrl u
+key("n", "<leader>b", ":lua vim.diagnostic.open_float<cr>")   -- open floating window for error/warnings
+key("n", "<leader>n", ":lua vim.diagnostic.setloclist()<cr>") -- show all errors
+key("n", "<leader>d", ":put =strftime('%d/%m/%y %H:%M')<cr>")
 
 -- plugin binds
-keyset("n", "<leader>g", ":Telescope live_grep<cr>")
-keyset("n", "<leader>f", ":lua MiniFiles.open()<cr>")
-keyset("n", "<leader>e", ":Pick files<cr>")
+key("n", "<leader>g", ":Telescope live_grep<cr>")
+key("n", "<leader>f", ":lua MiniFiles.open()<cr>")
+key("n", "<leader>e", ":Pick files<cr>")
