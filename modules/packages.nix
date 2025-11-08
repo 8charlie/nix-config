@@ -39,10 +39,9 @@
     steam
     tmux
     vesktop
-    xfce.thunar
     wl-clipboard
     xwayland-satellite # necessary for xwayland on niri
-    yazi
+    #yazi
     zathura
   ];
 }

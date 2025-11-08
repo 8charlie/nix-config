@@ -3,9 +3,13 @@
   pkgs,
   ...
 }: {
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      timeout = 5;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelParams = ["quiet" "loglevel=3" "systemd.show_status=auto" "rd.udev.log_level=3"];
   };
 
   networking.hostName = "nixos";
@@ -76,6 +80,7 @@
 
   security.pam.services.gdm.enableGnomeKeyring = false;
   security.pam.services.gdm-password.enableGnomeKeyring = false;
+  programs.ssh.enableAskPassword = false; # remove another annoying password prompt
 
   programs.fish.enable = true;
   programs.niri.enable = true;

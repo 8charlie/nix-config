@@ -21,6 +21,7 @@ in {
     ./modules/packages.nix
     ./modules/neovim.nix
     ./modules/services.nix
+    ./modules/yazi.nix
   ];
 
   # makes the symlinks in ./config to ~/.config
