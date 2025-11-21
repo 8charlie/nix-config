@@ -3,7 +3,9 @@
   inputs,
   ...
 }: {
-  imports = [inputs.dankMaterialShell.homeModules.dankMaterialShell.default];
+  imports = [
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+  ];
   programs.dankMaterialShell.enable = true;
 
   home.sessionVariables = {
@@ -52,11 +54,11 @@
     };
   };
 
-  gtk = {
-    enable = true;
-    iconTheme.name = "Adwaita";
-    colorScheme = "dark";
-  };
+  #  gtk = {
+  #    enable = true;
+  #    iconTheme.name = "Adwaita";
+  #    colorScheme = "dark";
+  #  };
 
   home.pointerCursor = {
     name = "Adwaita";

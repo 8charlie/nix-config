@@ -18,6 +18,7 @@ in {
     ./modules/desktop.nix
     ./modules/firefox.nix
     ./modules/fonts.nix
+    ./modules/lutris.nix
     ./modules/packages.nix
     ./modules/neovim.nix
     ./modules/services.nix

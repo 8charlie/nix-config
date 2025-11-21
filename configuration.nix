@@ -8,7 +8,7 @@
       systemd-boot = {
         enable = true;
       };
-      timeout = 5;
+      #timeout = 5; # this doesn't work bc lanzaboote
       efi.canTouchEfiVariables = true;
     };
     kernelParams = ["quiet" "loglevel=3" "systemd.show_status=auto" "rd.udev.log_level=3"];
@@ -35,6 +35,7 @@
 
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
   };
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
@@ -74,7 +75,9 @@
   services.displayManager.ly.enable = true;
 
   services.xserver.enable = true;
-  #services.desktopManager.plasma6.enable = true;
+  #services.xserver.desktopManager.xfce.enable = true;
+  #services.desktopManager.gnome.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   #services.printing.enable = true; # Enable CUPS to print documents.
 

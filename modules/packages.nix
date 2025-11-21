@@ -9,6 +9,7 @@
     brave
     cargo
     clang-tools
+    clippy
     chromium
     efibootmgr
     fd
@@ -26,12 +27,15 @@
     htop
     librewolf
     magic-wormhole
+    man-pages
     mpv
     nautilus
     nix-search-cli
     nodejs
     p7zip
+    protonvpn-gui
     python3
+    qbittorrent
     ripgrep
     rustc
     sbctl
@@ -41,6 +45,7 @@
     tmux
     unzip
     vesktop
+    wireguard-tools
     wl-clipboard
     xwayland-satellite # necessary for xwayland on niri
     #yazi

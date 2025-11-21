@@ -1,6 +1,6 @@
 config-file = ~/.config/ghostty/config-dankcolors
 
-background-opacity = 0.90
+background-opacity = 1.00
 
 window-decoration = server
 window-padding-x = 10

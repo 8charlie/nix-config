@@ -25,6 +25,7 @@
 
     # formatters
     alejandra
+    rustfmt
   ];
 
   programs.neovim = {
