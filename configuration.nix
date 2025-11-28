@@ -89,6 +89,7 @@
 
   programs.fish.enable = true;
   programs.niri.enable = true;
+  programs.hyprland.enable = true;
   users.users.charlie = {
     isNormalUser = true;
     description = "charlie";

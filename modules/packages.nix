@@ -14,10 +14,12 @@
     efibootmgr
     fd
     feh
+    ffmpeg
     freetube
     fzf
     gcc
     ghostty
+    gimp
     git
     gnumake
     gparted
@@ -45,7 +47,7 @@
     tmux
     unzip
     vesktop
-    wireguard-tools
+    wireshark
     wl-clipboard
     xwayland-satellite # necessary for xwayland on niri
     #yazi
