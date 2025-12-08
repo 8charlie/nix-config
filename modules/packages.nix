@@ -15,6 +15,7 @@
     fd
     feh
     ffmpeg
+    flameshot
     freetube
     fzf
     gcc
@@ -27,14 +28,16 @@
     gtk4
     helix
     htop
+    libreoffice
     librewolf
     magic-wormhole
     man-pages
     mpv
     nautilus
+    ncspot
     nix-search-cli
     nodejs
-    p7zip
+    (p7zip.override {enableUnfree = true;})
     protonvpn-gui
     python3
     qbittorrent

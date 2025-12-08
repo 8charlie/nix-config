@@ -75,16 +75,12 @@
   services.displayManager.ly.enable = true;
 
   services.xserver.enable = true;
-  #services.xserver.desktopManager.xfce.enable = true;
-  #services.desktopManager.gnome.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  #services.desktopManager.plasma6.enable = true;
 
-  #services.printing.enable = true; # Enable CUPS to print documents.
+  #services.printing.enable = true;
 
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 
-  security.pam.services.gdm.enableGnomeKeyring = false;
-  security.pam.services.gdm-password.enableGnomeKeyring = false;
   programs.ssh.enableAskPassword = false; # remove another annoying password prompt
 
   programs.fish.enable = true;

@@ -6,6 +6,7 @@
     nvim = "nvim";
     fish = "fish";
     ghostty = "ghostty";
+    hypr = "hypr";
     niri = "niri";
     tmux = "tmux";
     zathura = "zathura";
@@ -18,7 +19,7 @@ in {
     ./modules/desktop.nix
     ./modules/firefox.nix
     ./modules/fonts.nix
-    ./modules/lutris.nix
+    ./modules/game.nix
     ./modules/packages.nix
     ./modules/neovim.nix
     ./modules/services.nix
