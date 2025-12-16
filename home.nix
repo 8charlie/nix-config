@@ -1,12 +1,18 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   dotfiles = "${config.home.homeDirectory}/.dotfiles/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+
   # Standard .config/directory
   configs = {
     nvim = "nvim";
     fish = "fish";
     ghostty = "ghostty";
     hypr = "hypr";
+    mango = "mango";
     niri = "niri";
     tmux = "tmux";
     zathura = "zathura";
@@ -17,7 +23,6 @@ in {
 
   imports = [
     ./modules/desktop.nix
-    ./modules/firefox.nix
     ./modules/fonts.nix
     ./modules/game.nix
     ./modules/packages.nix

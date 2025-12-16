@@ -5,9 +5,7 @@ if status is-interactive
 	end
 end
 
-alias switch1='sudo nixos-rebuild switch --flake ~/.dotfiles#nixos'
-alias switch2='sudo nixos-rebuild switch --flake ~/.dotfiles#home'
-#alias vim=nvim
+alias vim=nvim
 
 fish_vi_key_bindings
 

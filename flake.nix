@@ -5,16 +5,10 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     dgop = {
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +17,11 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dgop.follows = "dgop";
-      inputs.dms-cli.follows = "dms-cli";
+      #inputs.dms-cli.follows = "dms-cli";
+    };
+    mangowc = {
+      url = "github:DreamMaoMao/mangowc";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -31,6 +29,7 @@
     self,
     nixpkgs,
     lanzaboote,
+    mangowc,
     home-manager,
     ...
   }: let
@@ -40,6 +39,8 @@
         modules = [
           ./configuration.nix
           hardwareModule
+
+          mangowc.nixosModules.mango
 
           lanzaboote.nixosModules.lanzaboote
 

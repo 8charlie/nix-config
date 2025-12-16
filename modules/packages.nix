@@ -47,11 +47,14 @@
     spotify
     starship
     steam
+    tealdeer
     tmux
     unzip
     vesktop
     wireshark
     wl-clipboard
+    wlr-randr
+    wmenu
     xwayland-satellite # necessary for xwayland on niri
     #yazi
     zathura

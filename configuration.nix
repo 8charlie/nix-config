@@ -37,7 +37,6 @@
     enable = true;
     enable32Bit = true;
   };
-  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaSettings = true;
@@ -74,8 +73,10 @@
   };
   services.displayManager.ly.enable = true;
 
-  services.xserver.enable = true;
-  #services.desktopManager.plasma6.enable = true;
+  services.xserver = {
+    enable = true;
+    videoDrivers = ["nvidia"];
+  };
 
   #services.printing.enable = true;
 
@@ -86,6 +87,7 @@
   programs.fish.enable = true;
   programs.niri.enable = true;
   programs.hyprland.enable = true;
+  programs.mango.enable = true;
   users.users.charlie = {
     isNormalUser = true;
     description = "charlie";
