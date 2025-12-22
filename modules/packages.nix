@@ -6,6 +6,7 @@
     bluetui
     bluez
     bluez-tools
+    bottles
     brave
     cargo
     clang-tools
@@ -15,9 +16,11 @@
     fd
     feh
     ffmpeg
+    firefox
     flameshot
     freetube
     fzf
+    gamescope
     gcc
     ghostty
     gimp
@@ -28,8 +31,8 @@
     gtk4
     helix
     htop
-    libreoffice
     librewolf
+    lutris
     magic-wormhole
     man-pages
     mpv
@@ -38,6 +41,7 @@
     nix-search-cli
     nodejs
     (p7zip.override {enableUnfree = true;})
+    protonup-qt
     protonvpn-gui
     python3
     qbittorrent
