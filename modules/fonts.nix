@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     material-symbols
     cascadia-code
     noto-fonts

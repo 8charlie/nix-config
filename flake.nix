@@ -17,7 +17,6 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dgop.follows = "dgop";
-      #inputs.dms-cli.follows = "dms-cli";
     };
     mangowc = {
       url = "github:DreamMaoMao/mangowc";
@@ -33,50 +32,59 @@
     home-manager,
     ...
   }: let
+    lib = nixpkgs.lib.extend (
+      final: prev:
+        import ./lib.nix {lib = final;}
+    );
+
     mkSystem = hardwareModule:
-      nixpkgs.lib.nixosSystem {
+      lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          hardwareModule
+        specialArgs = {inherit inputs lib;};
+        modules =
+          [
+            ./configuration.nix
+            hardwareModule
+          ]
+          ++ lib.collectNix ./modules
+          ++ [
+            mangowc.nixosModules.mango
 
-          mangowc.nixosModules.mango
+            lanzaboote.nixosModules.lanzaboote
 
-          lanzaboote.nixosModules.lanzaboote
+            ({
+              pkgs,
+              lib,
+              ...
+            }: {
+              environment.systemPackages = [
+                # For debugging and troubleshooting Secure Boot.
+                pkgs.sbctl
+              ];
 
-          ({
-            pkgs,
-            lib,
-            ...
-          }: {
-            environment.systemPackages = [
-              # For debugging and troubleshooting Secure Boot.
-              pkgs.sbctl
-            ];
+              # Lanzaboote currently replaces the systemd-boot module.
+              # This setting is usually set to true in configuration.nix
+              # generated at installation time. So we force it to false
+              # for now.
+              boot.loader.systemd-boot.enable = lib.mkForce false;
 
-            # Lanzaboote currently replaces the systemd-boot module.
-            # This setting is usually set to true in configuration.nix
-            # generated at installation time. So we force it to false
-            # for now.
-            boot.loader.systemd-boot.enable = lib.mkForce false;
+              boot.lanzaboote = {
+                enable = true;
+                pkiBundle = "/var/lib/sbctl";
+              };
+            })
 
-            boot.lanzaboote = {
-              enable = true;
-              pkiBundle = "/var/lib/sbctl";
-            };
-          })
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.charlie = import ./home.nix;
-              extraSpecialArgs = {inherit inputs;};
-              backupFileExtension = "backup";
-            };
-          }
-        ];
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.charlie = import ./home.nix;
+                extraSpecialArgs = {inherit inputs;};
+                backupFileExtension = "backup";
+              };
+            }
+          ];
       };
   in {
     nixosConfigurations = {

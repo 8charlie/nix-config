@@ -37,7 +37,7 @@ input {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
 output "DP-3" {
-    mode "2560x1440@269.996"
+    mode "1920x1080@240.000"
     position x=2560 y=0
     //variable-refresh-rate (seems to cause flickering idk)
 }

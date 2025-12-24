@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     alsa-utils
     baobab

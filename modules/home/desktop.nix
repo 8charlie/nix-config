@@ -54,12 +54,6 @@
     };
   };
 
-  #  gtk = {
-  #    enable = true;
-  #    iconTheme.name = "Adwaita";
-  #    colorScheme = "dark";
-  #  };
-
   home.pointerCursor = {
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;

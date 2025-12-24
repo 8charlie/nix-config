@@ -22,13 +22,9 @@ in {
   home.homeDirectory = "/home/charlie";
 
   imports = [
-    ./modules/desktop.nix
-    ./modules/fonts.nix
-    ./modules/game.nix
-    ./modules/packages.nix
-    ./modules/neovim.nix
-    ./modules/services.nix
-    ./modules/yazi.nix
+    ./modules/home/desktop.nix
+    ./modules/home/syncthing.nix
+    ./modules/home/yazi.nix
   ];
 
   # makes the symlinks in ./config to ~/.config
