@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -21,11 +22,7 @@ in {
   home.username = "charlie";
   home.homeDirectory = "/home/charlie";
 
-  imports = [
-    ./modules/home/desktop.nix
-    ./modules/home/syncthing.nix
-    ./modules/home/yazi.nix
-  ];
+  imports = lib.collectNix ./modules/home;
 
   # makes the symlinks in ./config to ~/.config
   xdg.configFile =

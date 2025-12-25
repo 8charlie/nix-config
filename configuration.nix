@@ -1,9 +1,10 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
-  networking.hostName = "nixos";
+  imports = lib.collectNix ./modules;
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/London";

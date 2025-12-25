@@ -5,7 +5,7 @@ if status is-interactive
 	end
 end
 
-alias vim=nvim
+#alias vim=nvim
 
 fish_vi_key_bindings
 

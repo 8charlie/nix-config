@@ -3,6 +3,7 @@
     adwaita-icon-theme
     alsa-utils
     baobab
+    bat
     bluetui
     bluez
     bluez-tools
@@ -12,6 +13,7 @@
     clang-tools
     clippy
     chromium
+    drawing
     efibootmgr
     fd
     feh

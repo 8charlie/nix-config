@@ -23,7 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
   outputs = inputs @ {
     self,
     nixpkgs,
@@ -36,8 +35,27 @@
       final: prev:
         import ./lib.nix {lib = final;}
     );
+    commonModules = [
+      mangowc.nixosModules.mango
+      lanzaboote.nixosModules.lanzaboote
+      ./modules/lanzaboote.nix
 
-    mkSystem = hardwareModule:
+      home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.charlie = import ./home.nix;
+          extraSpecialArgs = {inherit inputs;};
+          backupFileExtension = "backup";
+        };
+      }
+    ];
+    # System builder function
+    mkSystem = {
+      hostname,
+      hardwareModule,
+    }:
       lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs lib;};
@@ -45,51 +63,20 @@
           [
             ./configuration.nix
             hardwareModule
+            {networking.hostName = hostname;}
           ]
-          ++ lib.collectNix ./modules
-          ++ [
-            mangowc.nixosModules.mango
-
-            lanzaboote.nixosModules.lanzaboote
-
-            ({
-              pkgs,
-              lib,
-              ...
-            }: {
-              environment.systemPackages = [
-                # For debugging and troubleshooting Secure Boot.
-                pkgs.sbctl
-              ];
-
-              # Lanzaboote currently replaces the systemd-boot module.
-              # This setting is usually set to true in configuration.nix
-              # generated at installation time. So we force it to false
-              # for now.
-              boot.loader.systemd-boot.enable = lib.mkForce false;
-
-              boot.lanzaboote = {
-                enable = true;
-                pkiBundle = "/var/lib/sbctl";
-              };
-            })
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.charlie = import ./home.nix;
-                extraSpecialArgs = {inherit inputs;};
-                backupFileExtension = "backup";
-              };
-            }
-          ];
+          ++ commonModules;
       };
   in {
     nixosConfigurations = {
-      home = mkSystem ./hosts/home/hardware.nix;
-      nixos = mkSystem ./hosts/nixos/hardware.nix;
+      home = mkSystem {
+        hostname = "home";
+        hardwareModule = ./hosts/home/hardware.nix;
+      };
+      nixos = mkSystem {
+        hostname = "nixos";
+        hardwareModule = ./hosts/nixos/hardware.nix;
+      };
     };
   };
 }
