@@ -19,7 +19,6 @@
     feh
     ffmpeg
     firefox
-    flameshot
     freetube
     fzf
     gamescope
