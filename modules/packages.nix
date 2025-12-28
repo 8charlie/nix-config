@@ -29,6 +29,7 @@
     git
     gnumake
     gparted
+    grim
     gtk3
     gtk4
     helix
@@ -50,6 +51,7 @@
     ripgrep
     rustc
     sbctl
+    slurp
     spotify
     starship
     steam
