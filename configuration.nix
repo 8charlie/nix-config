@@ -31,6 +31,7 @@
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 
   programs.ssh.enableAskPassword = false;
+  services.gnome.gnome-keyring.enable = false;
 
   programs.fish.enable = true;
   users.users.charlie = {

@@ -35,11 +35,12 @@
       final: prev:
         import ./lib.nix {lib = final;}
     );
-    commonModules = [
+    linuxModules = [
       mangowc.nixosModules.mango
       lanzaboote.nixosModules.lanzaboote
       ./modules/lanzaboote.nix
-
+    ];
+    commonModules = [
       home-manager.nixosModules.home-manager
       {
         home-manager = {
@@ -51,7 +52,6 @@
         };
       }
     ];
-    # System builder function
     mkSystem = {
       hostname,
       hardwareModule,
@@ -65,6 +65,7 @@
             hardwareModule
             {networking.hostName = hostname;}
           ]
+          ++ linuxModules
           ++ commonModules;
       };
   in {
