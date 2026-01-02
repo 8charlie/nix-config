@@ -1,6 +1,14 @@
 {
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -8,15 +16,6 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.dgop.follows = "dgop";
     };
     mangowc = {
       url = "github:DreamMaoMao/mangowc";
@@ -26,9 +25,10 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    nix-darwin,
+    home-manager,
     lanzaboote,
     mangowc,
-    home-manager,
     ...
   }: let
     lib = nixpkgs.lib.extend (
@@ -52,7 +52,21 @@
         };
       }
     ];
-    mkSystem = {
+    mkDarwin = {
+      hostname,
+      darwinModule,
+    }:
+      nix-darwin.lib.darwinSystem {
+        nixpkgs.hostPlatform = "aarch-darwin";
+        system.stateVersion = 6;
+        services.nix-daemon.enable = true;
+        specialArgs = {inherit inputs lib;};
+        modules =
+          [darwinModule]
+          {networking.hostName = hostname;}
+          ++ commonModules;
+      };
+    mkLinux = {
       hostname,
       hardwareModule,
     }:
@@ -70,13 +84,17 @@
       };
   in {
     nixosConfigurations = {
-      home = mkSystem {
+      home = mkLinux {
         hostname = "home";
         hardwareModule = ./hosts/home/hardware.nix;
       };
-      nixos = mkSystem {
+      nixos = mkLinux {
         hostname = "nixos";
         hardwareModule = ./hosts/nixos/hardware.nix;
+      };
+      macbook = mkDarwin {
+        hostname = "mac";
+        darwinModule = ./hosts/macbook/default.nix;
       };
     };
   };

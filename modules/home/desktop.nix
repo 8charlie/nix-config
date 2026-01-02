@@ -1,13 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
-  imports = [
-    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-  ];
-  programs.dankMaterialShell.enable = true;
-
+{pkgs, ...}: {
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
