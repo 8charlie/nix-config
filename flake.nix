@@ -80,17 +80,14 @@
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-                #users.charlie = import ./home.nix;
+                #users.charlie = import ./home-darwin.nix;
           extraSpecialArgs = {inherit inputs;};
           backupFileExtension = "backup";
         };
             }
                     nix-homebrew.darwinModules.nix-homebrew {
                       nix-homebrew = {
-            # Install Homebrew under the default prefix
             enable = true;
-
-            # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
             enableRosetta = true;
             user = "charlie";
             autoMigrate = true;
