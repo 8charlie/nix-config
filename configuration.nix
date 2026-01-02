@@ -28,6 +28,12 @@
   # so that portal definitions and de provided configurations get linked?
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
+    nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 
   programs.ssh.enableAskPassword = false;

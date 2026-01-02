@@ -1,8 +1,4 @@
 {
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-darwin = {
@@ -39,8 +35,6 @@
       mangowc.nixosModules.mango
       lanzaboote.nixosModules.lanzaboote
       ./modules/lanzaboote.nix
-    ];
-    commonModules = [
       home-manager.nixosModules.home-manager
       {
         home-manager = {
@@ -52,19 +46,26 @@
         };
       }
     ];
+    commonModules = [
+    ];
     mkDarwin = {
       hostname,
       darwinModule,
     }:
       nix-darwin.lib.darwinSystem {
-        nixpkgs.hostPlatform = "aarch-darwin";
-        system.stateVersion = 6;
-        services.nix-daemon.enable = true;
+          system = "aarch64-darwin";
         specialArgs = {inherit inputs lib;};
-        modules =
-          [darwinModule]
-          {networking.hostName = hostname;}
-          ++ commonModules;
+          modules = [
+            darwinModule
+          {
+                nix.settings.experimental-features = "nix-command flakes";
+        system.stateVersion = 5;
+        nixpkgs.hostPlatform = "aarch64-darwin";
+          networking.hostName = hostname;
+            }
+            ./hosts/mac/default.nix
+          ];
+
       };
     mkLinux = {
       hostname,
@@ -92,10 +93,12 @@
         hostname = "nixos";
         hardwareModule = ./hosts/nixos/hardware.nix;
       };
-      macbook = mkDarwin {
-        hostname = "mac";
-        darwinModule = ./hosts/macbook/default.nix;
-      };
     };
+      darwinConfigurations = {
+      mac = mkDarwin {
+        hostname = "mac";
+        darwinModule = ./hosts/mac/default.nix;
+      };
+      };
   };
 }
