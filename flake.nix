@@ -5,6 +5,15 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+        nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+        homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+        homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +33,9 @@
     nix-darwin,
     home-manager,
     lanzaboote,
+    nix-homebrew,
+    homebrew-core,
+    homebrew-cask,
     mangowc,
     ...
   }: let
@@ -63,7 +75,28 @@
         nixpkgs.hostPlatform = "aarch64-darwin";
           networking.hostName = hostname;
             }
-            ./hosts/mac/default.nix
+      home-manager.darwinModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+                #users.charlie = import ./home.nix;
+          extraSpecialArgs = {inherit inputs;};
+          backupFileExtension = "backup";
+        };
+            }
+                    nix-homebrew.darwinModules.nix-homebrew {
+                      nix-homebrew = {
+            # Install Homebrew under the default prefix
+            enable = true;
+
+            # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+            enableRosetta = true;
+            user = "charlie";
+            autoMigrate = true;
+          };
+            }
+
           ];
 
       };
@@ -97,7 +130,7 @@
       darwinConfigurations = {
       mac = mkDarwin {
         hostname = "mac";
-        darwinModule = ./hosts/mac/default.nix;
+        darwinModule = ./hosts/mac/configuration.nix;
       };
       };
   };

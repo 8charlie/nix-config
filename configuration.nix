@@ -4,7 +4,8 @@
   pkgs,
   ...
 }: {
-  imports = lib.collectNix ./modules;
+  imports = lib.collectNix ./modules/linux;
+  imports = lib.collectNix ./modules/common;
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/London";
