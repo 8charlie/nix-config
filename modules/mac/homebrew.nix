@@ -1,4 +1,3 @@
-{pkgs, ...}:
 {
   homebrew.casks = [
     "brave-browser"

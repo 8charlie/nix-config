@@ -12,6 +12,7 @@
     librewolf
     magic-wormhole
     mpv
+    neovim
     nix-search-cli
     nodejs
     python3
