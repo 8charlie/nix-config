@@ -46,7 +46,7 @@
     linuxModules = [
       mangowc.nixosModules.mango
       lanzaboote.nixosModules.lanzaboote
-      ./modules/lanzaboote.nix
+      ./modules/linux/lanzaboote.nix
       home-manager.nixosModules.home-manager
       {
         home-manager = {

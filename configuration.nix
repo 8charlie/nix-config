@@ -4,8 +4,7 @@
   pkgs,
   ...
 }: {
-  imports = lib.collectNix ./modules/linux;
-  imports = lib.collectNix ./modules/common;
+  imports = lib.collectNix ./modules/linux ++ lib.collectNix ./modules/common;
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/London";
@@ -29,11 +28,10 @@
   # so that portal definitions and de provided configurations get linked?
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
-    nix.settings.experimental-features = [
+  nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-
 
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 
@@ -58,11 +56,6 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-  ];
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
   ];
 
   system.stateVersion = "25.11";

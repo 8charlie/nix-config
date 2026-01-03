@@ -22,7 +22,7 @@ in {
   home.username = "charlie";
   home.homeDirectory = "/home/charlie";
 
-  imports = lib.collectNix ./modules/home;
+  imports = lib.collectNix ./modules/linux/home;
 
   # makes the symlinks in ./config to ~/.config
   xdg.configFile =
