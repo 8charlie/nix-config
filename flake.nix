@@ -26,6 +26,11 @@
       url = "github:DreamMaoMao/mangowc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs @ {
     self,
@@ -37,6 +42,7 @@
     homebrew-core,
     homebrew-cask,
     mangowc,
+    caelestia-shell,
     ...
   }: let
     lib = nixpkgs.lib.extend (

@@ -5,10 +5,12 @@ if status is-interactive
 	end
 end
 
-#alias vim=nvim
+alias vi=nvim
 
 fish_vi_key_bindings
 
 set -U fish_greeting ""
 set fish_cursor_default block
 set fish_cursor_insert line
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

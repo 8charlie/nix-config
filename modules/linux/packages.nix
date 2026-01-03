@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     alsa-utils
@@ -43,5 +43,7 @@
     xwayland-satellite # necessary for xwayland on niri
     zathura
     #yazi
+  ] ++ [
+    inputs.caelestia-shell.packages.${pkgs.system}.default
   ];
 }
