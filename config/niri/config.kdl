@@ -118,8 +118,8 @@ overview {
 // See the binds section below for more spawn examples.
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-//spawn-at-startup "dms" "run"
-spawn-at-startup "caelestia-shell"
+spawn-at-startup "dms" "run"
+//spawn-at-startup "caelestia-shell"
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 spawn-at-startup "librewolf"
 spawn-at-startup "vesktop"
@@ -137,7 +137,7 @@ hotkey-overlay {
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 animations {
-	off
+	on
     workspace-switch {
         spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
     }
@@ -222,7 +222,7 @@ window-rule {
     open-floating true
 }
 window-rule {
-    geometry-corner-radius 0 // was 12
+    geometry-corner-radius 12 // was 12
     clip-to-geometry true
 }
 binds {

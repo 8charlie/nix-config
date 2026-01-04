@@ -15,8 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 -- theme
-vim.cmd.colorscheme("base16-everforest-dark-hard") -- theme
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })  -- removes background for transparency
+--vim.cmd.colorscheme("base16-everforest-dark-hard") -- theme
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" }) -- removes background for transparency
 
 -- sets tab to 4 spaces
 vim.o.expandtab = false

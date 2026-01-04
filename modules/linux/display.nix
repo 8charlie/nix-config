@@ -6,7 +6,10 @@
     videoDrivers = ["nvidia"];
   };
 
-  programs.dms-shell.enable = true;
+  programs.dms-shell = {
+    enable = true;
+    systemd.enable = false;
+  };
 
   programs.niri.enable = true;
   programs.hyprland.enable = true;
