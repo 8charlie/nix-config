@@ -269,7 +269,7 @@
         "controlCenterButton"
       ],
       "spacing": 0,
-      "innerPadding": -1,
+      "innerPadding": 2,
       "bottomGap": 0,
       "transparency": 1,
       "widgetTransparency": 1,

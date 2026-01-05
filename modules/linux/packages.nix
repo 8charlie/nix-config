@@ -35,6 +35,7 @@
       librewolf
       lutris
       man-pages
+      matugen
       nautilus
       (p7zip.override {enableUnfree = true;})
       protonup-qt

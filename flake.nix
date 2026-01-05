@@ -6,14 +6,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,9 +30,6 @@
     home-manager,
     lanzaboote,
     dms,
-    nix-homebrew,
-    homebrew-core,
-    homebrew-cask,
     caelestia-shell,
     ...
   }: let
@@ -48,7 +37,7 @@
       final: prev:
         import ./lib.nix {lib = final;}
     );
-    linuxModules = [
+    commonModules = [
       lanzaboote.nixosModules.lanzaboote
       ./modules/linux/lanzaboote.nix
       home-manager.nixosModules.home-manager
@@ -62,43 +51,6 @@
         };
       }
     ];
-    commonModules = [
-    ];
-    mkDarwin = {
-      hostname,
-      darwinModule,
-    }:
-      nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {inherit inputs lib;};
-        modules = [
-          darwinModule
-          {
-            system.stateVersion = 5;
-            nixpkgs.hostPlatform = "aarch64-darwin";
-            networking.hostName = hostname;
-          }
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              #users.charlie = import ./home-darwin.nix;
-              extraSpecialArgs = {inherit inputs;};
-              backupFileExtension = "backup";
-            };
-          }
-          nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = true;
-              user = "charlie";
-              autoMigrate = true;
-            };
-          }
-        ];
-      };
     mkLinux = {
       hostname,
       hardwareModule,
@@ -112,7 +64,6 @@
             hardwareModule
             {networking.hostName = hostname;}
           ]
-          ++ linuxModules
           ++ commonModules;
       };
   in {
@@ -124,12 +75,6 @@
       nixos = mkLinux {
         hostname = "nixos";
         hardwareModule = ./hosts/nixos/hardware.nix;
-      };
-    };
-    darwinConfigurations = {
-      mac = mkDarwin {
-        hostname = "mac";
-        darwinModule = ./hosts/mac/configuration.nix;
       };
     };
   };

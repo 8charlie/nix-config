@@ -181,38 +181,6 @@
         "type": "github"
       }
     },
-    "homebrew-cask": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767620485,
-        "narHash": "sha256-ZnkwfHY0+PRcQ0oH7YxUBUFgM14oqFwSMcJM8HJX/14=",
-        "owner": "homebrew",
-        "repo": "homebrew-cask",
-        "rev": "69aa746e5870d97be2ed509dfd7d4ce0b4221810",
-        "type": "github"
-      },
-      "original": {
-        "owner": "homebrew",
-        "repo": "homebrew-cask",
-        "type": "github"
-      }
-    },
-    "homebrew-core": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767620811,
-        "narHash": "sha256-7sLqhIQl39OcqMAFasa4zoXJxVYLEaRkw7UuGl2r8x0=",
-        "owner": "homebrew",
-        "repo": "homebrew-core",
-        "rev": "32820013471d5a8404a301ae5472cb3c151d3a71",
-        "type": "github"
-      },
-      "original": {
-        "owner": "homebrew",
-        "repo": "homebrew-core",
-        "type": "github"
-      }
-    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -361,8 +329,6 @@
         "caelestia-shell": "caelestia-shell",
         "dms": "dms",
         "home-manager": "home-manager",
-        "homebrew-cask": "homebrew-cask",
-        "homebrew-core": "homebrew-core",
         "lanzaboote": "lanzaboote",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
