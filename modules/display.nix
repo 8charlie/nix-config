@@ -1,15 +1,20 @@
 {inputs, ...}: {
   services.displayManager.ly.enable = true;
+  programs.niri.enable = true;
+  programs.hyprland.enable = true;
+
+  imports = [
+    inputs.dms.nixosModules.dankMaterialShell
+  ];
+  programs.dankMaterialShell.enable = true;
 
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
   };
-  imports = [
-    inputs.dms.nixosModules.dankMaterialShell
-  ];
+  # so that portal definitions and de provided configurations get linked?
+  environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
-  programs.dankMaterialShell.enable = true;
-  programs.niri.enable = true;
-  programs.hyprland.enable = true;
+  programs.ssh.enableAskPassword = false;
+  services.gnome.gnome-keyring.enable = false;
 }

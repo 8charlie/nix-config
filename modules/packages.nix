@@ -65,6 +65,8 @@
       tmux
       unzip
       #vesktop
+      vim
+      wget
       wireshark
       wl-clipboard
       wlr-randr
