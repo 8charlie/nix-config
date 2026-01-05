@@ -1,17 +1,15 @@
-{
+{inputs, ...}: {
   services.displayManager.ly.enable = true;
 
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
   };
+  imports = [
+    inputs.dms.nixosModules.dankMaterialShell
+  ];
 
-  programs.dms-shell = {
-    enable = true;
-    systemd.enable = false;
-  };
-
+  programs.dankMaterialShell.enable = true;
   programs.niri.enable = true;
   programs.hyprland.enable = true;
-  programs.mango.enable = true;
 }

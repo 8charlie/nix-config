@@ -15,6 +15,10 @@
       brave
       chromium
       clippy
+      (discord.override {
+        withOpenASAR = true; # can do this here too
+        withVencord = true;
+      })
       drawing
       efibootmgr
       feh
@@ -40,7 +44,7 @@
       slurp
       spotify
       steam
-      vesktop
+      #vesktop
       wireshark
       wl-clipboard
       wlr-randr

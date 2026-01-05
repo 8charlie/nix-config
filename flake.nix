@@ -22,11 +22,10 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mangowc = {
-      url = "github:DreamMaoMao/mangowc";
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     caelestia-shell = {
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,10 +37,10 @@
     nix-darwin,
     home-manager,
     lanzaboote,
+    dms,
     nix-homebrew,
     homebrew-core,
     homebrew-cask,
-    mangowc,
     caelestia-shell,
     ...
   }: let
@@ -50,7 +49,6 @@
         import ./lib.nix {lib = final;}
     );
     linuxModules = [
-      mangowc.nixosModules.mango
       lanzaboote.nixosModules.lanzaboote
       ./modules/linux/lanzaboote.nix
       home-manager.nixosModules.home-manager
