@@ -1,11 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +34,6 @@
     );
     commonModules = [
       lanzaboote.nixosModules.lanzaboote
-      ./modules/linux/lanzaboote.nix
       home-manager.nixosModules.home-manager
       {
         home-manager = {
