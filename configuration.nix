@@ -15,6 +15,12 @@
 
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 
+  nix.gc = {
+    automatic = true;
+    dates = ["weekly"];
+    options = "--delete-generations +5";
+  };
+
   programs.fish.enable = true;
   users.users.charlie = {
     isNormalUser = true;

@@ -41,7 +41,6 @@
       lutris
       magic-wormhole
       man-pages
-      matugen
       mpv
       nautilus
       nix-search-cli
