@@ -18,10 +18,6 @@
       chromium
       clang-tools
       clippy
-      (discord.override {
-        withOpenASAR = true; # can do this here too
-        withVencord = true;
-      })
       drawing
       efibootmgr
       fd
@@ -64,7 +60,7 @@
       tealdeer
       tmux
       unzip
-      #vesktop
+      vesktop
       vim
       wget
       wireshark
@@ -75,6 +71,6 @@
       zathura
     ]
     ++ [
-      inputs.caelestia-shell.packages.${pkgs.system}.with-cli
+      inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli
     ];
 }
