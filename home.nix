@@ -13,7 +13,6 @@
     fish = "fish";
     ghostty = "ghostty";
     hypr = "hypr";
-    mango = "mango";
     niri = "niri";
     nvim = "nvim";
     tmux = "tmux";
