@@ -12,21 +12,16 @@
     };
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
   outputs = inputs @ {
     self,
     nixpkgs,
-    nix-darwin,
+    nixpkgs-unstable,
     home-manager,
     lanzaboote,
     dms,
-    caelestia-shell,
     ...
   }: let
     lib = nixpkgs.lib.extend (

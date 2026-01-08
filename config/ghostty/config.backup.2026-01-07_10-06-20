@@ -1,6 +1,5 @@
 # Font Configuration
-font-size = 11
-font-family = Cascadia Mono
+font-size = 12
 
 # Window Configuration
 window-decoration = false
@@ -23,6 +22,15 @@ confirm-close-surface = false
 
 # Disable annoying copied to clipboard
 app-notifications = no-clipboard-copy,no-config-reload
+
+# Key bindings for common actions
+#keybind = ctrl+c=copy_to_clipboard
+#keybind = ctrl+v=paste_from_clipboard
+keybind = ctrl+shift+n=new_window
+keybind = ctrl+t=new_tab
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
 
 # Material 3 UI elements
 unfocused-split-opacity = 0.7
