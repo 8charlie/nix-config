@@ -271,7 +271,7 @@
       "spacing": 0,
       "innerPadding": 2,
       "bottomGap": 0,
-      "transparency": 1,
+      "transparency": 0,
       "widgetTransparency": 1,
       "squareCorners": true,
       "noBackground": false,

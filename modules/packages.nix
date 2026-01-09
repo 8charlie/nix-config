@@ -66,7 +66,7 @@
     wl-clipboard
     wlr-randr
     wmenu
-    xwayland-satellite # necessary for xwayland on niri
+    xwayland-satellite
     zathura
   ];
 }
