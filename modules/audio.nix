@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -26,4 +26,8 @@
     pulse.enable = true;
     wireplumber.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+    pulseaudio
+    pavucontrol
+  ];
 }

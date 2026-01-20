@@ -4,9 +4,12 @@
   programs.hyprland.enable = true;
 
   imports = [
-    inputs.dms.nixosModules.dankMaterialShell
+    inputs.dms.nixosModules.dank-material-shell
   ];
-  programs.dankMaterialShell.enable = true;
+  programs.dank-material-shell = {
+    enable = true;
+    enableSystemMonitoring = false;
+  };
 
   services.xserver = {
     enable = true;
