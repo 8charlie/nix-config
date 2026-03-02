@@ -18,7 +18,7 @@
   nix.gc = {
     automatic = true;
     dates = ["weekly"];
-    options = "--delete-generations +5";
+    options = "-d";
   };
 
   programs.fish.enable = true;

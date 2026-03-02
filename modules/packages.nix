@@ -17,13 +17,16 @@
     chromium
     clang-tools
     clippy
+    conda
     drawing
+    dxvk
     efibootmgr
     fd
     feh
     ffmpeg
     firefox
     freetube
+    fuse
     fzf
     gamescope
     gcc
@@ -37,6 +40,7 @@
     gtk4
     htop
     jetbrains.idea-oss
+    jupyter
     librewolf
     lutris
     magic-wormhole
@@ -61,7 +65,9 @@
     unzip
     vesktop
     vim
+    vkd3d
     wget
+    winetricks
     wireshark
     wl-clipboard
     wlr-randr
