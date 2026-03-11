@@ -14,6 +14,10 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    oxwm = {
+      url = "github:tonybanters/oxwm";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
   outputs = inputs @ {
     self,
@@ -22,6 +26,7 @@
     home-manager,
     lanzaboote,
     dms,
+    oxwm,
     ...
   }: let
     lib = nixpkgs.lib.extend (
@@ -53,6 +58,7 @@
             ./configuration.nix
             hardwareModule
             {networking.hostName = hostname;}
+            oxwm.nixosModules.default
           ]
           ++ commonModules;
       };

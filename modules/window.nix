@@ -1,6 +1,9 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   services.displayManager.ly.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   programs.niri.enable = true;
@@ -13,11 +16,28 @@
     enable = true;
     enableSystemMonitoring = false;
   };
-
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
+    displayManager.sessionCommands = ''        xrandr --output DP-0 --mode 2560x1440 --rate 270
+      xset r rate 200 30
+    '';
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status # gives you the default i3 status bar
+        i3lock #default i3 screen locker
+      ];
+    };
+    windowManager.oxwm.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+    dmenu
+    dunst
+    feh
+    picom
+  ];
   # so that portal definitions and de provided configurations get linked?
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 

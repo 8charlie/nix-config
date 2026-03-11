@@ -57,6 +57,7 @@
     ripgrep
     rustc
     sbctl
+    sioyek
     slurp
     spotify
     steam
@@ -66,6 +67,7 @@
     vesktop
     vim
     vkd3d
+    vscode
     wget
     winetricks
     wireshark

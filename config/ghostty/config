@@ -13,6 +13,8 @@ background-blur-radius = 35
 cursor-style = block
 cursor-style-blink = true
 
+scrollback-limit = 0
+
 # Scrollback
 scrollback-limit = 3023
 
