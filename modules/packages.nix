@@ -55,6 +55,7 @@
     python3
     qbittorrent
     ripgrep
+    rpcs3
     rustc
     sbctl
     sioyek

@@ -25,19 +25,15 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
+        autotiling
         dmenu
-        i3status # gives you the default i3 status bar
-        i3lock #default i3 screen locker
+        feh
+        i3status-rust
+        picom
       ];
     };
-    windowManager.oxwm.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    dmenu
-    dunst
-    feh
-    picom
-  ];
+
   # so that portal definitions and de provided configurations get linked?
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
