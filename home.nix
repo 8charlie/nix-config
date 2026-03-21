@@ -32,5 +32,12 @@ in {
     })
     configs;
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+
+    enableBashIntegration = true;
+  };
+
   home.stateVersion = "25.11";
 }

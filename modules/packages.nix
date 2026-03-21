@@ -33,6 +33,7 @@
     ghostty
     gimp
     git
+    gnome-system-monitor
     gnumake
     gparted
     grim
@@ -50,7 +51,7 @@
     nix-search-cli
     nodejs
     (p7zip.override {enableUnfree = true;})
-    protonup-qt
+    protonplus
     protonvpn-gui
     python3
     qbittorrent
