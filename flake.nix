@@ -41,7 +41,7 @@
         };
       }
     ];
-    mkLinux = {
+    mkComputer = {
       hostname,
       hardwareModule,
     }:
@@ -50,21 +50,38 @@
         specialArgs = {inherit inputs lib;};
         modules =
           [
-            ./configuration.nix
+            ./config/computer/configuration.nix
             hardwareModule
             {networking.hostName = hostname;}
           ]
           ++ commonModules;
       };
+    mkServer = {
+      hostname,
+      hardwareModule,
+    }:
+      lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs lib;};
+        modules = [
+          ./config/server/configuration.nix
+          hardwareModule
+          {networking.hostName = hostname;}
+        ];
+      };
   in {
     nixosConfigurations = {
-      home = mkLinux {
+      home = mkComputer {
         hostname = "home";
         hardwareModule = ./hosts/home/hardware.nix;
       };
-      nixos = mkLinux {
+      nixos = mkComputer {
         hostname = "nixos";
         hardwareModule = ./hosts/nixos/hardware.nix;
+      };
+      server = mkServer {
+        hostname = "server";
+        hardwareModule = ./hosts/server/hardware.nix;
       };
     };
   };

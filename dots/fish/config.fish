@@ -13,4 +13,4 @@ set -U fish_greeting ""
 set fish_cursor_default block
 set fish_cursor_insert line
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+export LD_LIBRARY_PATH="$NIX_LD_LIBRARY_PATH"

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  imports = lib.collectNix ./modules;
+  imports = lib.collectNix ../../modules/computer;
   networking.networkmanager.enable = true;
 
   nix.settings.experimental-features = [

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  dotfiles = "${config.home.homeDirectory}/.dotfiles/config";
+  dotfiles = "${config.home.homeDirectory}/.dotfiles/dots";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 
   # Standard .config/directory
@@ -22,7 +22,7 @@ in {
   home.username = "charlie";
   home.homeDirectory = "/home/charlie";
 
-  imports = lib.collectNix ./modules/home;
+  imports = lib.collectNix ./modules/computer/home;
 
   # makes the symlinks in ./config to ~/.config
   xdg.configFile =

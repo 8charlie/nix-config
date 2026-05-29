@@ -39,6 +39,7 @@ input {
 output "DP-3" {
     mode "2560x1440@269.996"
     position x=2560 y=0
+	scale 1.0
     //variable-refresh-rate (seems to cause flickering idk)
 }
 // Settings that influence how windows are positioned and sized.

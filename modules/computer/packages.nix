@@ -1,11 +1,8 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     alsa-utils
+    appimage-run
     baobab
     bat
     bluetui
@@ -16,9 +13,8 @@
     cargo
     chromium
     clang-tools
-    clippy
     conda
-    drawing
+    dnsutils
     dxvk
     efibootmgr
     fd
@@ -31,7 +27,6 @@
     gamescope
     gcc
     ghostty
-    gimp
     git
     gnome-system-monitor
     gnumake
@@ -56,7 +51,6 @@
     python3
     qbittorrent
     ripgrep
-    rpcs3
     rustc
     sbctl
     sioyek
@@ -66,13 +60,13 @@
     tealdeer
     tmux
     unzip
+    uv
     vesktop
     vim
     vkd3d
     vscode
     wget
     winetricks
-    wireshark
     wl-clipboard
     wlr-randr
     wmenu
