@@ -6,6 +6,8 @@
   services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchExternalPower = "ignore";
 
+  services.power-profiles-daemon.enable = false;
+
   # battery cap
   services.tlp = {
     enable = true;
