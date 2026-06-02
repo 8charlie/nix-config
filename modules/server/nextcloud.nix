@@ -8,7 +8,7 @@
 in {
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud31;
+    package = pkgs.nextcloud33;
     hostName = fqdn;
 
     database.createLocally = true;
@@ -47,6 +47,7 @@ in {
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
+      TimeoutStartSec = 30;
       ExecStart = "${pkgs.tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:${toString port}";
       ExecStop = "${pkgs.tailscale}/bin/tailscale serve --https=443 off";
     };
