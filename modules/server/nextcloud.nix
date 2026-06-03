@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  fqdn = "laptop.tail????.ts.net";
+  fqdn = "server.tail824f34.ts.net";
   port = 8080;
 in {
   services.nextcloud = {
@@ -48,8 +48,11 @@ in {
       Type = "oneshot";
       RemainAfterExit = true;
       TimeoutStartSec = 30;
+      ExecCondition = pkgs.writeShellScript "ts-running" ''
+        [ "$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -r .BackendState)" = "Running"]
+      '';
       ExecStart = "${pkgs.tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:${toString port}";
       ExecStop = "${pkgs.tailscale}/bin/tailscale serve --https=443 off";
     };
-  };
+};
 }
