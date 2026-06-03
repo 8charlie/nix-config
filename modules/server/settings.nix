@@ -3,8 +3,8 @@
   config,
   ...
 }: {
-  services.logind.lidSwitch = "ignore";
-  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
 
   services.power-profiles-daemon.enable = false;
 
@@ -12,9 +12,6 @@
   services.tlp = {
     enable = true;
     settings = {
-      START_CHARGE_THRESH_BAT0 = 55;
-      STOP_CHARGE_THRESH_BAT0 = 60;
-
       # Always on AC + lightly loaded → bias toward low power and low heat
       CPU_ENERGY_PERF_POLICY_ON_AC = "power";
       CPU_BOOST_ON_AC = 0; # disable turbo: cooler, lower draw, negligible for a personal Nextcloud
@@ -22,6 +19,7 @@
     };
   };
 
+  hardware.bluetooth.enable = false;
   services.thermald.enable = true; # Intel: proactive thermal mgmt, keeps it cool under sustained load
   services.fstrim.enable = true; # SSD longevity
   zramSwap.enable = true; # compressed RAM swap → far fewer SSD writes; also helps a low-RAM old box
