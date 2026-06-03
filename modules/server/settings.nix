@@ -19,7 +19,6 @@
     };
   };
 
-  hardware.bluetooth.enable = false;
   services.thermald.enable = true; # Intel: proactive thermal mgmt, keeps it cool under sustained load
   services.fstrim.enable = true; # SSD longevity
   zramSwap.enable = true; # compressed RAM swap → far fewer SSD writes; also helps a low-RAM old box
