@@ -25,7 +25,7 @@ in {
       overwriteprotocol = "https";
       overwritehost = fqdn;
       "overwrite.cli.url" = "https://${fqdn}";
-      trusted_proxies = ["127.0.0.1" " ::1"];
+      trusted_proxies = ["127.0.0.1" "::1"];
       default_phone_region = "GB";
     };
   };
@@ -49,7 +49,7 @@ in {
       RemainAfterExit = true;
       TimeoutStartSec = 30;
       ExecCondition = pkgs.writeShellScript "ts-running" ''
-        [ "$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -r .BackendState)" = "Running"]
+        [ "$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -r .BackendState)" = "Running "]
       '';
       ExecStart = "${pkgs.tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:${toString port}";
       ExecStop = "${pkgs.tailscale}/bin/tailscale serve --https=443 off";
