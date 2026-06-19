@@ -31,8 +31,6 @@
     ];
     shell = pkgs.fish;
   };
-  home-manager.users.charlie = {pkgs, ...}: {
-    home.stateVersion = "25.11";
-  };
+  
   system.stateVersion = "25.11";
 }

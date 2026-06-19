@@ -52,11 +52,9 @@
     qbittorrent
     ripgrep
     rustc
-    sbctl
     sioyek
     slurp
     spotify
-    steam
     tealdeer
     tmux
     unzip

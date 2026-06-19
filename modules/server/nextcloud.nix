@@ -37,8 +37,6 @@ in {
     }
   ];
 
-  services.tailscale.enable = true;
-
   systemd.services.tailscale-serve-nextcloud = {
     description = "Serve Nextcloud over Tailscale HTTPS";
     after = ["tailscaled.service" "nginx.service"];
@@ -49,7 +47,7 @@ in {
       RemainAfterExit = true;
       TimeoutStartSec = 30;
       ExecCondition = pkgs.writeShellScript "ts-running" ''
-        [ "$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -r .BackendState)" = "Running "]
+        [ "$(${pkgs.tailscale}/bin/tailscale status --json | ${pkgs.jq}/bin/jq -r .BackendState)" = "Running" ]
       '';
       ExecStart = "${pkgs.tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:${toString port}";
       ExecStop = "${pkgs.tailscale}/bin/tailscale serve --https=443 off";
