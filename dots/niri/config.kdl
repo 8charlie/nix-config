@@ -42,12 +42,17 @@ output "DP-3" {
 	scale 1.0
     //variable-refresh-rate (seems to cause flickering idk)
 }
+output "DP-4" {
+	mode "1920x1080@240.000"
+	position x=1920 y=0
+	scale 1.0
+}
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 8 
+    gaps 0 
 	background-color "transparent"
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -121,9 +126,7 @@ overview {
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "dms" "run"
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
-spawn-at-startup "librewolf"
-spawn-at-startup "vesktop"
+//spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 environment {
   XDG_CURRENT_DESKTOP "niri"
   QT_QPA_PLATFORM "wayland"
@@ -186,7 +189,7 @@ window-rule {
 window-rule {
     match app-id=r#"^org\.gnome\."#
     draw-border-with-background false
-    geometry-corner-radius 12
+    geometry-corner-radius 0
     clip-to-geometry true
 }
 window-rule {
@@ -223,7 +226,7 @@ window-rule {
     open-floating true
 }
 window-rule {
-    geometry-corner-radius 12 // was 12
+    geometry-corner-radius 0 // was 12
     clip-to-geometry true
 }
 binds {

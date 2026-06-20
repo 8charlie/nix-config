@@ -37,7 +37,7 @@
     htop
     jetbrains.idea-oss
     jupyter
-    librewolf
+    #librewolf
     lutris
     magic-wormhole
     man-pages
