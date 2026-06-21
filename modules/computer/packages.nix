@@ -43,6 +43,7 @@
     man-pages
     mpv
     nautilus
+    nextcloud-client
     nix-search-cli
     nodejs
     (p7zip.override {enableUnfree = true;})

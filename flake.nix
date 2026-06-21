@@ -29,17 +29,6 @@
         import ./lib.nix {lib = final;}
     );
     commonModules = [
-      lanzaboote.nixosModules.lanzaboote
-      home-manager.nixosModules.home-manager
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          users.charlie = import ./home.nix;
-          extraSpecialArgs = {inherit inputs;};
-          backupFileExtension = "backup";
-        };
-      }
     ];
     mkComputer = {
       hostname,
@@ -48,13 +37,22 @@
       lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs lib;};
-        modules =
-          [
-            ./config/computer/configuration.nix
-            hardwareModule
-            {networking.hostName = hostname;}
-          ]
-          ++ commonModules;
+        modules = [
+          ./config/computer/configuration.nix
+          hardwareModule
+          {networking.hostName = hostname;}
+          lanzaboote.nixosModules.lanzaboote
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.charlie = import ./home.nix;
+              extraSpecialArgs = {inherit inputs;};
+              backupFileExtension = "backup";
+            };
+          }
+        ];
       };
     mkServer = {
       hostname,
