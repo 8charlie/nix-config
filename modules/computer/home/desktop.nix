@@ -12,10 +12,6 @@
     XDG_DOCUMENTS_DIR = "$HOME/Documents";
     XDG_PICTURES_DIR = "$HOME/Pictures";
 
-    # Qt apps like the Nextcloud client fall back to GTK3's file chooser, which
-    # needs the org.gtk.Settings.FileChooser GSettings schema. gtk3 is installed
-    # but under niri its schemas aren't on the global search path, so the lookup
-    # turns fatal (SIGTRAP). Expose gtk3's schema dir as an extra search path.
     GSETTINGS_SCHEMA_DIR = "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}/glib-2.0/schemas";
   };
 
@@ -42,11 +38,11 @@
         "image/png" = "feh.desktop";
         "image/jpeg" = "feh.desktop";
         "text/plain" = "nvim.desktop";
-        "text/html" = "librewolf.desktop";
+        "text/html" = "firefox.desktop";
         "video/mp4" = "mpv.desktop";
         "video/webm" = "mpv.desktop";
-        "x-scheme-handler/http" = "librewolf.desktop";
-        "x-scheme-handler/https" = "librewolf.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
       };
     };
   };
