@@ -3,15 +3,6 @@ if status is-interactive
 	function see
 		builtin cd $argv[1]; and timeout 1s ls
 	end
-	function rebuild
-    	cd ~/.dotfiles
-    	git add -A   # flakes can't see untracked files anyway
-    	sudo nixos-rebuild switch --flake .#(hostname)
-    	and begin
-    	    read -P "commit? (empty to skip): " msg
-    	    test -n "$msg"; and git commit -am "$msg"
-    	end
-	end
 end
 
 alias vi=nvim
