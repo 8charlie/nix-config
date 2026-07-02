@@ -7,7 +7,4 @@ in {
     nixFiles = filter (name: hasSuffix ".nix" name) (attrNames entries);
   in
     map (name: dir + "/${name}") nixFiles;
-
-  remove = toRemove: list:
-    filter (item: item != toRemove) list;
 }

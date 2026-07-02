@@ -17,8 +17,7 @@
 
   nix.gc = {
     automatic = true;
-    dates = ["weekly"];
-    options = "-d";
+    options = "--delete-older-than 14d";
   };
 
   programs.fish.enable = true;
@@ -31,6 +30,6 @@
     ];
     shell = pkgs.fish;
   };
-  
+
   system.stateVersion = "25.11";
 }

@@ -5,32 +5,17 @@
   ...
 }: let
   dotfiles = "${config.home.homeDirectory}/.dotfiles/dots";
-  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+  createSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
 
   # Standard .config/directory
-  configs = {
-    DankMaterialShell = "DankMaterialShell";
-    fish = "fish";
-    ghostty = "ghostty";
-    hypr = "hypr";
-    niri = "niri";
-    nvim = "nvim";
-    tmux = "tmux";
-    zathura = "zathura";
-  };
+  configs = ["DankMaterialShell" "fish" "ghostty" "hypr" "niri" "nvim" "tmux" "zathura"];
 in {
-  home.username = "charlie";
-  home.homeDirectory = "/home/charlie";
-
   imports = lib.collectNix ./modules/computer/home;
 
-  # makes the symlinks in ./config to ~/.config
-  xdg.configFile =
-    builtins.mapAttrs (name: subpath: {
-      source = create_symlink "${dotfiles}/${subpath}";
-      recursive = true;
-    })
-    configs;
+  xdg.configFile = lib.genAttrs configs (name: {
+    source = createSymlink "${dotfiles}/${name}";
+    recursive = true;
+  });
 
   programs.direnv = {
     enable = true;
@@ -39,5 +24,9 @@ in {
     enableBashIntegration = true;
   };
 
-  home.stateVersion = "25.11";
+  home = {
+    username = "charlie";
+    homeDirectory = "/home/charlie";
+    stateVersion = "25.11";
+  };
 }

@@ -19,7 +19,8 @@
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
-    displayManager.sessionCommands = ''        xrandr --output DP-0 --mode 2560x1440 --rate 270
+    displayManager.sessionCommands = ''
+      xrandr --output DP-0 --mode 2560x1440 --rate 270
       xset r rate 300 30
     '';
     windowManager.i3 = {
@@ -32,9 +33,6 @@
       ];
     };
   };
-
-  ## so that portal definitions and de provided configurations get linked?
-  #environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
   services.dbus.enable = true;
 
