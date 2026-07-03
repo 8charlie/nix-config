@@ -33,5 +33,5 @@
 
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 
-  system.stateVersion = "26.05";
+  system.stateVersion = "25.11";
 }

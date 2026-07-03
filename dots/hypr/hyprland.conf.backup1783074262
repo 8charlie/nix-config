@@ -292,5 +292,3 @@ bind = $mod, P, exec, grim -g "$(slurp)" ~/Pictures/screenshot.png
 
 # === System Controls ===
 bind = $mod SHIFT, P, dpms, off
-
-source = ./dms/cursor.conf
