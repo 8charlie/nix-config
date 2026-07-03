@@ -47,7 +47,7 @@
     nodejs
     (p7zip.override {enableUnfree = true;})
     protonplus
-    protonvpn-gui
+    proton-vpn
     python3
     qbittorrent
     ripgrep

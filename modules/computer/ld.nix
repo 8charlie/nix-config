@@ -5,10 +5,10 @@
     zlib
     libGL
     libxkbcommon
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXrandr
-    xorg.libXi
+    libX11
+    libXcursor
+    libXrandr
+    libXi
     qt6.qtbase
   ];
 }

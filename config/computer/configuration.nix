@@ -13,7 +13,7 @@
   ];
   nixpkgs.config.allowUnfree = true;
 
-  documentation.man.generateCaches = false; # very slow rebuild times if enabled
+  documentation.man.cache.enable = false; # very slow rebuild times if enabled
 
   nix.gc = {
     automatic = true;
