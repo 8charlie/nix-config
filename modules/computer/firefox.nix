@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = [pkgs.tridactyl-native];
+    nativeMessagingHosts.packages = [pkgs.tridactyl-native];
   };
 }

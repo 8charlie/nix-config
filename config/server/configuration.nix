@@ -11,7 +11,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   time.timeZone = "Europe/London";
-  
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   users.users.charlie = {
@@ -33,5 +33,5 @@
 
   documentation.man.generateCaches = false; # very slow rebuild times if enabled
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

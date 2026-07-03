@@ -20,7 +20,6 @@
     fd
     feh
     ffmpeg
-    firefox
     freetube
     fuse
     fzf
