@@ -72,11 +72,11 @@
       };
   in {
     nixosConfigurations = {
-      home = mkComputer {
+      desktop = mkComputer {
         hostname = "desktop";
         hardwareModule = ./hosts/desktop/hardware.nix;
       };
-      nixos = mkComputer {
+      glass = mkComputer {
         hostname = "glass";
         hardwareModule = ./hosts/glass/hardware.nix;
       };
