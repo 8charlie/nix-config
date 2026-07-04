@@ -15,7 +15,6 @@
     clang-tools
     conda
     dnsutils
-    dxvk
     efibootmgr
     fd
     feh
@@ -23,7 +22,6 @@
     freetube
     fuse
     fzf
-    gamescope
     gcc
     ghostty
     git
@@ -61,7 +59,6 @@
     uv
     vesktop
     vim
-    vkd3d
     vscode
     wget
     winetricks

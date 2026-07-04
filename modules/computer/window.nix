@@ -23,21 +23,21 @@
   #services.desktopManager.plasma6.enable = true;
   #programs.hyprland.enable = true;
 
-  #services.xserver = {
-  #  enable = true;
-  #  videoDrivers = ["nvidia"];
-  #  displayManager.sessionCommands = ''
-  #    xrandr --output DP-0 --mode 2560x1440 --rate 270
-  #    xset r rate 300 30
-  #  '';
-  #  windowManager.i3 = {
-  #    enable = true;
-  #    extraPackages = with pkgs; [
-  #      autotiling
-  #      dmenu
-  #      feh
-  #      i3status
-  #    ];
-  #  };
-  #};
+  services.xserver = {
+    enable = true;
+    videoDrivers = ["nvidia"];
+    displayManager.sessionCommands = ''
+      xrandr --output DP-0 --mode 2560x1440 --rate 270
+      xset r rate 300 30
+    '';
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        autotiling
+        dmenu
+        feh
+        i3status
+      ];
+    };
+  };
 }
