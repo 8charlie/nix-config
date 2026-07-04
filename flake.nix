@@ -31,7 +31,7 @@
     commonModules = lib.collectNix ./modules/common;
     mkComputer = {
       hostname,
-      hardwareModule,
+      hostModule,
     }:
       lib.nixosSystem {
         system = "x86_64-linux";
@@ -40,7 +40,7 @@
           commonModules
           ++ [
             ./config/computer/configuration.nix
-            hardwareModule
+            hostModule
             {networking.hostName = hostname;}
             lanzaboote.nixosModules.lanzaboote
             home-manager.nixosModules.home-manager
@@ -57,7 +57,7 @@
       };
     mkServer = {
       hostname,
-      hardwareModule,
+      hostModule,
     }:
       lib.nixosSystem {
         system = "x86_64-linux";
@@ -66,7 +66,7 @@
           commonModules
           ++ [
             ./config/server/configuration.nix
-            hardwareModule
+            hostModule
             {networking.hostName = hostname;}
           ];
       };
@@ -74,15 +74,15 @@
     nixosConfigurations = {
       desktop = mkComputer {
         hostname = "desktop";
-        hardwareModule = ./hosts/desktop/hardware.nix;
+        hostModule = ./hosts/desktop;
       };
       glass = mkComputer {
         hostname = "glass";
-        hardwareModule = ./hosts/glass/hardware.nix;
+        hostModule = ./hosts/glass;
       };
       server = mkServer {
         hostname = "server";
-        hardwareModule = ./hosts/server/hardware.nix;
+        hostModule = ./hosts/server;
       };
     };
   };

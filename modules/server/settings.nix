@@ -1,11 +1,11 @@
 {
   services = {
-    services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
-    services.logind.settings.Login.HandleLidSwitch = "ignore";
+    logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+    logind.settings.Login.HandleLidSwitch = "ignore";
 
-    services.power-profiles-daemon.enable = false;
+    power-profiles-daemon.enable = false;
 
-    services.tlp = {
+    tlp = {
       enable = true;
       settings = {
         # Always on AC + lightly loaded → bias toward low power and low heat
@@ -15,8 +15,8 @@
       };
     };
 
-    services.thermald.enable = true; # Intel: proactive thermal mgmt, keeps it cool under sustained load
-    services.fstrim.enable = true; # SSD longevity
+    thermald.enable = true; # Intel: proactive thermal mgmt, keeps it cool under sustained load
+    fstrim.enable = true; # SSD longevity
   };
   zramSwap.enable = true; # compressed RAM swap → far fewer SSD writes; also helps a low-RAM old box
   fileSystems."/".options = ["noatime"]; # stop writing an access timestamp on every read
