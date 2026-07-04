@@ -1,35 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   imports = lib.collectNix ../../modules/computer;
-  networking.networkmanager.enable = true;
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nixpkgs.config.allowUnfree = true;
-
-  documentation.man.cache.enable = false; # very slow rebuild times if enabled
 
   nix.gc = {
     automatic = true;
     options = "--delete-older-than 14d";
   };
-
-  programs.fish.enable = true;
-  users.users.charlie = {
-    isNormalUser = true;
-    description = "charlie";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    shell = pkgs.fish;
-  };
+  documentation.man.cache.enable = false; # very slow rebuild times if enabled
 
   system.stateVersion = "25.11";
 }

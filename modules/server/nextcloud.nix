@@ -52,5 +52,5 @@ in {
       ExecStart = "${pkgs.tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:${toString port}";
       ExecStop = "${pkgs.tailscale}/bin/tailscale serve --https=443 off";
     };
-};
+  };
 }

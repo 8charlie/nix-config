@@ -28,8 +28,7 @@
       final: prev:
         import ./lib.nix {lib = final;}
     );
-    commonModules = [
-    ];
+    commonModules = lib.collectNix ./modules/common;
     mkComputer = {
       hostname,
       hardwareModule,
@@ -37,22 +36,24 @@
       lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs lib;};
-        modules = [
-          ./config/computer/configuration.nix
-          hardwareModule
-          {networking.hostName = hostname;}
-          lanzaboote.nixosModules.lanzaboote
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.charlie = import ./home.nix;
-              extraSpecialArgs = {inherit inputs;};
-              backupFileExtension = "backup";
-            };
-          }
-        ];
+        modules =
+          commonModules
+          ++ [
+            ./config/computer/configuration.nix
+            hardwareModule
+            {networking.hostName = hostname;}
+            lanzaboote.nixosModules.lanzaboote
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.charlie = import ./home.nix;
+                extraSpecialArgs = {inherit inputs;};
+                backupFileExtension = "backup";
+              };
+            }
+          ];
       };
     mkServer = {
       hostname,
@@ -61,11 +62,13 @@
       lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs lib;};
-        modules = [
-          ./config/server/configuration.nix
-          hardwareModule
-          {networking.hostName = hostname;}
-        ];
+        modules =
+          commonModules
+          ++ [
+            ./config/server/configuration.nix
+            hardwareModule
+            {networking.hostName = hostname;}
+          ];
       };
   in {
     nixosConfigurations = {
