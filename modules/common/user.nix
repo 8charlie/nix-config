@@ -3,7 +3,7 @@
     isNormalUser = true;
     description = "charlie";
     extraGroups = ["networkmanager" "wheel"];
+    shell = pkgs.fish;
   };
-  #shell = pkgs.fish;
   programs.fish.enable = true;
 }
