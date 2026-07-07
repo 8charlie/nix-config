@@ -20,28 +20,41 @@
   programs.ssh.enableAskPassword = false;
   services.gnome.gnome-keyring.enable = false;
 
-  environment.systemPackages = [
-    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-  ];
-
   #services.desktopManager.plasma6.enable = true;
   #programs.hyprland.enable = true;
 
-  #services.xserver = {
-  #  enable = true;
-  #  videoDrivers = ["nvidia"];
-  #  displayManager.sessionCommands = ''
-  #    xrandr --output DP-0 --mode 2560x1440 --rate 270
-  #    xset r rate 300 30
-  #  '';
-  #  windowManager.i3 = {
-  #    enable = true;
-  #    extraPackages = with pkgs; [
-  #      autotiling
-  #      dmenu
-  #      feh
-  #      i3status
-  #    ];
-  #  };
-  #};
+  services = {
+    picom.enable = true;
+    xserver = {
+      videoDrivers = ["nvidia"];
+      enable = true;
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 35;
+      windowManager = {
+        #       xmonad = {
+        #         enable = true;
+        #         enableContribAndExtras = true;
+        #         extraPackages = hpkgs: [
+        #           pkgs.rofi
+        #           hpkgs.xmonad
+        #           hpkgs.xmonad-extras
+        #           hpkgs.xmonad-contrib
+        #         ];
+        #       };
+        i3 = {
+          enable = true;
+          extraPackages = with pkgs; [
+            autotiling
+            dmenu
+            feh
+            i3status
+          ];
+        };
+      };
+      displayManager.sessionCommands = ''
+        feh --bg-scale ~/.dotfiles/hosts/desktop/wallpaper/The_Artists_Garden_at_Eragny.png
+        xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
+      '';
+    };
+  };
 }

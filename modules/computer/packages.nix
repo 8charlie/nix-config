@@ -31,12 +31,14 @@
     grim
     gtk3
     gtk4
+    haskell-language-server
     htop
     jetbrains.idea-oss
     jupyter
     #librewolf
     lutris
     magic-wormhole
+    mangohud
     man-pages
     mpv
     nautilus
@@ -44,11 +46,11 @@
     nix-search-cli
     nodejs
     (p7zip.override {enableUnfree = true;})
-    protonplus
     proton-vpn
     python3
     qbittorrent
     ripgrep
+    rofi
     rustc
     sioyek
     slurp
@@ -65,6 +67,7 @@
     wl-clipboard
     wlr-randr
     wmenu
+    xmobar
     xwayland-satellite
     zathura
   ];

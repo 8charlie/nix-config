@@ -9,6 +9,7 @@ return {
 		formatters_by_ft = {
 			nix = { "alejandra" },
 			rust = { "rust_analyzer" },
+			haskell = { "ormolu" },
 		},
 	},
 }

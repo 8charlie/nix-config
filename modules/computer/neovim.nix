@@ -26,6 +26,7 @@
     # formatters
     alejandra
     rustfmt
+    ormolu
   ];
 
   programs.neovim = {
