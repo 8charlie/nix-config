@@ -3,44 +3,46 @@
   pkgs,
   ...
 }: {
-  services.displayManager.ly.enable = true;
-
-  programs.niri.enable = true;
-
   imports = [
     inputs.dms.nixosModules.dank-material-shell
   ];
-  programs.dank-material-shell = {
-    enable = true;
-    enableSystemMonitoring = false;
+  programs = {
+    dank-material-shell = {
+      enable = true;
+      enableSystemMonitoring = false;
+    };
+    ssh.enableAskPassword = false;
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
   };
 
-  services.dbus.enable = true;
-
-  programs.ssh.enableAskPassword = false;
-  services.gnome.gnome-keyring.enable = false;
-
+  #programs.niri.enable = true;
   #services.desktopManager.plasma6.enable = true;
   #programs.hyprland.enable = true;
 
   services = {
-    picom.enable = true;
+    #dbus.enable = true;
+    #gnome.gnome-keyring.enable = false;
+
+    displayManager.ly.enable = true;
     xserver = {
       videoDrivers = ["nvidia"];
       enable = true;
-      autoRepeatDelay = 200;
-      autoRepeatInterval = 35;
+      #autoRepeatDelay = 400;
+      autoRepeatInterval = 40;
       windowManager = {
-        #       xmonad = {
-        #         enable = true;
-        #         enableContribAndExtras = true;
-        #         extraPackages = hpkgs: [
-        #           pkgs.rofi
-        #           hpkgs.xmonad
-        #           hpkgs.xmonad-extras
-        #           hpkgs.xmonad-contrib
-        #         ];
-        #       };
+        #  xmonad = {
+        #    enable = true;
+        #    enableContribAndExtras = true;
+        #    extraPackages = hpkgs: [
+        #      pkgs.rofi
+        #      hpkgs.xmonad
+        #      hpkgs.xmonad-extras
+        #      hpkgs.xmonad-contrib
+        #    ];
+        #  };
         i3 = {
           enable = true;
           extraPackages = with pkgs; [
@@ -52,7 +54,7 @@
         };
       };
       displayManager.sessionCommands = ''
-        feh --bg-scale ~/.dotfiles/hosts/desktop/wallpaper/The_Artists_Garden_at_Eragny.png
+        feh --bg-scale ~/.dotfiles/hosts/desktop/wallpaper/Birmingham_Museums_Trust_Unsplash.jpg
         xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
       '';
     };
