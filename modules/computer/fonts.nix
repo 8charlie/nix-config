@@ -15,6 +15,7 @@
       fira-code-symbols
       dejavu_fonts
       font-awesome
+      terminus_font
       nerd-fonts.jetbrains-mono
       nerd-fonts.fira-code
     ];
