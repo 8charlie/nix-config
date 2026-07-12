@@ -19,6 +19,7 @@
     fd
     feh
     ffmpeg
+    flameshot
     freetube
     fuse
     fzf
@@ -28,14 +29,12 @@
     gnome-system-monitor
     gnumake
     gparted
-    grim
     gtk3
     gtk4
     haskell-language-server
     htop
-    jetbrains.idea-oss
     jupyter
-    #librewolf
+    librewolf
     lutris
     magic-wormhole
     mangohud
@@ -45,7 +44,7 @@
     nextcloud-client
     nix-search-cli
     nodejs
-    (p7zip.override {enableUnfree = true;})
+    p7zip
     proton-vpn
     python3
     qbittorrent
@@ -55,7 +54,6 @@
     sioyek
     slurp
     spotify
-    tealdeer
     tmux
     unzip
     uv
@@ -67,7 +65,6 @@
     wl-clipboard
     wlr-randr
     wmenu
-    xmobar
     xwayland-satellite
     zathura
   ];
