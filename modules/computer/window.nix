@@ -16,33 +16,35 @@
       enable = true;
       wrapperFeatures.gtk = true;
     };
+    niri = {
+      enable = false;
+    };
+    hyprland = {
+      enable = false;
+    };
   };
-
-  #programs.niri.enable = true;
-  #services.desktopManager.plasma6.enable = true;
-  #programs.hyprland.enable = true;
 
   services = {
     #dbus.enable = true;
-    #gnome.gnome-keyring.enable = false;
+    gnome.gnome-keyring.enable = true;
 
     displayManager.ly.enable = true;
     xserver = {
       videoDrivers = ["nvidia"];
       enable = true;
-      #autoRepeatDelay = 400;
+      autoRepeatDelay = 500;
       autoRepeatInterval = 40;
       windowManager = {
-        #  xmonad = {
-        #    enable = true;
-        #    enableContribAndExtras = true;
-        #    extraPackages = hpkgs: [
-        #      pkgs.rofi
-        #      hpkgs.xmonad
-        #      hpkgs.xmonad-extras
-        #      hpkgs.xmonad-contrib
-        #    ];
-        #  };
+        xmonad = {
+          enable = false;
+          enableContribAndExtras = true;
+          extraPackages = hpkgs: [
+            pkgs.rofi
+            hpkgs.xmonad
+            hpkgs.xmonad-extras
+            hpkgs.xmonad-contrib
+          ];
+        };
         i3 = {
           enable = true;
           extraPackages = with pkgs; [
