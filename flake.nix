@@ -2,10 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -19,7 +15,6 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
-    home-manager,
     lanzaboote,
     dms,
     ...
@@ -43,16 +38,6 @@
             hostModule
             {networking.hostName = hostname;}
             lanzaboote.nixosModules.lanzaboote
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.charlie = import ./home.nix;
-                extraSpecialArgs = {inherit inputs;};
-                backupFileExtension = "backup";
-              };
-            }
           ];
       };
     mkServer = {
