@@ -16,47 +16,34 @@
     conda
     dnsutils
     efibootmgr
-    fd
     feh
     ffmpeg
     flameshot
     freetube
     fuse
-    fzf
     gcc
     ghostty
     git
-    gnome-system-monitor
     gnumake
     gparted
     gtk3
     gtk4
-    haskell-language-server
     htop
-    jupyter
     librewolf
-    lutris
-    magic-wormhole
-    mangohud
     man-pages
     mpv
     nautilus
     nextcloud-client
     nix-search-cli
-    nodejs
     p7zip
     proton-vpn
     python3
     qbittorrent
-    ripgrep
-    rofi
     rustc
     sioyek
-    slurp
     spotify
     tmux
     unzip
-    uv
     vesktop
     vim
     vscode
@@ -66,6 +53,7 @@
     wlr-randr
     wmenu
     xwayland-satellite
+    yazi
     zathura
   ];
 }

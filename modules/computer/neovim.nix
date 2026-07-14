@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     # for lazyvim
     nodejs
@@ -22,6 +17,7 @@
     cargo # for nil
     clang-tools # for clangd
     rust-analyzer
+    haskell-language-server
 
     # formatters
     alejandra
