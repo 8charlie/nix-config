@@ -8,5 +8,5 @@
     gamescope.enable = true;
     gamemode.enable = true;
   };
-  environment.SystemPackages = with pkgs; [mangohud lutris];
+  environment.systemPackages = with pkgs; [mangohud lutris];
 }
