@@ -47,6 +47,7 @@ bindsym $mod+t exec ghostty -e tmux
 bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id dmenu_run
 bindsym $mod+p exec flameshot gui
+bindsym $mod+Shift+b exec ~/.config/i3/bluetooth_connect.sh
 
 # change focus
 bindsym $mod+h focus left
