@@ -13,7 +13,6 @@
     cargo
     chromium
     clang-tools
-    conda
     dnsutils
     efibootmgr
     fd
@@ -31,13 +30,9 @@
     gparted
     gtk3
     gtk4
-    haskell-language-server
     htop
-    jupyter
     librewolf
     lutris
-    magic-wormhole
-    mangohud
     man-pages
     mpv
     nautilus
@@ -52,20 +47,13 @@
     rofi
     rustc
     sioyek
-    slurp
     spotify
     tmux
     unzip
-    uv
     vesktop
     vim
     vscode
     wget
-    winetricks
-    wl-clipboard
-    wlr-randr
-    wmenu
-    xwayland-satellite
     zathura
   ];
 }

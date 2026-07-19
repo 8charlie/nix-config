@@ -23,9 +23,7 @@
       enable = false;
     };
   };
-
   services = {
-    #dbus.enable = true;
     gnome.gnome-keyring.enable = true;
 
     displayManager.ly.enable = true;
@@ -61,4 +59,14 @@
       '';
     };
   };
+  environment.systemPackages = with pkgs; [
+    # wayland
+    wl-clipboard
+    wlr-randr
+    wmenu
+    xwayland-satellite
+
+    # x11
+    rofi
+  ];
 }

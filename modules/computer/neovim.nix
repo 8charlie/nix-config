@@ -22,6 +22,7 @@
     cargo # for nil
     clang-tools # for clangd
     rust-analyzer
+    haskell-language-server
 
     # formatters
     alejandra
