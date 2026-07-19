@@ -54,6 +54,7 @@
     vim
     vscode
     wget
+    yazi
     zathura
   ];
 }
