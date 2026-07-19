@@ -5,6 +5,20 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    # language Servers
+    lua-language-server
+    nil # nix language server
+    cargo # for nil
+    clang-tools # for clangd
+    rust-analyzer
+    haskell-language-server
+    pyright
+
+    # formatters
+    alejandra # for nix
+    rustfmt
+    ormolu # for haskell
+
     # for lazyvim
     nodejs
 
@@ -13,24 +27,14 @@
     fd
     fzf
 
-    luarocks # some plugins need this
+    # required by some plugins
+    luarocks
     tree-sitter
-
-    # language Servers
-    lua-language-server
-    nil # nix language server
-    cargo # for nil
-    clang-tools # for clangd
-    rust-analyzer
-    haskell-language-server
-
-    # formatters
-    alejandra
-    rustfmt
-    ormolu
   ];
 
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
+    vimAlias = true;
   };
 }

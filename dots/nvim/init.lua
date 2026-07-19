@@ -16,7 +16,7 @@ require("lazy").setup("plugins")
 
 -- theme
 vim.cmd.colorscheme("gruvbox")                    -- theme
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" }) -- removes background for transparency
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" }) -- removes neovim background so we have terminal background color instead
 
 -- sets tab to 4 spaces
 vim.o.expandtab = false
@@ -31,8 +31,6 @@ vim.o.inccommand = "split" -- previews what youll replace stuff with during repl
 vim.o.splitbelow = true
 vim.o.splitright = true
 
-local lspconfig = require('lspconfig')
-
 vim.diagnostic.config({
 	virtual_text = {
 		prefix = "●",
@@ -40,7 +38,7 @@ vim.diagnostic.config({
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rust_analyzer" })
+vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rustfmt", "hls", "pyright" })
 
 -- keybinds
 local key = vim.keymap.set
@@ -60,11 +58,10 @@ key("n", "<TAB>", ":bnext<cr>")                               -- next buffer
 key("n", "<S-TAB>", ":bprevious<cr>")                         -- previous buffer
 key("n", "<C-d>", "<C-d>zz")                                  -- centers screen after ctrl d
 key("n", "<C-u>", "<C-u>zz")                                  -- centers screen after ctrl u
-key("n", "<leader>b", ":lua vim.diagnostic.open_float<cr>")   -- open floating window for error/warnings
+key("n", "<leader>b", ":lua vim.diagnostic.open_float()<cr>") -- open floating window for error/warnings
 key("n", "<leader>n", ":lua vim.diagnostic.setloclist()<cr>") -- show all errors
-key("n", "<leader>d", ":put =strftime('%d/%m/%y %H:%M')<cr>")
 
 -- plugin binds
-key("n", "<leader>g", ":Telescope live_grep<cr>")
+key("n", "<leader>g", ":Pick grep_live<cr>")
 key("n", "<leader>f", ":lua MiniFiles.open()<cr>")
 key("n", "<leader>e", ":Pick files<cr>")
