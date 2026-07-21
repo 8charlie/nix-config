@@ -65,6 +65,7 @@
     wlr-randr
     wmenu
     xwayland-satellite
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # x11
     rofi
