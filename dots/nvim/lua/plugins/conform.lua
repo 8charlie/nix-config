@@ -7,9 +7,10 @@ return {
 			timeout_ms = 500, -- Timeout for formatting
 		},
 		formatters_by_ft = {
+			haskell = { "ormolu" },
+			python = { "ruff" },
 			nix = { "alejandra" },
 			rust = { "rust_analyzer" },
-			haskell = { "ormolu" },
 		},
 	},
 }

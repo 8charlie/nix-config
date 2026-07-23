@@ -38,7 +38,7 @@ vim.diagnostic.config({
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rustfmt", "hls", "pyright" })
+vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rust_analyzer", "hls", "basedpyright" })
 
 -- keybinds
 local key = vim.keymap.set
