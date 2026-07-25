@@ -52,7 +52,7 @@
     unzip
     vesktop
     vim
-    vscode
+    (pkgs.vscode.fhsWithPackages (ps: with ps; [zlib openssl.dev pkg-config]))
     wget
     yazi
     zathura
