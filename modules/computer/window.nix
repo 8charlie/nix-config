@@ -54,7 +54,7 @@
         };
       };
       displayManager.sessionCommands = ''
-        feh --bg-scale ~/.dotfiles/hosts/desktop/wallpaper/Birmingham_Museums_Trust_Unsplash.jpg
+        feh --bg-scale ~/.dotfiles/wallpaper/Birmingham_Museums_Trust_Unsplash.jpg
         xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
       '';
     };
@@ -65,7 +65,6 @@
     wlr-randr
     wmenu
     xwayland-satellite
-    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # x11
     rofi

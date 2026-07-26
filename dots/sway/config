@@ -43,7 +43,7 @@ workspace_layout tabbed
 # binds i added
 bindsym $mod+t exec ghostty -e tmux
 bindsym $mod+q kill
-bindsym $mod+space exec $ipc panel-toggle launcher
+bindsym $mod+space exec wmenu
 bindsym $mod+p exec flameshot gui
 bindsym $mod+Shift+b exec ~/.config/sway/bluetooth_connect.sh
 
