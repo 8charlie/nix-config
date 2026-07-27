@@ -6,12 +6,6 @@
   imports = [
     inputs.dms.nixosModules.dank-material-shell
   ];
-
-  environment.sessionVariables = {
-    #WLR_NO_HARDWARE_CURSORS = "1";
-    GBM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
   programs = {
     dank-material-shell = {
       enable = true;
@@ -20,7 +14,6 @@
     ssh.enableAskPassword = false;
     sway = {
       enable = true;
-      extraOptions = ["--unsupported-gpu"];
       wrapperFeatures.gtk = true;
     };
     niri = {
@@ -61,10 +54,19 @@
         };
       };
       displayManager.sessionCommands = ''
-        feh --bg-scale ~/.dotfiles/hosts/desktop/wallpaper/Birmingham_Museums_Trust_Unsplash.jpg
+        feh --bg-scale ~/.dotfiles/wallpaper/Birmingham_Museums_Trust_Unsplash.jpg
         xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
-        echo "Xft.dpi: 84" | xrdb -merge
       '';
     };
   };
+  environment.systemPackages = with pkgs; [
+    # wayland
+    wl-clipboard
+    wlr-randr
+    wmenu
+    xwayland-satellite
+
+    # x11
+    rofi
+  ];
 }

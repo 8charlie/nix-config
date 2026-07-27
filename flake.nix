@@ -10,6 +10,12 @@
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    # declarative Homebrew: brew itself, managed by nix
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
   outputs = inputs @ {
     self,
@@ -17,12 +23,19 @@
     nixpkgs-unstable,
     lanzaboote,
     dms,
+    nix-darwin,
+    nix-homebrew,
     ...
   }: let
-    lib = nixpkgs.lib.extend (
-      final: prev:
-        import ./lib.nix {lib = final;}
-    );
+    mkLib = pkgsFlake:
+      pkgsFlake.lib.extend (
+        final: prev:
+          import ./lib.nix {lib = final;}
+      );
+    lib = mkLib nixpkgs;
+    # nix-darwin follows nixpkgs-unstable; handing its modules a lib from a
+    # different nixpkgs makes pkgs eval blow up with infinite recursion
+    libDarwin = mkLib nixpkgs-unstable;
     commonModules = lib.collectNix ./modules/common;
     mkComputer = {
       hostname,
@@ -55,6 +68,38 @@
             {networking.hostName = hostname;}
           ];
       };
+    mkMac = {
+      username,
+      hostname,
+      hostModule,
+      system ? "aarch64-darwin",
+    }:
+      nix-darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs;
+          lib = libDarwin;
+        };
+        modules = [
+          ./config/mac/configuration.nix
+          hostModule
+          {
+            networking.hostName = hostname;
+            nixpkgs.hostPlatform = system;
+            # required by nix-darwin for anything user-scoped (homebrew, defaults)
+            system.primaryUser = username;
+            users.users.${username}.home = "/Users/${username}";
+          }
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              user = username;
+              # M-series: leave false unless you specifically need x86-only casks under Rosetta
+              enableRosetta = false;
+            };
+          }
+        ];
+      };
   in {
     nixosConfigurations = {
       desktop = mkComputer {
@@ -68,6 +113,13 @@
       server = mkServer {
         hostname = "server";
         hostModule = ./hosts/server;
+      };
+    };
+    darwinConfigurations = {
+      m5 = mkMac {
+        username = "charlie";
+        hostname = "m5";
+        hostModule = ./hosts/m5;
       };
     };
   };

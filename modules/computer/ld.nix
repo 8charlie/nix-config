@@ -3,6 +3,7 @@
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
     zlib
+    icu
     libGL
     libxkbcommon
     libX11

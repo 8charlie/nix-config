@@ -7,16 +7,14 @@ font pango:monospace 8
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:DejaVu Sans Mono 8
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+output DP-2 pos 0 0 res 1920x1080@240Hz
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-
 exec --no-startup-id autotiling
-exec --no-startup-id xrandr --output DP-2 --mode 1920x1080 --rate 240
+#exec --no-startup-id noctalia
+#set $ipc noctalia msg
 
 exec --no-startup-id firefox
 assign [class="Firefox"] → workspace "1"
@@ -25,19 +23,19 @@ assign [class="Spotify"] → workspace "1"
 exec --no-startup-id freetube
 assign [class="freetube"] → workspace "1"
 exec --no-startup-id ghostty -e tmux
-assign [class="com.mitchellh.ghostty"] → workspace "2"
+assign [app_id="com.mitchellh.ghostty"] workspace number 2
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym --locked XF86AudioRaiseVolume exec $ipc volume-up
+bindsym --locked XF86AudioLowerVolume exec $ipc volume-down
+bindsym --locked XF86AudioMute exec $ipc volume-mute
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 floating_modifier $mod
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+tiling_drag enable
 
 # default workspace layout
 workspace_layout tabbed
@@ -45,9 +43,9 @@ workspace_layout tabbed
 # binds i added
 bindsym $mod+t exec ghostty -e tmux
 bindsym $mod+q kill
-bindsym $mod+space exec --no-startup-id dmenu_run
+bindsym $mod+space exec wmenu
 bindsym $mod+p exec flameshot gui
-bindsym $mod+Shift+b exec ~/.config/i3/bluetooth_connect.sh
+bindsym $mod+Shift+b exec ~/.config/sway/bluetooth_connect.sh
 
 # change focus
 bindsym $mod+h focus left

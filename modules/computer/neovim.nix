@@ -1,31 +1,45 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
-    # for lazyvim
-    nodejs
+    # python
+    basedpyright
+    ruff
 
-    # for telescope
+    # nix
+    nil
+    alejandra
+
+    # rust
+    cargo
+    rust-analyzer
+    rustfmt
+
+    # c
+    clang-tools
+
+    # haskell
+    haskell-language-server
+    ormolu
+
+    # lua
+    lua-language-server
+
+    # for neovim plugins
+    nodejs
+    luarocks
+    tree-sitter
     ripgrep
     fd
     fzf
-
-    luarocks # some plugins need this
-    tree-sitter
-
-    # language Servers
-    lua-language-server
-    nil # nix language server
-    cargo # for nil
-    clang-tools # for clangd
-    rust-analyzer
-    haskell-language-server
-
-    # formatters
-    alejandra
-    rustfmt
-    ormolu
   ];
 
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
+    viAlias = true;
   };
 }

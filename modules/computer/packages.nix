@@ -13,32 +13,38 @@
     cargo
     chromium
     clang-tools
-    conda
     dnsutils
     efibootmgr
+    fd
     feh
     ffmpeg
     flameshot
     freetube
     fuse
+    fzf
     gcc
     ghostty
     git
+    gnome-system-monitor
     gnumake
     gparted
     gtk3
     gtk4
     htop
     librewolf
+    lutris
     man-pages
     mpv
     nautilus
     nextcloud-client
     nix-search-cli
+    nodejs
     p7zip
     proton-vpn
     python3
     qbittorrent
+    ripgrep
+    rofi
     rustc
     sioyek
     spotify
@@ -46,13 +52,8 @@
     unzip
     vesktop
     vim
-    vscode
+    (pkgs.vscode.fhsWithPackages (ps: with ps; [zlib openssl.dev pkg-config]))
     wget
-    winetricks
-    wl-clipboard
-    wlr-randr
-    wmenu
-    xwayland-satellite
     yazi
     zathura
   ];

@@ -5,8 +5,6 @@ if status is-interactive
 	end
 end
 
-alias vi=nvim
-
 fish_vi_key_bindings
 
 # For editing commands from neovim (use alt+e/alt+v)
