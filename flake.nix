@@ -101,13 +101,13 @@
       };
   in {
     nixosConfigurations = {
-      desktop = mkComputer {
-        hostname = "desktop";
-        hostModule = ./hosts/desktop;
+      lovelace = mkComputer {
+        hostname = "lovelace";
+        hostModule = ./hosts/lovelace;
       };
-      glass = mkComputer {
-        hostname = "glass";
-        hostModule = ./hosts/glass;
+      pascal = mkComputer {
+        hostname = "pascal";
+        hostModule = ./hosts/pascal;
       };
       server = mkServer {
         hostname = "server";
