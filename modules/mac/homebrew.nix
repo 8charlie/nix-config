@@ -2,10 +2,15 @@
   homebrew = {
     enable = true;
     brews = [
+    ];
+    casks = [
+#      "aerospace" 
+      "battery" 
       "firefox"
       "raycast"
-      "ghostty"
+      "spotify"
+      "helium-browser"
+      "sioyek"
     ];
-    casks = [];
   };
 }
