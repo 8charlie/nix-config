@@ -1,5 +1,5 @@
 {lib, ...}: {
-  imports = lib.collectNix ../../modules/mac;
+  imports = [../../modules/computer/neovim.nix] ++ lib.collectNix ../../modules/mac;
 
   nix.gc = {
     automatic = true;
