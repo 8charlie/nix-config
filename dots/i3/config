@@ -78,9 +78,7 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# focus the parent container
-bindsym $mod+a focus parent
-
+# focus the parent container bindsym $mod+a focus parent
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -134,44 +132,81 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# ── Everforest (Dark Hard) ───────────────────────────────
-set $bg_dim   #1e2326
-set $bg0      #272e33
-set $bg1      #2e383c
-set $bg2      #374145
-set $bg3      #414b50
-set $bg4      #495156
-set $fg       #d3c6aa
-set $grey1    #859289
-set $grey2    #9da9a0
-set $red      #e67e80
-set $yellow   #dbbc7f
-set $green    #a7c080
-set $aqua     #83c092
-
+# -- Kanagawa Wave ------------------------------------
+set $bg_dim   #16161d
+set $bg0      #1f1f28
+set $bg1      #2a2a37
+set $bg2      #363646
+set $bg3      #54546d
+set $bg4      #727169
+set $fg       #dcd7ba
+set $grey1    #727169
+set $grey2    #c8c093
+set $red      #e46876
+set $yellow   #e6c384
+set $green    #98bb6c
+set $aqua     #7aa89f
+set $blue     #7e9cd8
 # class                 border   backgr.  text     indicator child_border
-client.focused          $green   $bg2     $fg      $aqua     $green
+client.focused          $blue    $bg2     $fg      $aqua     $blue
 client.focused_inactive $bg2     $bg1     $grey2   $bg2      $bg2
 client.unfocused        $bg1     $bg0     $grey1   $bg0      $bg1
 client.urgent           $red     $red     $bg0     $red      $red
 client.placeholder      $bg0     $bg0     $fg      $bg0      $bg0
 client.background       $bg0
-
 bar {
 	status_command i3status
     colors {
         background $bg_dim
         statusline $fg
         separator  $bg4
-
         #                  border  backgr.  text
-        focused_workspace  $green  $green   $bg0
+        focused_workspace  $blue   $blue    $bg0
         active_workspace   $bg2    $bg2     $fg
         inactive_workspace $bg_dim $bg_dim  $grey1
         urgent_workspace   $red    $red     $bg0
         binding_mode       $yellow $yellow  $bg0
     }
 }
+
+## ── Everforest (Dark Hard) ───────────────────────────────
+#set $bg_dim   #1e2326
+#set $bg0      #272e33
+#set $bg1      #2e383c
+#set $bg2      #374145
+#set $bg3      #414b50
+#set $bg4      #495156
+#set $fg       #d3c6aa
+#set $grey1    #859289
+#set $grey2    #9da9a0
+#set $red      #e67e80
+#set $yellow   #dbbc7f
+#set $green    #a7c080
+#set $aqua     #83c092
+#
+## class                 border   backgr.  text     indicator child_border
+#client.focused          $green   $bg2     $fg      $aqua     $green
+#client.focused_inactive $bg2     $bg1     $grey2   $bg2      $bg2
+#client.unfocused        $bg1     $bg0     $grey1   $bg0      $bg1
+#client.urgent           $red     $red     $bg0     $red      $red
+#client.placeholder      $bg0     $bg0     $fg      $bg0      $bg0
+#client.background       $bg0
+#
+#bar {
+#	status_command i3status
+#    colors {
+#        background $bg_dim
+#        statusline $fg
+#        separator  $bg4
+#
+#        #                  border  backgr.  text
+#        focused_workspace  $green  $green   $bg0
+#        active_workspace   $bg2    $bg2     $fg
+#        inactive_workspace $bg_dim $bg_dim  $grey1
+#        urgent_workspace   $red    $red     $bg0
+#        binding_mode       $yellow $yellow  $bg0
+#    }
+#}
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 #bar {
