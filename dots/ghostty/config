@@ -1,7 +1,7 @@
 # Font Configuration
 font-size = 11
-#font-family = Cascadia Mono
-font-family = JetBrainsMonoNL Nerd Font Mono
+font-family = BlexMono Nerd Font
+#font-family = Berkeley Mono Trial
 
 # Window Configuration
 #window-decoration = false
@@ -14,17 +14,15 @@ window-padding-y = 12
 cursor-style = block
 cursor-style-blink = true
 
-scrollback-limit = 0
-
 # Scrollback
 scrollback-limit = 3023
+scrollback-limit = 0
 
 # Terminal features
 mouse-hide-while-typing = true
 copy-on-select = false
 confirm-close-surface = false
 
-# Disable annoying copied to clipboard
 app-notifications = no-clipboard-copy,no-config-reload
 
 # Material 3 UI elements
@@ -39,8 +37,5 @@ shell-integration = detect
 shell-integration-features = cursor,sudo,title,no-cursor
 keybind = shift+enter=text:\n
 
-# Rando stuff
-gtk-single-instance = true
-
-# Dank color generation
-config-file = ./config-dankcolors
+#theme = Kanagawabones
+theme = Everforest Dark Hard

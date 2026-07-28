@@ -17,6 +17,12 @@ exec --no-startup-id nm-applet
 
 exec --no-startup-id autotiling
 exec --no-startup-id xrandr --output DP-2 --mode 1920x1080 --rate 240
+# Disable screen saver
+exec --no-startup-id xset s off
+# Disable DPMS (Energy Star) features
+exec --no-startup-id xset -dpms
+# Disable screen blanking
+exec --no-startup-id xset s noblank
 
 exec --no-startup-id firefox
 assign [class="Firefox"] → workspace "1"
@@ -128,8 +134,46 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# ── Everforest (Dark Hard) ───────────────────────────────
+set $bg_dim   #1e2326
+set $bg0      #272e33
+set $bg1      #2e383c
+set $bg2      #374145
+set $bg3      #414b50
+set $bg4      #495156
+set $fg       #d3c6aa
+set $grey1    #859289
+set $grey2    #9da9a0
+set $red      #e67e80
+set $yellow   #dbbc7f
+set $green    #a7c080
+set $aqua     #83c092
+
+# class                 border   backgr.  text     indicator child_border
+client.focused          $green   $bg2     $fg      $aqua     $green
+client.focused_inactive $bg2     $bg1     $grey2   $bg2      $bg2
+client.unfocused        $bg1     $bg0     $grey1   $bg0      $bg1
+client.urgent           $red     $red     $bg0     $red      $red
+client.placeholder      $bg0     $bg0     $fg      $bg0      $bg0
+client.background       $bg0
+
+bar {
+	status_command i3status
+    colors {
+        background $bg_dim
+        statusline $fg
+        separator  $bg4
+
+        #                  border  backgr.  text
+        focused_workspace  $green  $green   $bg0
+        active_workspace   $bg2    $bg2     $fg
+        inactive_workspace $bg_dim $bg_dim  $grey1
+        urgent_workspace   $red    $red     $bg0
+        binding_mode       $yellow $yellow  $bg0
+    }
+}
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-}
+#bar {
+#        status_command i3status
+#}

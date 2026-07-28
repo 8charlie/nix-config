@@ -40,6 +40,7 @@
     nix-search-cli
     nodejs
     p7zip
+    positron-bin
     proton-vpn
     python3
     qbittorrent
