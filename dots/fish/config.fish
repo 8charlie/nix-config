@@ -1,9 +1,4 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-	function see
-		builtin cd $argv[1]; and timeout 1s ls
-	end
-end
+abbr -a nrs 'sudo nixos-rebuild switch --flake ~/.dotfiles'
 
 fish_vi_key_bindings
 
