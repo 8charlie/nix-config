@@ -19,6 +19,7 @@ input {
         }
         numlock
     }
+	warp-mouse-to-focus
 }
 // run niri msg output
 output "DP-3" {
