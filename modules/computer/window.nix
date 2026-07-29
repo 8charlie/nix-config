@@ -11,21 +11,19 @@
       enable = true;
       enableSystemMonitoring = false;
     };
-    ssh.enableAskPassword = false;
     sway = {
-      enable = true;
+      enable = false;
       wrapperFeatures.gtk = true;
     };
     niri = {
-      enable = false;
+      enable = true;
     };
     hyprland = {
       enable = false;
     };
+    ssh.enableAskPassword = false;
   };
   services = {
-    gnome.gnome-keyring.enable = true;
-
     displayManager.ly.enable = true;
     xserver = {
       videoDrivers = ["nvidia"];
@@ -33,16 +31,6 @@
       autoRepeatDelay = 500;
       autoRepeatInterval = 40;
       windowManager = {
-        xmonad = {
-          enable = false;
-          enableContribAndExtras = true;
-          extraPackages = hpkgs: [
-            pkgs.rofi
-            hpkgs.xmonad
-            hpkgs.xmonad-extras
-            hpkgs.xmonad-contrib
-          ];
-        };
         i3 = {
           enable = true;
           extraPackages = with pkgs; [
@@ -54,7 +42,7 @@
         };
       };
       displayManager.sessionCommands = ''
-        feh --bg-scale ~/.dotfiles/wallpaper/Birmingham_Museums_Trust_Unsplash.jpg
+        feh --bg-scale ~/.dotfiles/wallpaper/powerlines.jpg
         xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
       '';
     };
@@ -65,8 +53,5 @@
     wlr-randr
     wmenu
     xwayland-satellite
-
-    # x11
-    rofi
   ];
 }
