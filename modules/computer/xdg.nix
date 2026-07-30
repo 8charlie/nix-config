@@ -30,7 +30,7 @@
   };
 
   # History-file tools write the file but not its parent directory; without
-  # these they'd silently keep no history. Merges with the rules in dots.nix.
+  # these they'd silently keep no history.
   systemd.user.tmpfiles.users.charlie.rules = [
     "d %h/.local/state/bash 0755 - - -"
     "d %h/.local/state/python 0755 - - -"

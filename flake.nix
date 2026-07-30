@@ -11,8 +11,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # release branch, not master: master tracks nixpkgs-unstable, which would
+      # put the mac on a different nixpkgs (and home-manager) than everything else
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager = {
@@ -31,13 +33,10 @@
     home-manager,
     ...
   }: let
-    mkLib = pkgsFlake:
-      pkgsFlake.lib.extend (
-        final: prev:
-          import ./lib.nix {lib = final;}
-      );
-    lib = mkLib nixpkgs;
-    libDarwin = mkLib nixpkgs-unstable;
+    lib = nixpkgs.lib.extend (
+      final: prev:
+        import ./lib.nix {lib = final;}
+    );
     commonModules = lib.collectNix ./modules/common;
     # home-manager runs as a nixos/nix-darwin module; the user config lives in ./home
     hmModule = username: {
@@ -90,10 +89,7 @@
       system ? "aarch64-darwin",
     }:
       nix-darwin.lib.darwinSystem {
-        specialArgs = {
-          inherit inputs;
-          lib = libDarwin;
-        };
+        specialArgs = {inherit inputs lib;};
         modules =
           commonModules
           ++ [
