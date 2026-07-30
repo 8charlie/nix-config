@@ -601,7 +601,7 @@
       "innerPadding": -1,
       "barInsetPadding": -1,
       "bottomGap": 0,
-      "transparency": 0.99,
+      "transparency": 1,
       "widgetTransparency": 1,
       "squareCorners": true,
       "noBackground": false,

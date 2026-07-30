@@ -2,10 +2,12 @@
   pkgs,
   lib,
   ...
-}: {
-  programs.firefox = {
+}: let
+  sharedBrowser = {
     enable = true;
-    nativeMessagingHosts.packages = [pkgs.tridactyl-native];
+
+    # home-manager takes a flat list here, not `nativeMessagingHosts.packages`
+    nativeMessagingHosts = [pkgs.tridactyl-native];
 
     policies = {
       # bitwarden replaces the built-in password manager
@@ -13,14 +15,12 @@
       OfferToSaveLogins = false;
       AutofillAddressEnabled = false;
       AutofillCreditCardEnabled = false;
-
       # features arkenfox can only default off
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
       DisablePocket = true;
       DisableFirefoxAccounts = true;
       DontCheckDefaultBrowser = true;
-
       # extensions keyed by GUID; installed from AMO and auto-updated
       # by firefox itself
       ExtensionSettings =
@@ -40,4 +40,15 @@
         };
     };
   };
+in {
+  programs.firefox = sharedBrowser;
+
+  programs.librewolf =
+    sharedBrowser
+    // {
+      settings = {
+        "privacy.resistFingerprinting" = true;
+        "privacy.resistFingerprinting.exemptedDomains" = "claude.ai";
+      };
+    };
 }
