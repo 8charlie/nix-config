@@ -15,6 +15,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs @ {
     self,
@@ -24,6 +28,7 @@
     dms,
     nix-darwin,
     nix-homebrew,
+    home-manager,
     ...
   }: let
     mkLib = pkgsFlake:
@@ -34,6 +39,17 @@
     lib = mkLib nixpkgs;
     libDarwin = mkLib nixpkgs-unstable;
     commonModules = lib.collectNix ./modules/common;
+    # home-manager runs as a nixos/nix-darwin module; the user config lives in ./home
+    hmModule = username: {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        # rename instead of failing activation when a file already exists
+        backupFileExtension = "hm-bak";
+        extraSpecialArgs = {inherit inputs;};
+        users.${username} = import ./home;
+      };
+    };
     mkComputer = {
       hostname,
       hostModule,
@@ -48,6 +64,8 @@
             hostModule
             {networking.hostName = hostname;}
             lanzaboote.nixosModules.lanzaboote
+            home-manager.nixosModules.home-manager
+            (hmModule "charlie")
           ];
       };
     mkServer = {
@@ -97,6 +115,8 @@
                 enableRosetta = false;
               };
             }
+            home-manager.darwinModules.home-manager
+            (hmModule username)
           ];
       };
   in {
