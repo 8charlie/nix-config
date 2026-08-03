@@ -236,7 +236,6 @@ binds {
     Alt+Print { screenshot-window; }
     // === System Controls ===
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-    Mod+Shift+P { power-off-monitors; }
 
 //  === DMS ===
     Mod+Space hotkey-overlay-title="Application Launcher" { 

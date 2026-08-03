@@ -63,5 +63,5 @@ key("n", "<leader>n", ":lua vim.diagnostic.setloclist()<cr>") -- show all errors
 
 -- plugin binds
 key("n", "<leader>g", ":Pick grep_live<cr>")
-key("n", "<leader>f", ":lua MiniFiles.open()<cr>")
-key("n", "<leader>e", ":Pick files<cr>")
+key("n", "<leader>e", ":lua MiniFiles.open()<cr>")
+key("n", "<leader>f", ":Pick files<cr>")

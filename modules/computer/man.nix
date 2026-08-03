@@ -1,3 +1,6 @@
 {
-  documentation.man.cache.enable = false; # very slow rebuild times if enabled
+  documentation.man.cache = {
+    enable = false;
+    generateAtRuntime = false;
+  };
 }
