@@ -22,7 +22,7 @@ input {
 	warp-mouse-to-focus
 }
 // run niri msg output
-output "DP-3" {
+output "DP-1" {
     mode "2560x1440@269.996"
     position x=2560 y=0
 	scale 1.0
@@ -32,9 +32,9 @@ output "DP-2" {
 	position x=1920 y=0
 	scale 1.0
 }
-output "DP-1" {
-	mode "1920x1080@60.000"
-	position x=1920 y=0
+output "DP-3" {
+    mode "2560x1440@269.996"
+    position x=2560 y=0
 	scale 1.0
 }
 
@@ -101,7 +101,7 @@ spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "dms" "run"
 
-spawn-at-startup "firefox"
+spawn-at-startup "bash" "-c" "exec \"$BROWSER\""
 spawn-at-startup "Spotify"
 spawn-at-startup "freetube"
 spawn-at-startup "ghostty -e tmux"
@@ -293,3 +293,6 @@ binds {
   
 
 }
+
+// DMS Include Configs
+include "dms/cursor.kdl"

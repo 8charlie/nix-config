@@ -1,7 +1,12 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   environment.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    BROWSER = lib.mkDefault "firefox";
 
     XDG_DOWNLOAD_DIR = "$HOME/Downloads";
     XDG_DOCUMENTS_DIR = "$HOME/Documents";
@@ -34,11 +39,11 @@
       "image/png" = "feh.desktop";
       "image/jpeg" = "feh.desktop";
       "text/plain" = "nvim.desktop";
-      "text/html" = "firefox.desktop";
+      "text/html" = lib.mkDefault "firefox.desktop";
       "video/mp4" = "mpv.desktop";
       "video/webm" = "mpv.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/http" = lib.mkDefault "firefox.desktop";
+      "x-scheme-handler/https" = lib.mkDefault "firefox.desktop";
     };
   };
 }
