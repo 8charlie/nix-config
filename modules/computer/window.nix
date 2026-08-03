@@ -26,6 +26,7 @@
   services = {
     #displayManager.ly.enable = true;
     displayManager.dms-greeter = {
+      enable = true;
       compositor = {
         name = "niri"; # Required. Can be also "hyprland" or "sway"
       };
