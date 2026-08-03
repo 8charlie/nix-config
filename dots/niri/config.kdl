@@ -5,6 +5,10 @@ config-notification {
     disable-failed
 }
 
+debug {
+	emulate-zero-presentation-time
+}
+
 gestures {
     hot-corners {
         off

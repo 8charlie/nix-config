@@ -24,7 +24,7 @@
     ssh.enableAskPassword = false;
   };
   services = {
-    #displayManager.ly.enable = true;
+    displayManager.ly.enable = true;
     displayManager.dms-greeter = {
       enable = true;
       compositor = {
