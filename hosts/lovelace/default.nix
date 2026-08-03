@@ -8,4 +8,5 @@
     enable = true;
     makeDefault = true;
   };
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
