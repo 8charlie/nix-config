@@ -1,8 +1,8 @@
-{config, ...}: {
-  imports = [./hardware.nix];
-
-  # GTX 1080
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+{
+  imports = [
+    ./graphics.nix
+    ./hardware.nix
+  ];
 
   # disable the UHD 630 iGPU (no BIOS option for it); keeps it out of Vulkan
   boot.blacklistedKernelModules = ["i915" "tpm_tis" "tpm_crb"];
