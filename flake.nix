@@ -59,7 +59,7 @@
         modules =
           commonModules
           ++ [
-            ./config/computer/configuration.nix
+            ./hosts/${hostname}/configuration.nix
             hostModule
             {networking.hostName = hostname;}
             lanzaboote.nixosModules.lanzaboote
@@ -77,7 +77,7 @@
         modules =
           commonModules
           ++ [
-            ./config/server/configuration.nix
+            ./hosts/server/configuration.nix
             hostModule
             {networking.hostName = hostname;}
           ];
@@ -93,7 +93,7 @@
         modules =
           commonModules
           ++ [
-            ./config/mac/configuration.nix
+            ./hosts/mac/configuration.nix
             hostModule
             {
               networking.hostName = hostname;
