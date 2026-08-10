@@ -77,7 +77,7 @@
         modules =
           commonModules
           ++ [
-            ./hosts/server/configuration.nix
+            ./hosts/${hostname}/configuration.nix
             hostModule
             {networking.hostName = hostname;}
           ];
@@ -93,7 +93,7 @@
         modules =
           commonModules
           ++ [
-            ./hosts/mac/configuration.nix
+            ./hosts/${hostname}/configuration.nix
             hostModule
             {
               networking.hostName = hostname;
