@@ -101,14 +101,13 @@ overview {
 }
 
 // == STARTUP ==
-spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-spawn-at-startup "xwayland-satellite"
+//spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "dms" "run"
 
 spawn-at-startup "bash" "-c" "exec \"$BROWSER\""
-spawn-at-startup "Spotify"
+spawn-at-startup "spotify"
 spawn-at-startup "freetube"
-spawn-at-startup "ghostty -e tmux"
+spawn-at-startup "ghostty" "-e" "tmux"
 
 environment {
   XDG_CURRENT_DESKTOP "niri"
@@ -116,7 +115,7 @@ environment {
   ELECTRON_OZONE_PLATFORM_HINT "auto"
   QT_QPA_PLATFORMTHEME "gtk3"
   QT_QPA_PLATFORMTHEME_QT6 "gtk3"
-  TERMINAL "com.mitchellh.ghostty"
+  TERMINAL "ghostty"
 }
 
 hotkey-overlay {
