@@ -36,7 +36,7 @@
     man-pages
     mpv
     nautilus
-    nextcloud-client
+    #nextcloud-client
     nix-search-cli
     nodejs
     p7zip
