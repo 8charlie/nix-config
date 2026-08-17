@@ -39,7 +39,7 @@
     #nextcloud-client
     nix-search-cli
     nodejs
-    p7zip
+    (p7zip.override {enableUnfree = true;})
     positron-bin
     proton-vpn
     python3

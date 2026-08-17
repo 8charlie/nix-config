@@ -14,6 +14,7 @@
       "pcie_aspm.policy=performance"
     ];
   };
+  # for faster boot
   systemd.services.systemd-tpm2-setup.enable = false;
   systemd.services.systemd-tpm2-setup-early.enable = false;
 }
