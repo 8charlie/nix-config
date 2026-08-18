@@ -39,13 +39,6 @@
     HISTFILE = "$HOME/.local/state/bash/history";
     PYTHON_HISTORY = "$HOME/.local/state/python/history"; # python >= 3.13
     NODE_REPL_HISTORY = "$HOME/.local/state/node/history";
-    LESSHISTFILE = "$HOME/.local/state/less/history";
-    SQLITE_HISTORY = "$HOME/.local/state/sqlite/history";
-
-    # Setting VIMINIT is the only way Vim can relocate viminfo. Prefer its XDG
-    # vimrc, but keep reading the legacy one until it has been moved by hand.
-    VIMINIT = "set viminfofile=$HOME/.local/state/vim/viminfo | if filereadable('$HOME/.config/vim/vimrc') | source $HOME/.config/vim/vimrc | elseif filereadable('$HOME/.vimrc') | source $HOME/.vimrc | endif";
-  };
 
   # Some tools write the file but not its parent directory. Wget also needs a
   # real config file: WGETRC pointing at a missing file is a fatal error.

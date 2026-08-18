@@ -20,10 +20,10 @@
           ];
         };
       };
-      displayManager.sessionCommands = ''
-        feh --bg-scale ~/.dotfiles/wallpaper/powerlines.jpg
-        xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
-      '';
+#      displayManager.sessionCommands = ''
+#        feh --bg-scale ~/.dotfiles/wallpaper/powerlines.jpg
+#        xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
+#      '';
     };
   };
 }
