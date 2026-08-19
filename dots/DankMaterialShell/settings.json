@@ -297,7 +297,7 @@
       "enabled": true
     }
   ],
-  "networkPreference": "auto",
+  "networkPreference": "ethernet",
   "iconThemeDark": "Adwaita",
   "iconThemeLight": "System Default",
   "iconThemePerMode": false,
