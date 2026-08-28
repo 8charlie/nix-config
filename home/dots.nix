@@ -4,10 +4,6 @@
   pkgs,
   ...
 }: let
-  # Out-of-store symlinks: ~/.config/<name> points straight at the working tree,
-  # so edits are live (no rebuild) and apps that write their own config
-  # (DankMaterialShell, matugen, lazy.nvim, fish) can still do so. This assumes
-  # the repo is checked out at ~/.dotfiles on every host.
   dotsPath = "${config.home.homeDirectory}/.dotfiles/dots";
 
   # dirs that only make sense on one platform; everything else is linked on both
