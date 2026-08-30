@@ -105,7 +105,7 @@ overview {
 spawn-at-startup "dms" "run"
 
 spawn-at-startup "bash" "-c" "exec \"$BROWSER\""
-spawn-at-startup "Spotify"
+spawn-at-startup "spotify"
 spawn-at-startup "freetube"
 spawn-at-startup "ghostty" "-e" "tmux"
 

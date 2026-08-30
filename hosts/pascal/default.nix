@@ -13,6 +13,7 @@
       "rd.udev.log_level=3"
       "pcie_aspm.policy=performance"
     ];
+    initrd.systemd.emergencyAccess = true;
   };
   # for faster boot
   systemd.services.systemd-tpm2-setup.enable = false;
