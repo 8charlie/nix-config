@@ -1,0 +1,19 @@
+bind <C-1> tab 1
+bind <C-2> tab 2
+bind <C-3> tab 3
+bind <C-4> tab 4
+bind <C-5> tab 5
+bind <C-6> tab 6
+bind <C-7> tab 7
+bind <C-8> tab 8
+bind <C-9> tab 9
+
+bind --mode=insert <A-i> text.beginning_of_line
+bind --mode=insert <A-a> text.end_of_line
+bind --mode=insert <A-b> text.backward_word
+bind --mode=insert <A-e> text.forward_word
+bind u scrollpage -0.5
+bind d scrollpage 0.5
+bind x tabclose
+bind <C-u> undo
+unbind <C-d>
