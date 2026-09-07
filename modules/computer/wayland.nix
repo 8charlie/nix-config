@@ -15,7 +15,7 @@
       enable = true;
     };
     hyprland = {
-      enable = false;
+      enable = true;
     };
   };
   environment.systemPackages = with pkgs; [

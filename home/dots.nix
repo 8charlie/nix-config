@@ -7,7 +7,7 @@
   dotsPath = "${config.home.homeDirectory}/.dotfiles/dots";
 
   # dirs that only make sense on one platform; everything else is linked on both
-  linuxOnly = ["DankMaterialShell" "i3" "niri" "sway"];
+  linuxOnly = ["DankMaterialShell" "hypr" "i3" "niri" "sway"];
   darwinOnly = ["aerospace"];
   excluded =
     if pkgs.stdenv.isDarwin
