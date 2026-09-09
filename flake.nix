@@ -33,11 +33,8 @@
     home-manager,
     ...
   }: let
-    lib = nixpkgs.lib.extend (
-      final: prev:
-        import ./lib.nix {lib = final;}
-    );
-    commonModules = lib.collectNix ./modules/common;
+    lib = nixpkgs.lib;
+    commonModules = [./modules/common];
     # home-manager runs as a nixos/nix-darwin module; the user config lives in ./home
     hmModule = username: {
       home-manager = {
@@ -59,6 +56,7 @@
         modules =
           commonModules
           ++ [
+            ./modules/nixos/locale.nix
             ./hosts/${hostname}/configuration.nix
             hostModule
             {networking.hostName = hostname;}
@@ -77,6 +75,7 @@
         modules =
           commonModules
           ++ [
+            ./modules/nixos/locale.nix
             ./hosts/${hostname}/configuration.nix
             hostModule
             {networking.hostName = hostname;}

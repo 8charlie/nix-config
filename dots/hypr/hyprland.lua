@@ -56,6 +56,8 @@ hl.config({
 	input = {
 		kb_layout = "us",
 		numlock_by_default = true,
+		-- Focus only follows clicks, matching niri.
+		follow_mouse = 0,
 	},
 })
 
@@ -471,14 +473,11 @@ hl.bind(mod .. " + SHIFT + minus", resize_percent(0, -0.10), { repeating = true 
 hl.bind(mod .. " + SHIFT + equal", resize_percent(0, 0.10), { repeating = true })
 
 -- === Screenshots ===
--- hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd([[grim ~/Pictures/screenshot.png]]))
-hl.bind(mod .. " + P", hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/screenshot.png]]))
--- hl.bind("XF86Launch1", hl.dsp.exec_cmd("grimblast copy area"))
--- hl.bind("CTRL + XF86Launch1", hl.dsp.exec_cmd("grimblast copy screen"))
--- hl.bind("ALT + XF86Launch1", hl.dsp.exec_cmd("grimblast copy active"))
--- hl.bind(mod .. " + p", hl.dsp.exec_cmd("grimblast copy area"))
--- hl.bind("CTRL + Print", hl.dsp.exec_cmd("grimblast copy screen"))
--- hl.bind("ALT + Print", hl.dsp.exec_cmd("grimblast copy active"))
+-- Flameshot, same as the sway/i3 setup. Its GUI covers region select, full
+-- screen, copy and save (save path lives in ~/.config/flameshot/flameshot.ini).
+hl.bind(mod .. " + P", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind("Print", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind("XF86Launch1", hl.dsp.exec_cmd("flameshot gui"))
 
 -- === System Controls ===
 -- Hyprland's current docs recommend dispatching DPMS from a short timer rather
