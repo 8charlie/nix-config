@@ -39,7 +39,7 @@
     HISTFILE = "$HOME/.local/state/bash/history";
     PYTHON_HISTORY = "$HOME/.local/state/python/history"; # python >= 3.13
     NODE_REPL_HISTORY = "$HOME/.local/state/node/history";
-    };
+  };
 
   # Some tools write the file but not its parent directory. Wget also needs a
   # real config file: WGETRC pointing at a missing file is a fatal error.

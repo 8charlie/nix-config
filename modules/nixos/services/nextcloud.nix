@@ -3,13 +3,12 @@
   pkgs,
   ...
 }: let
-  fqdn = "server.tail824f34.ts.net";
+  fqdn = config.services.nextcloud.hostName;
   port = 8080;
 in {
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud33;
-    hostName = fqdn;
 
     database.createLocally = true;
     configureRedis = true;

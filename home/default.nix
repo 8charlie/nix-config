@@ -1,6 +1,4 @@
 {
-  imports = [./dots.nix ./firefox.nix];
-
   # lets home-manager manage its own paths (man pages, `home-manager` cli)
   programs.home-manager.enable = true;
 

@@ -1,5 +1,5 @@
 {
-  # per-machine bits for the M5 go here (casks, defaults, hardware-ish tweaks)
+  # Shared desktop preferences for Darwin workstations.
   system.defaults.dock = {
     autohide = true;
     show-recents = false;

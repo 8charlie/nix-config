@@ -1,5 +1,6 @@
-{pkgs, ...}:
-{
+{pkgs, ...}: {
+  system.primaryUser = "charlie";
+
   programs.fish.enable = true;
 
   # register the nix fish in /etc/shells so it is a permissible login shell
@@ -11,6 +12,7 @@
   # existing account (501/staff) or activation refuses to touch it.
   users.knownUsers = ["charlie"];
   users.users.charlie = {
+    home = "/Users/charlie";
     uid = 501;
     gid = 20;
     shell = pkgs.fish;

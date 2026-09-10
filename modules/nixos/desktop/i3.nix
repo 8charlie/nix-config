@@ -1,11 +1,6 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   services = {
     xserver = {
-      videoDrivers = ["nvidia"];
       enable = true;
       autoRepeatDelay = 500;
       autoRepeatInterval = 40;
@@ -20,10 +15,10 @@
           ];
         };
       };
-#      displayManager.sessionCommands = ''
-#        feh --bg-scale ~/.dotfiles/wallpaper/powerlines.jpg
-#        xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
-#      '';
+      #      displayManager.sessionCommands = ''
+      #        feh --bg-scale ~/.dotfiles/wallpaper/powerlines.jpg
+      #        xrandr --output DP-2 --primary --mode 1920x1080 --rate 240
+      #      '';
     };
   };
 }

@@ -1,4 +1,6 @@
 {
+  imports = [./dms.nix ./niri.nix];
+
   services = {
     displayManager.ly.enable = false;
     displayManager.dms-greeter = {

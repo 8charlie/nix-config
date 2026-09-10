@@ -1,18 +1,10 @@
 {
   imports = [
-    ../../modules/mac/homebrew.nix
-    ../../modules/mac/packages.nix
-    ../../modules/mac/settings.nix
-    ../../modules/mac/shell.nix
-    ../../modules/computer/neovim.nix
+    ../../profiles/darwin/workstation.nix
   ];
 
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 14d";
-  };
-
-  time.timeZone = "Europe/London";
+  networking.hostName = "m5";
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
   system.stateVersion = 6;
 }

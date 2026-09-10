@@ -2,28 +2,17 @@
   imports = [
     ./graphics.nix
     ./hardware.nix
-
-    ../../modules/computer/audio.nix
-    ../../modules/computer/boot.nix
-    ../../modules/computer/desktop.nix
-    ../../modules/computer/direnv.nix
-    ../../modules/computer/display.nix
-    ../../modules/computer/fonts.nix
-    ../../modules/computer/game.nix
-    ../../modules/computer/gc.nix
-    ../../modules/computer/helium.nix
-    ../../modules/computer/ld.nix
-    ../../modules/computer/man.nix
-    ../../modules/computer/neovim.nix
-    ../../modules/computer/network.nix
-    ../../modules/computer/packages.nix
-    ../../modules/computer/security.nix
-    ../../modules/computer/shell.nix
-    ../../modules/computer/tailscale.nix
-    ../../modules/computer/wayland.nix
-    ../../modules/computer/x11.nix
-    ../../modules/computer/xdg.nix
+    ../../profiles/nixos/workstation.nix
+    ../../modules/nixos/desktop/niri.nix
+    ../../modules/nixos/desktop/hyprland.nix
+    ../../modules/nixos/desktop/i3.nix
+    ../../modules/nixos/desktop/dms-greeter.nix
+    ../../modules/nixos/gaming.nix
+    ../../modules/nixos/programs/helium.nix
   ];
+
+  networking.hostName = "lovelace";
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   programs.helium-browser = {
     enable = true;

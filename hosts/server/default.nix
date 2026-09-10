@@ -1,16 +1,16 @@
 {
   imports = [
     ./hardware.nix
-
-    ../../modules/server/boot.nix
-    ../../modules/server/network.nix
-    ../../modules/server/nextcloud.nix
-    ../../modules/server/packages.nix
-    ../../modules/server/settings.nix
-    ../../modules/server/shell.nix
-    ../../modules/server/tailscale.nix
+    ./power.nix
+    ../../profiles/nixos/server.nix
+    ../../modules/nixos/services/nextcloud.nix
+    ../../modules/nixos/services/tailscale.nix
   ];
 
-  documentation.man.generateCaches = false; # very slow rebuild times if enabled
+  networking.hostName = "server";
+  nixpkgs.hostPlatform = "x86_64-linux";
+
+  services.nextcloud.hostName = "server.tail824f34.ts.net";
+
   system.stateVersion = "25.11";
 }

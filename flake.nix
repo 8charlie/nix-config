@@ -11,8 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      # release branch, not master: master tracks nixpkgs-unstable, which would
-      # put the mac on a different nixpkgs (and home-manager) than everything else
+      # Keep Darwin on the same release as nixpkgs and Home Manager.
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -22,116 +21,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
   outputs = inputs @ {
-    self,
     nixpkgs,
-    nixpkgs-unstable,
-    lanzaboote,
-    dms,
     nix-darwin,
-    nix-homebrew,
-    home-manager,
     ...
   }: let
-    lib = nixpkgs.lib;
-    commonModules = [./modules/common];
-    # home-manager runs as a nixos/nix-darwin module; the user config lives in ./home
-    hmModule = username: {
-      home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        # rename instead of failing activation when a file already exists
-        backupFileExtension = "hm-bak";
-        extraSpecialArgs = {inherit inputs;};
-        users.${username} = import ./home;
+    mkNixos = host:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [host];
       };
-    };
-    mkComputer = {
-      hostname,
-      hostModule,
-    }:
-      lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs lib;};
-        modules =
-          commonModules
-          ++ [
-            ./modules/nixos/locale.nix
-            hostModule
-            {networking.hostName = hostname;}
-            lanzaboote.nixosModules.lanzaboote
-            home-manager.nixosModules.home-manager
-            (hmModule "charlie")
-          ];
-      };
-    mkServer = {
-      hostname,
-      hostModule,
-    }:
-      lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs lib;};
-        modules =
-          commonModules
-          ++ [
-            ./modules/nixos/locale.nix
-            hostModule
-            {networking.hostName = hostname;}
-          ];
-      };
-    mkMac = {
-      username,
-      hostname,
-      hostModule,
-      system ? "aarch64-darwin",
-    }:
+    mkDarwin = host:
       nix-darwin.lib.darwinSystem {
-        specialArgs = {inherit inputs lib;};
-        modules =
-          commonModules
-          ++ [
-            hostModule
-            {
-              networking.hostName = hostname;
-              nixpkgs.hostPlatform = system;
-              # required by nix-darwin for anything user-scoped (homebrew, defaults)
-              system.primaryUser = username;
-              users.users.${username}.home = "/Users/${username}";
-            }
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                user = username;
-                # M-series: leave false unless you specifically need x86-only casks under Rosetta
-                enableRosetta = false;
-              };
-            }
-            home-manager.darwinModules.home-manager
-            (hmModule username)
-          ];
+        specialArgs = {inherit inputs;};
+        modules = [host];
       };
   in {
     nixosConfigurations = {
-      lovelace = mkComputer {
-        hostname = "lovelace";
-        hostModule = ./hosts/lovelace;
-      };
-      pascal = mkComputer {
-        hostname = "pascal";
-        hostModule = ./hosts/pascal;
-      };
-      server = mkServer {
-        hostname = "server";
-        hostModule = ./hosts/server;
-      };
+      lovelace = mkNixos ./hosts/lovelace;
+      pascal = mkNixos ./hosts/pascal;
+      server = mkNixos ./hosts/server;
     };
-    darwinConfigurations = {
-      m5 = mkMac {
-        username = "charlie";
-        hostname = "m5";
-        hostModule = ./hosts/m5;
-      };
-    };
+    darwinConfigurations.m5 = mkDarwin ./hosts/m5;
   };
 }
