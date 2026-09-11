@@ -128,32 +128,20 @@ hl.config({
 	master = {
 		mfact = 0.5,
 	},
-	hl.config({
-		scrolling = {
-			column_width = 0.5,
-			follow_focus = true,
-
-			-- 0 = center focused column
-			-- 1 = only scroll enough to fit it onscreen
-			focus_fit_method = 1,
-
-			-- Minimum visible fraction before focus causes scrolling.
-			follow_min_visible = 0.4,
-
-			-- Widths usable with "colresize +conf/-conf".
-			explicit_column_widths = "0.333, 0.5, 0.667, 1.0",
-
-			-- Wrap at the beginning/end of the tape.
-			wrap_focus = true,
-			--wrap_swapcol = true,
-
-			-- Horizontal niri/PaperWM-style scrolling.
-			direction = "right",
-
-			-- A workspace containing only one column fills the display.
-			fullscreen_on_one_column = true,
-		},
-	})
+	scrolling = {
+		column_width = 0.49,
+		follow_focus = true,
+		-- Match niri's center-focused-column "never".
+		focus_fit_method = 1,
+		follow_min_visible = 0.4,
+		explicit_column_widths = "0.33333, 0.5, 0.66667",
+		-- Stop at the ends, like niri's column navigation/movement.
+		wrap_focus = false,
+		wrap_swapcol = false,
+		direction = "right",
+		-- Keep the configured width even when this is the only column.
+		fullscreen_on_one_column = false,
+	},
 })
 
 -- ==================
@@ -164,12 +152,19 @@ hl.config({
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
 		vrr = 0, -- VRR causes flickering on the GTX 1080 / AW2518H.
+		render_unfocused_fps = 60,
 	},
 })
 
 -- ==================
 -- WINDOW RULES
 -- ==================
+-- Match niri's full-width browser/video columns.
+hl.window_rule({
+	match = { class = [[^(firefox|freetube)$]] },
+	scrolling_width = 1.0,
+})
+
 hl.window_rule({
 	match = { class = [[^(org\.wezfurlong\.wezterm)$]] },
 	tile = true,
@@ -264,6 +259,14 @@ hl.window_rule({
 	opacity = "0.9 0.9",
 })
 
+hl.window_rule({
+	match = {
+		-- Steam uses its app ID as the XWayland class, not the executable name.
+		class = [[^(steam_app_1245620|eldenring\.exe)$]],
+	},
+	render_unfocused = true,
+})
+
 -- hl.layer_rule({
 --     match = { namespace = [[^(quickshell)$]] },
 --     no_anim = true,
@@ -329,24 +332,40 @@ hl.bind(mod .. " + SHIFT + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + W", hl.dsp.group.toggle())
 
 -- === Focus Navigation ===
-hl.bind(mod .. " + left", hl.dsp.focus({ direction = "left" }))
+-- Layout commands operate on tiled columns; retain directional movement for floats.
+local function column_action(message, floating_action)
+	return function()
+		local window = hl.get_active_window()
+		if not window then
+			return
+		end
+		hl.dispatch(window.floating and floating_action or hl.dsp.layout(message))
+	end
+end
+
+local focus_column_left = column_action("focus l", hl.dsp.focus({ direction = "left" }))
+local focus_column_right = column_action("focus r", hl.dsp.focus({ direction = "right" }))
+hl.bind(mod .. " + left", focus_column_left)
 hl.bind(mod .. " + down", hl.dsp.focus({ direction = "down" }))
 hl.bind(mod .. " + up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mod .. " + H", hl.dsp.focus({ direction = "left" }))
+hl.bind(mod .. " + right", focus_column_right)
+hl.bind(mod .. " + H", focus_column_left)
 hl.bind(mod .. " + J", hl.dsp.focus({ direction = "down" }))
 hl.bind(mod .. " + K", hl.dsp.focus({ direction = "up" }))
-hl.bind(mod .. " + L", hl.dsp.focus({ direction = "right" }))
+hl.bind(mod .. " + L", focus_column_right)
 
 -- === Window Movement ===
-hl.bind(mod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
+-- Move whole columns horizontally. window.move would stack into the neighbor.
+local move_column_left = column_action("swapcol l", hl.dsp.window.move({ direction = "left" }))
+local move_column_right = column_action("swapcol r", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mod .. " + SHIFT + left", move_column_left)
 hl.bind(mod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mod .. " + SHIFT + right", move_column_right)
+hl.bind(mod .. " + SHIFT + H", move_column_left)
 hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mod .. " + SHIFT + L", move_column_right)
 
 -- === Column Navigation ===
 -- NOTE: In the old dispatcher, `focuswindow first` / `focuswindow last`
@@ -406,11 +425,13 @@ for i = 1, 9 do
 end
 
 -- === Column Management ===
-hl.bind(mod .. " + bracketleft", hl.dsp.layout("preselect l"))
-hl.bind(mod .. " + bracketright", hl.dsp.layout("preselect r"))
+-- Explicitly join a neighbor, or detach the focused window if already stacked.
+hl.bind(mod .. " + bracketleft", hl.dsp.layout("consume_or_expel prev"))
+hl.bind(mod .. " + bracketright", hl.dsp.layout("consume_or_expel next"))
 
 -- === Sizing & Layout ===
-hl.bind(mod .. " + R", hl.dsp.layout("togglesplit"))
+hl.bind(mod .. " + R", hl.dsp.layout("colresize +conf"))
+hl.bind(mod .. " + S", hl.dsp.layout("colresize 0.5"))
 
 -- The source used: resizeactive, exact 100%
 -- Current Lua resize expects explicit numeric x/y sizes, so interpret that as
@@ -429,7 +450,8 @@ local function resize_to_monitor()
 	}))
 end
 
-hl.bind(mod .. " + CTRL + F", resize_to_monitor)
+-- Hyprland 0.55.4 lacks niri's expand-to-available-width; fill the column instead.
+hl.bind(mod .. " + CTRL + F", column_action("fit active", resize_to_monitor))
 
 -- === Move/resize windows with mainMod + LMB/RMB and dragging ===
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), {
@@ -439,14 +461,6 @@ hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), {
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), {
 	mouse = true,
 	description = "Resize window",
-})
-
--- === Resize by keycode ===
-hl.bind(mod .. " + code:20", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), {
-	description = "Expand window left",
-})
-hl.bind(mod .. " + code:21", hl.dsp.window.resize({ x = 100, y = 0, relative = true }), {
-	description = "Shrink window left",
 })
 
 -- === Manual Sizing ===
@@ -467,8 +481,10 @@ local function resize_percent(x_fraction, y_fraction)
 	end
 end
 
-hl.bind(mod .. " + minus", resize_percent(-0.10, 0), { repeating = true })
-hl.bind(mod .. " + equal", resize_percent(0.10, 0), { repeating = true })
+-- Change tiled widths by 10% of the usable display, matching niri.
+-- Do not also bind keycodes 20/21: on the US layout these are the same keys.
+hl.bind(mod .. " + minus", column_action("colresize -0.1", resize_percent(-0.10, 0)), { repeating = true })
+hl.bind(mod .. " + equal", column_action("colresize +0.1", resize_percent(0.10, 0)), { repeating = true })
 hl.bind(mod .. " + SHIFT + minus", resize_percent(0, -0.10), { repeating = true })
 hl.bind(mod .. " + SHIFT + equal", resize_percent(0, 0.10), { repeating = true })
 
