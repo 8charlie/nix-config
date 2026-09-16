@@ -59,6 +59,10 @@ hl.config({
 		-- Focus only follows clicks, matching niri.
 		follow_mouse = 0,
 	},
+	cursor = {
+		-- Keep the pointer in place when changing focused windows.
+		no_warps = true,
+	},
 })
 
 -- ==================
