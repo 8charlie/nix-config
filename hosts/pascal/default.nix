@@ -2,6 +2,7 @@
   imports = [
     ./graphics.nix
     ./hardware.nix
+    ./swap.nix
     ../../profiles/nixos/workstation.nix
     ../../modules/nixos/desktop/niri.nix
     ../../modules/nixos/desktop/hyprland.nix
