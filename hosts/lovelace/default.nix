@@ -8,16 +8,11 @@
     ../../modules/nixos/desktop/i3.nix
     ../../modules/nixos/desktop/dms-greeter.nix
     ../../modules/nixos/gaming.nix
-    ../../modules/nixos/programs/helium.nix
   ];
 
   networking.hostName = "lovelace";
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  programs.helium-browser = {
-    enable = true;
-    makeDefault = true;
-  };
   systemd.services.NetworkManager-wait-online.enable = false;
 
   system.stateVersion = "25.11";

@@ -21,7 +21,6 @@
       "firefox"
       "raycast"
       "spotify"
-      "helium-browser"
       "sioyek"
     ];
   };
