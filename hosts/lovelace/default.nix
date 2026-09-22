@@ -1,5 +1,6 @@
 {
   imports = [
+    ./cpu.nix
     ./graphics.nix
     ./hardware.nix
     ../../profiles/nixos/workstation.nix

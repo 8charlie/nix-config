@@ -20,10 +20,6 @@
     # c
     clang-tools
 
-    # haskell
-    haskell-language-server
-    ormolu
-
     # lua
     lua-language-server
 
