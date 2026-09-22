@@ -8,5 +8,11 @@
     enable = true;
   };
   programs.gamemode.enable = true;
-  environment.systemPackages = with pkgs; [mangohud winetricks];
+  environment.systemPackages = with pkgs; [
+    mangohud
+    winetricks
+    # for bloodborne
+    shadps4
+    shadps4-qtlauncher
+  ];
 }

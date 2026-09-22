@@ -263,10 +263,13 @@ hl.window_rule({
 	opacity = "0.9 0.9",
 })
 
+-- Hidden windows get no frame callbacks, so XWayland games fall back to ~1 fps
+-- when their workspace is off-screen. Keep games rendering at render_unfocused_fps.
 hl.window_rule({
 	match = {
-		-- Steam uses its app ID as the XWayland class, not the executable name.
-		class = [[^(steam_app_1245620|eldenring\.exe)$]],
+		-- Steam/Proton: steam_app_<id>. Other Wine launchers: the .exe name.
+		-- shadPS4 sets no app ID, so match it loosely.
+		class = [[(?i)^(steam_app_\d+|.*\.exe|.*shadps4.*|gamescope)$]],
 	},
 	render_unfocused = true,
 })
