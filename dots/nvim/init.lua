@@ -38,6 +38,16 @@ vim.diagnostic.config({
 	},
 })
 
+vim.lsp.config("basedpyright", {
+	settings = {
+		basedpyright = {
+			analysis = {
+				typeCheckingMode = "standard", -- default "recommended" is too strict
+			},
+		},
+	},
+})
+
 vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rust_analyzer", "hls", "basedpyright" })
 
 -- keybinds
