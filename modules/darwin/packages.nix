@@ -6,6 +6,7 @@
     ghostty-bin
     gnumake
     mpv
+    tmux
     vesktop
     vscode
     uv

@@ -42,8 +42,8 @@
 
   system.defaults.menuExtraClock.Show24Hour = true;
   system.defaults.screencapture.location = "~/Downloads";
-  system.defaults.trackpad.Clicking = true;
-  system.defaults.trackpad.TrackpadThreeFingerDrag = true;
+  #system.defaults.trackpad.Clicking = true;
+  #system.defaults.trackpad.TrackpadThreeFingerDrag = true;
 
   # ================== UNSHITTIFY (from ncc's darwin-unshittify) ==================
   system.defaults.loginwindow.GuestEnabled = false;
