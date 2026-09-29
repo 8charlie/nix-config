@@ -36,6 +36,7 @@
       "text/html" = "firefox.desktop";
       "video/mp4" = "mpv.desktop";
       "video/webm" = "mpv.desktop";
+      "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
     };

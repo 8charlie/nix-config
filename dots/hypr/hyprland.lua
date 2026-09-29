@@ -13,18 +13,25 @@ hl.monitor({
 })
 
 hl.monitor({
+	output = "DP-1",
+	mode = "2560x1440@269",
+	position = "auto",
+	scale = "auto",
+})
+
+hl.monitor({
 	output = "DP-2",
 	mode = "1920x1080@240",
 	position = "auto",
 	scale = "auto",
 })
 
-hl.monitor({
-	output = "DP-1",
-	mode = "1920x1080@240",
-	position = "auto",
-	scale = "auto",
-})
+-- hl.monitor({
+-- 	output = "DP-1",
+-- 	mode = "1920x1080@240",
+-- 	position = "auto",
+-- 	scale = "auto",
+-- })
 
 -- ==================
 -- ENVIRONMENT VARS
