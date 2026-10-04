@@ -41,7 +41,6 @@
     nixosConfigurations = {
       lovelace = mkNixos ./hosts/lovelace;
       pascal = mkNixos ./hosts/pascal;
-      server = mkNixos ./hosts/server;
     };
     darwinConfigurations.m5 = mkDarwin ./hosts/m5;
   };
