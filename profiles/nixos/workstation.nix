@@ -7,6 +7,7 @@
     ../../modules/nixos/desktop/audio.nix
     ../../modules/nixos/desktop/defaults.nix
     ../../modules/nixos/desktop/fonts.nix
+    ../../modules/nixos/desktop/mpd.nix
     ../../modules/nixos/desktop/packages.nix
     ../../modules/nixos/direnv.nix
     ../../modules/nixos/gc.nix

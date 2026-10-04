@@ -37,6 +37,7 @@
     mpv
     nautilus
     #nextcloud-client
+    nicotine-plus
     nix-search-cli
     nodejs
     (p7zip.override {enableUnfree = true;})
