@@ -5,6 +5,7 @@
     ../../modules/nixos/home-manager.nix
     ../../modules/nixos/boot/quiet.nix
     ../../modules/nixos/desktop/audio.nix
+    ../../modules/nixos/desktop/beets.nix
     ../../modules/nixos/desktop/defaults.nix
     ../../modules/nixos/desktop/fonts.nix
     ../../modules/nixos/desktop/mpd.nix
