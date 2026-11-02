@@ -31,6 +31,7 @@
     NSAutomaticSpellingCorrectionEnabled = false;
     NSDocumentSaveNewDocumentsToCloud = false;
     AppleShowScrollBars = "WhenScrolling";
+    NSAutomaticWindowAnimationsEnabled = false; # windows appear without the zoom-in
   };
   system.defaults.finder = {
     AppleShowAllExtensions = true;
@@ -44,6 +45,12 @@
   system.defaults.screencapture.location = "~/Downloads";
   #system.defaults.trackpad.Clicking = true;
   #system.defaults.trackpad.TrackpadThreeFingerDrag = true;
+
+  # hammerspoon reads ~/.hammerspoon unless told otherwise; point it at
+  # ~/.config/hammerspoon so its config is linked like the rest of dots/
+  system.defaults.CustomUserPreferences."org.hammerspoon.Hammerspoon" = {
+    MJConfigFile = "~/.config/hammerspoon/init.lua";
+  };
 
   # ================== UNSHITTIFY (from ncc's darwin-unshittify) ==================
   system.defaults.loginwindow.GuestEnabled = false;

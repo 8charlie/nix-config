@@ -19,6 +19,7 @@
       #      "aerospace"
       "battery"
       "firefox"
+      "hammerspoon"
       "raycast"
       "spotify"
       "sioyek"

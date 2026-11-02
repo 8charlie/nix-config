@@ -20,6 +20,14 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    paperwm-spoon = {
+      url = "github:mogenson/PaperWM.spoon";
+      flake = false;
+    };
+    instant-space-switcher = {
+      url = "github:jurplel/InstantSpaceSwitcher";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

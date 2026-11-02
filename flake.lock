@@ -124,6 +124,22 @@
         "type": "github"
       }
     },
+    "instant-space-switcher": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791225071,
+        "narHash": "sha256-QU5Zwfh6SXHVNURnsTxoPtLW792N+3YvfkydyOHWzjY=",
+        "owner": "jurplel",
+        "repo": "InstantSpaceSwitcher",
+        "rev": "f7616e42651b1ed8d81625e3640eceed6efa8018",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jurplel",
+        "repo": "InstantSpaceSwitcher",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -218,6 +234,22 @@
         "type": "github"
       }
     },
+    "paperwm-spoon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790274003,
+        "narHash": "sha256-qFnVrl+UwB5Gu7M6kFVZ3d2haL1m49/jTYD1eaMoPZw=",
+        "owner": "mogenson",
+        "repo": "PaperWM.spoon",
+        "rev": "82f5dde20d40cf1bdef18ab92b2b847f16f368a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mogenson",
+        "repo": "PaperWM.spoon",
+        "type": "github"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -244,11 +276,13 @@
       "inputs": {
         "dms": "dms",
         "home-manager": "home-manager",
+        "instant-space-switcher": "instant-space-switcher",
         "lanzaboote": "lanzaboote",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "paperwm-spoon": "paperwm-spoon"
       }
     },
     "rust-overlay": {

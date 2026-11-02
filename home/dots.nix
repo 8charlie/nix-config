@@ -8,7 +8,7 @@
 
   # dirs that only make sense on one platform; everything else is linked on both
   linuxOnly = ["DankMaterialShell" "hypr" "i3" "niri" "sway"];
-  darwinOnly = ["aerospace"];
+  darwinOnly = ["aerospace" "hammerspoon"];
   excluded =
     if pkgs.stdenv.isDarwin
     then linuxOnly

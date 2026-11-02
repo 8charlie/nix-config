@@ -1,4 +1,8 @@
-abbr -a nrs 'sudo nixos-rebuild switch --flake ~/.dotfiles'
+if test (uname) = Darwin
+    abbr -a nrs 'sudo darwin-rebuild switch --flake ~/.dotfiles'
+else
+    abbr -a nrs 'sudo nixos-rebuild switch --flake ~/.dotfiles'
+end
 
 fish_vi_key_bindings
 
