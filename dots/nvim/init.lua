@@ -48,7 +48,7 @@ vim.lsp.config("basedpyright", {
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rust_analyzer", "hls", "basedpyright" })
+vim.lsp.enable({ "lua_ls", "clangd", "nil_ls", "rust_analyzer", "hls", "basedpyright", "texlab" })
 
 -- keybinds
 local key = vim.keymap.set

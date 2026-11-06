@@ -9,6 +9,7 @@
     ../../modules/nixos/desktop/i3.nix
     ../../modules/nixos/desktop/dms-greeter.nix
     ../../modules/nixos/gaming.nix
+    ../../modules/common/latex.nix
   ];
 
   networking.hostName = "pascal";

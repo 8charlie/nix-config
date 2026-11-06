@@ -11,6 +11,11 @@ return {
 			python = { "ruff_format" },
 			nix = { "alejandra" },
 			rust = { "rustfmt" },
+			tex = { "latexindent" },
+		},
+		formatters = {
+			-- otherwise latexindent leaves an indent.log in the working directory
+			latexindent = { prepend_args = { "-g", "/dev/null" } },
 		},
 	},
 }

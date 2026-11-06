@@ -17,6 +17,11 @@ return {
 					if not lang or not require("nvim-treesitter.parsers")[lang] then
 						return
 					end
+					-- vimtex relies on its own syntax highlighting to detect math
+					-- zones, so treesitter must stay off for LaTeX
+					if lang == "latex" then
+						return
+					end
 
 					-- Install missing parsers without blocking the editor, then attach.
 					treesitter.install({ lang }):await(function()
