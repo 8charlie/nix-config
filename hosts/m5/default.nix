@@ -1,6 +1,7 @@
 {
   imports = [
     ../../profiles/darwin/workstation.nix
+    ../../modules/common/latex.nix
   ];
 
   networking.hostName = "m5";
