@@ -12,7 +12,7 @@
       configHome = "/home/charlie";
       # Custom config files for non-standard config locations
       configFiles = [
-        "/home/charlie/.config/DankMaterialShell/settings.json"
+        "/home/charlie/.config/dms/settings.json"
       ];
       # Save the logs to a file
       logs = {
