@@ -1,6 +1,7 @@
 {
   imports = [
     ../../modules/common
+    ../../modules/common/doom-emacs.nix
     ../../modules/common/neovim.nix
     ../../modules/darwin/defaults.nix
     ../../modules/darwin/homebrew.nix

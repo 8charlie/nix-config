@@ -33,6 +33,7 @@
     cargo
     chromium
     clang-tools
+    discord
     dnsutils
     efibootmgr
     fd

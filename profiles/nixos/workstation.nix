@@ -1,6 +1,7 @@
 {
   imports = [
     ./base.nix
+    ../../modules/common/doom-emacs.nix
     ../../modules/common/neovim.nix
     ../../modules/nixos/home-manager.nix
     ../../modules/nixos/boot/quiet.nix
