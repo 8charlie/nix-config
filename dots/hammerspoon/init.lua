@@ -1,4 +1,3 @@
-require("hs.ipc") -- TEMP for testing
 -- PaperWM.spoon is pinned in flake.lock and linked into ~/.local/share by
 -- home/hammerspoon.nix, so tell hs.loadSpoon where to look for it
 package.path = os.getenv("HOME") .. "/.local/share/hammerspoon/Spoons/?.spoon/init.lua;" .. package.path
@@ -184,7 +183,6 @@ end
 -- globals, so the menu bar item and watchers aren't garbage collected
 WindowStrip = { menubar = hs.menubar.new(true, "paperwm-window-strip") }
 WindowStrip.menubar:setMenu(strip_menu)
-WindowStrip.menu = strip_menu -- TEMP
 WindowStrip.update = hs.timer.delayed.new(0.05, function() WindowStrip.menubar:setTitle(strip_title()) end)
 
 -- every PaperWM change to a Space (open, close, swap, slurp, move to another
