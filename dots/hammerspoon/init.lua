@@ -1,3 +1,4 @@
+require("hs.ipc") -- TEMP for testing
 -- PaperWM.spoon is pinned in flake.lock and linked into ~/.local/share by
 -- home/hammerspoon.nix, so tell hs.loadSpoon where to look for it
 package.path = os.getenv("HOME") .. "/.local/share/hammerspoon/Spoons/?.spoon/init.lua;" .. package.path
@@ -89,3 +90,114 @@ hs.hotkey.bind(mod, "s", function()
 end)
 
 PaperWM:start()
+
+-- a menu bar strip naming the current Space's windows, the way a bar's
+-- workspace widget would on niri: "2 │ Ghostty · [Firefox] · Emacs/Code".
+-- columns read left to right, "/" joins a column's rows, the focused window
+-- is in brackets and floating ones in parens. click it to pick a window
+local max_name = 12 -- characters of an app name the strip shows
+local max_strip = 60 -- longer than this and it names only the focused window
+local max_menu = 70 -- characters of a window title the menu shows
+
+local function shorten(text, limit)
+	if (utf8.len(text) or #text) <= limit then return text end
+	return text:sub(1, (utf8.offset(text, limit) or limit + 1) - 1) .. "…"
+end
+
+local function app_name(window)
+	local app = window:application()
+	return app and app:name() or "?"
+end
+
+-- the focused Space's windows: tiled ones column by column, then floating ones
+local function space_windows()
+	local space = hs.spaces.focusedSpace()
+	local columns, floating = {}, {}
+	for _, rows in ipairs(PaperWM.state.windowList(space)) do
+		local column = {}
+		for _, window in ipairs(rows) do table.insert(column, window) end
+		table.insert(columns, column)
+	end
+	for id in pairs(PaperWM.state.is_floating) do
+		local window = hs.window.get(id)
+		if window and window:isVisible() and hs.fnutils.contains(hs.spaces.windowSpaces(window) or {}, space) then
+			table.insert(floating, window)
+		end
+	end
+	return space, columns, floating
+end
+
+local function is_focused(window)
+	local focused = hs.window.focusedWindow()
+	return focused ~= nil and focused:id() == window:id()
+end
+
+local function strip_title()
+	local space, columns, floating = space_windows()
+	local number
+	for _, spaces in pairs(hs.spaces.allSpaces() or {}) do
+		number = number or hs.fnutils.indexOf(spaces, space)
+	end
+
+	local parts, count, focused_at, focused_name = {}, 0, nil, nil
+	local function label(window)
+		count = count + 1
+		local name = shorten(app_name(window), max_name)
+		if not is_focused(window) then return name end
+		focused_at, focused_name = count, name
+		return "[" .. name .. "]"
+	end
+	for _, column in ipairs(columns) do
+		table.insert(parts, table.concat(hs.fnutils.imap(column, label), "/"))
+	end
+	for _, window in ipairs(floating) do table.insert(parts, "(" .. label(window) .. ")") end
+
+	local windows = count == 0 and "–" or table.concat(parts, " · ")
+	if (utf8.len(windows) or #windows) > max_strip then
+		windows = focused_at and string.format("%s (%d/%d)", focused_name, focused_at, count)
+			or string.format("%d windows", count)
+	end
+	return number and (number .. " │ " .. windows) or windows
+end
+
+local function strip_menu()
+	local _, columns, floating = space_windows()
+	local items = {}
+	local function add(window, indent)
+		local title = window:title()
+		table.insert(items, {
+			title = app_name(window) .. (title ~= "" and " — " .. shorten(title, max_menu) or ""),
+			checked = is_focused(window),
+			indent = indent,
+			fn = function() window:focus() end, -- PaperWM scrolls it into view
+		})
+	end
+	for _, column in ipairs(columns) do
+		for row, window in ipairs(column) do add(window, row > 1 and 1 or 0) end
+	end
+	if #floating > 0 and #items > 0 then table.insert(items, { title = "-" }) end
+	for _, window in ipairs(floating) do add(window, 0) end
+	if #items == 0 then items = { { title = "no windows", disabled = true } } end
+	return items
+end
+
+-- globals, so the menu bar item and watchers aren't garbage collected
+WindowStrip = { menubar = hs.menubar.new(true, "paperwm-window-strip") }
+WindowStrip.menubar:setMenu(strip_menu)
+WindowStrip.menu = strip_menu -- TEMP
+WindowStrip.update = hs.timer.delayed.new(0.05, function() WindowStrip.menubar:setTitle(strip_title()) end)
+
+-- every PaperWM change to a Space (open, close, swap, slurp, move to another
+-- Space) ends in a retile, so redraw after each; focus and Space switches
+-- can happen without one
+local tile_space = PaperWM.tiling.tileSpace
+PaperWM.tiling.tileSpace = function(...)
+	tile_space(...)
+	WindowStrip.update:start()
+end
+PaperWM.window_filter:subscribe(
+	{ hs.window.filter.windowFocused, hs.window.filter.windowDestroyed },
+	function() WindowStrip.update:start() end
+)
+WindowStrip.space_watcher = hs.spaces.watcher.new(function() WindowStrip.update:start() end):start()
+WindowStrip.update:start()
