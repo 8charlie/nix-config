@@ -90,13 +90,17 @@ end)
 
 PaperWM:start()
 
--- a menu bar strip naming the current Space's windows, the way a bar's
--- workspace widget would on niri: "2 │ Ghostty · [Firefox] · Emacs/Code".
--- columns read left to right, "/" joins a column's rows, the focused window
--- is in brackets and floating ones in parens. click it to pick a window
-local max_name = 12 -- characters of an app name the strip shows
-local max_strip = 60 -- longer than this and it names only the focused window
+-- a menu bar strip showing the current Space's windows, the way a bar's
+-- workspace widget would on niri: the Space number in an accent-coloured
+-- pill, then an app icon per window, columns left to right with a column's
+-- rows packed together and floating windows last. the focused window is
+-- underlined and the rest dimmed. hover it for names, click to pick a window
+local icon_size = 20 -- points; app icons carry about 2pt of clear margin
+local icon_step = 18 -- advance per window, eating into that margin
+local column_gap = 4 -- extra space between columns
+local dim = 0.55 -- opacity of the windows that aren't focused
 local max_menu = 70 -- characters of a window title the menu shows
+local accent = { list = "System", name = "controlAccentColor" }
 
 local function shorten(text, limit)
 	if (utf8.len(text) or #text) <= limit then return text end
@@ -131,32 +135,83 @@ local function is_focused(window)
 	return focused ~= nil and focused:id() == window:id()
 end
 
-local function strip_title()
-	local space, columns, floating = space_windows()
-	local number
+-- Mission Control's number for a Space, as alt+<n> counts them
+local function space_number(space)
 	for _, spaces in pairs(hs.spaces.allSpaces() or {}) do
-		number = number or hs.fnutils.indexOf(spaces, space)
+		local index = hs.fnutils.indexOf(spaces, space)
+		if index then return index end
 	end
+end
 
-	local parts, count, focused_at, focused_name = {}, 0, nil, nil
+-- the icon macOS shows for the app, in whatever style (tinted, dark) is set
+local icons = {} -- by bundle id, looked up once each
+local generic_icon = hs.image.iconForFileType("com.apple.application-bundle")
+local function app_icon(window)
+	local app = window:application()
+	local id = app and app:bundleID()
+	if id and icons[id] == nil then icons[id] = hs.image.imageFromAppBundle(id) or false end
+	return id and icons[id] or generic_icon
+end
+
+-- the strip in words, for its tooltip: "Ghostty · [Firefox] · Emacs/Code"
+local function strip_text(columns, floating)
 	local function label(window)
-		count = count + 1
-		local name = shorten(app_name(window), max_name)
-		if not is_focused(window) then return name end
-		focused_at, focused_name = count, name
-		return "[" .. name .. "]"
+		local name = app_name(window)
+		return is_focused(window) and "[" .. name .. "]" or name
 	end
+	local parts = {}
 	for _, column in ipairs(columns) do
 		table.insert(parts, table.concat(hs.fnutils.imap(column, label), "/"))
 	end
 	for _, window in ipairs(floating) do table.insert(parts, "(" .. label(window) .. ")") end
+	return #parts > 0 and table.concat(parts, " · ") or "no windows"
+end
 
-	local windows = count == 0 and "–" or table.concat(parts, " · ")
-	if (utf8.len(windows) or #windows) > max_strip then
-		windows = focused_at and string.format("%s (%d/%d)", focused_name, focused_at, count)
-			or string.format("%d windows", count)
+local function strip_image(number, columns, floating)
+	local elements, x = {}, 0
+	if number then
+		local width = number < 10 and 16 or 22
+		table.insert(elements, {
+			type = "rectangle", action = "fill", fillColor = accent,
+			roundedRectRadii = { xRadius = 5, yRadius = 5 },
+			frame = { x = 0, y = 2, w = width, h = 16 },
+		})
+		table.insert(elements, {
+			type = "text", text = tostring(number), textFont = ".AppleSystemUIFontBold", textSize = 11,
+			textColor = { white = 1 }, textAlignment = "center",
+			frame = { x = 0, y = 3.5, w = width, h = 14 },
+		})
+		x = width + 4
 	end
-	return number and (number .. " │ " .. windows) or windows
+
+	local function draw(window)
+		local focused = is_focused(window)
+		table.insert(elements, {
+			type = "image", image = app_icon(window), imageAlpha = focused and 1 or dim,
+			imageScaling = "scaleProportionally",
+			frame = { x = x - (icon_size - icon_step) / 2, y = 0, w = icon_size, h = icon_size },
+		})
+		if focused then
+			table.insert(elements, {
+				type = "rectangle", action = "fill", fillColor = accent,
+				roundedRectRadii = { xRadius = 1, yRadius = 1 },
+				frame = { x = x + 3, y = icon_size, w = icon_step - 6, h = 2 },
+			})
+		end
+		x = x + icon_step
+	end
+	for i, column in ipairs(columns) do
+		if i > 1 then x = x + column_gap end
+		hs.fnutils.each(column, draw)
+	end
+	if #floating > 0 and #columns > 0 then x = x + column_gap * 2 end
+	hs.fnutils.each(floating, draw)
+
+	local canvas = hs.canvas.new({ x = 0, y = 0, w = math.max(x, 1), h = icon_size + 2 })
+	canvas:appendElements(elements)
+	local image = canvas:imageFromCanvas()
+	canvas:delete()
+	return image
 end
 
 local function strip_menu()
@@ -166,6 +221,7 @@ local function strip_menu()
 		local title = window:title()
 		table.insert(items, {
 			title = app_name(window) .. (title ~= "" and " — " .. shorten(title, max_menu) or ""),
+			image = app_icon(window):setSize({ w = 16, h = 16 }),
 			checked = is_focused(window),
 			indent = indent,
 			fn = function() window:focus() end, -- PaperWM scrolls it into view
@@ -183,7 +239,11 @@ end
 -- globals, so the menu bar item and watchers aren't garbage collected
 WindowStrip = { menubar = hs.menubar.new(true, "paperwm-window-strip") }
 WindowStrip.menubar:setMenu(strip_menu)
-WindowStrip.update = hs.timer.delayed.new(0.05, function() WindowStrip.menubar:setTitle(strip_title()) end)
+WindowStrip.update = hs.timer.delayed.new(0.05, function()
+	local space, columns, floating = space_windows()
+	WindowStrip.menubar:setIcon(strip_image(space_number(space), columns, floating), false)
+	WindowStrip.menubar:setTooltip(strip_text(columns, floating))
+end)
 
 -- every PaperWM change to a Space (open, close, swap, slurp, move to another
 -- Space) ends in a retile, so redraw after each; focus and Space switches

@@ -12,6 +12,12 @@
 
 (setq org-directory "~/org/")
 
+;; fish isn't POSIX, which trips up Emacs utilities that run shell commands
+;; (diff-hl, TRAMP, ...), so run those through bash; terminals still get fish
+(setq shell-file-name (executable-find "bash"))
+(setq-default vterm-shell (executable-find "fish")
+              explicit-shell-file-name (executable-find "fish"))
+
 ;; British English spell checking in text modes (markdown, latex, org, ...), as
 ;; in the neovim ftplugins. `z=' corrects, `zg' adds a word, `]s' / `[s' jump.
 (setq ispell-dictionary "en_GB")
