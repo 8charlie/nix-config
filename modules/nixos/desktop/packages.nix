@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     alsa-utils
@@ -40,7 +44,11 @@
     feh
     ffmpeg
     flameshot
-    freetube
+    # YouTube keeps changing its SABR streaming protocol, and FreeTube ships
+    # hotfixes for it often (0.25.2, 0.25.3 and 0.26.0 were all SABR fixes).
+    # nixos-26.05 lags behind and leaves the player stuck reloading on
+    # "SABR request" errors, so take FreeTube from nixos-unstable instead.
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.freetube
     fuse
     fzf
     gcc

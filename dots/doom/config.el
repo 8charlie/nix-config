@@ -6,7 +6,7 @@
 ;; same font as ghostty; installed by modules/common/doom-emacs.nix
 (setq doom-font (font-spec :family "BlexMono Nerd Font" :size 11.0))
 
-(setq doom-theme 'doom-tokyo-night
+(setq doom-theme 'doom-one
       ;; relative line numbers, as in neovim
       display-line-numbers-type 'relative)
 
