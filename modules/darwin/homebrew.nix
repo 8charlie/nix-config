@@ -13,12 +13,15 @@
 
   homebrew = {
     enable = true;
+    # removes any formula/cask not listed here, so this list is the whole truth
+    # ("zap" would also delete their app data)
+    onActivation.cleanup = "uninstall";
     brews = [
     ];
     casks = [
       #      "aerospace"
       "battery"
-      "firefox"
+      # no firefox cask: home/firefox.nix installs it, with the policies applied
       "hammerspoon"
       "raycast"
       "spotify"
