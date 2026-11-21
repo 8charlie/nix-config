@@ -108,7 +108,7 @@ spawn-at-startup "dms" "run"
 spawn-at-startup "bash" "-c" "exec \"$BROWSER\""
 spawn-at-startup "spotify"
 spawn-at-startup "freetube"
-spawn-at-startup "ghostty" "-e" "tmux"
+spawn-at-startup "emacs"
 
 environment {
   XDG_CURRENT_DESKTOP "niri"
@@ -162,7 +162,7 @@ window-rule {
 	open-on-workspace "one"
 }
 window-rule {
-	match at-startup=true app-id=r#"^com.mitchellh.ghostty$"#
+	match at-startup=true app-id=r#"^emacs$"#
 	open-on-workspace "two"
 }
 

@@ -30,8 +30,8 @@ exec --no-startup-id spotify
 assign [class="Spotify"] → workspace "1"
 exec --no-startup-id freetube
 assign [class="freetube"] → workspace "1"
-exec --no-startup-id ghostty -e tmux
-assign [class="com.mitchellh.ghostty"] → workspace "2"
+exec --no-startup-id emacs
+assign [class="Emacs"] → workspace "2"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status

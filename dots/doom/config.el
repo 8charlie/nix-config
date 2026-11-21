@@ -28,6 +28,51 @@
 
 
 ;;
+;;; References
+
+;; Zotero (with Better BibTeX) keeps this file up to date via an auto-export of
+;; the dissertation collection, so fix entries in Zotero, never here. The PDFs
+;; are found through the `file' field it writes. Set at top level rather than
+;; in `after! citar': Doom's :tools biblio copies it into org-cite's global
+;; bibliography when org-cite loads, which can come first.
+(setq citar-bibliography '("~/Documents/work/dissertation/references.bib")
+      ;; one org file per source, named by citation key (`SPC n b' opens it)
+      citar-notes-paths '("~/Documents/work/dissertation/notes"))
+
+;; `SPC m @' inserts a citation, prompting for \autocite, \textcite, ...; the
+;; same key org-mode uses for `org-cite-insert'
+(map! :after latex
+      :map LaTeX-mode-map
+      :localleader
+      :desc "Insert citation" "@" #'citar-insert-citation)
+
+
+;;
+;;; LaTeX
+
+;; `SPC m l' toggles continuous compilation, like vimtex's `\ll': latexmk -pvc
+;; rebuilds (running biber when needed) every time a file is saved, and its
+;; errors and warnings show inline through flymake. texlab's diagnostics stay
+;; with flycheck, so the two don't double up. Open the PDF once with `SPC m v';
+;; zathura reloads it after each build.
+(map! :after latex
+      :map LaTeX-mode-map
+      :localleader
+      :desc "Compile on save" "l" #'auctex-cont-latexmk-toggle)
+
+;; `SPC m v' opens the PDF in Emacs (pdf-tools) rather than zathura, which Doom
+;; prefers whenever it's installed. SyncTeX works both ways: `SPC m v' jumps to
+;; the cursor's spot, and C-click or double-click in the PDF jumps back.
+(setq +latex-viewers '(pdf-tools))
+
+;; Doom only reverts a buffer when you switch to it or save, and latexmk
+;; finishes after the save, so poll PDFs instead: they reload within a second
+;; of each build. The interval only applies to buffers with `auto-revert-mode'.
+(add-hook 'pdf-view-mode-hook #'auto-revert-mode)
+(setq auto-revert-interval 1)
+
+
+;;
 ;;; Formatting
 
 ;; Format on save with the same tools conform.nvim uses. Rust (rustfmt) and C
@@ -44,6 +89,21 @@
 ;; basedpyright's default "recommended" mode is too strict
 (setq-default eglot-workspace-configuration
               '(:basedpyright (:analysis (:typeCheckingMode "standard"))))
+
+
+;;
+;;; Claude Code
+
+;; claude-code-ide runs the `claude' CLI in a vterm side window and serves
+;; Emacs to it over MCP, so it sees the current file and selection and can use
+;; xref, imenu, the project and diagnostics. `SPC o c' opens its menu (start,
+;; resume, toggle the window, send the region, ...).
+(use-package! claude-code-ide
+  :defer t
+  :init
+  (map! :leader :desc "Claude Code" "o c" #'claude-code-ide-menu)
+  :config
+  (claude-code-ide-emacs-tools-setup))
 
 
 ;;
