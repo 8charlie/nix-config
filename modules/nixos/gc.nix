@@ -3,7 +3,7 @@
     automatic = true;
     dates = "weekly";
     randomizedDelaySec = "45min";
-    options = "--delete-older-than 14d";
+    options = "--delete-older-than 7d";
   };
 
   nix.optimise = {
