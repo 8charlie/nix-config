@@ -17,12 +17,27 @@
       ;; relative line numbers, as in neovim
       display-line-numbers-type 'relative)
 
-;; line numbers clutter prose, so keep them for code; `SPC t l' toggles them
-(add-hook! (org-mode markdown-mode LaTeX-mode) (display-line-numbers-mode -1))
-
 ;; a slightly taller modeline; the bar is the strip marking the active window
 (setq doom-modeline-height 28
       doom-modeline-bar-width 4)
+
+;; translucent background, as in ghostty (background-opacity = 0.90); text
+;; stays opaque. In `default-frame-alist' so the daemon's client frames get it.
+;; pgtk only: the macOS build ignores it.
+(add-to-list 'default-frame-alist '(alpha-background . 90))
+
+;; ghostty's 12px window padding: around the frame edge and between splits.
+;; The mode-line box is kept thin because doom-modeline already sets a height.
+;; Keys left out fall back to spacious-padding's defaults.
+(use-package! spacious-padding
+  :config
+  (setq spacious-padding-widths
+        '(:internal-border-width 12
+          :right-divider-width 12
+          :mode-line-width 1
+          :header-line-width 4
+          :fringe-width 8))
+  (spacious-padding-mode 1))
 
 (setq org-directory "~/org/")
 
