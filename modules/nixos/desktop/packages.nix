@@ -83,19 +83,11 @@
     unzip
     vesktop
     vim
-    # VS Code 1.144 moved its bundled rg to @vscode/ripgrep-universal, but
-    # nixos-26.05's vscode postPatch still rm's the old @vscode/ripgrep path
-    # and fails. Point it at the new location (as nixpkgs master already
-    # does). Drop once the fix is backported to 26.05.
-    ((vscode.overrideAttrs (old: {
-        postPatch =
-          builtins.replaceStrings
-          ["resources/app/node_modules/@vscode/ripgrep/bin/rg"]
-          ["resources/app/node_modules/@vscode/ripgrep-universal/bin/linux-x64/rg"]
-          old.postPatch;
-      })).fhsWithPackages (ps: with ps; [zlib openssl.dev pkg-config]))
+    (vscode.fhsWithPackages (ps: with ps; [zlib openssl.dev pkg-config]))
     wget
     yazi
     zathura
+    # reference manager; add the Better BibTeX plugin from its add-ons menu
+    zotero
   ];
 }
