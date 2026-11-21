@@ -63,7 +63,6 @@
     librewolf
     lutris
     man-pages
-    mpv
     nautilus
     #nextcloud-client
     nicotine-plus
