@@ -46,7 +46,10 @@ in {
     ++ lib.optionals stdenv.isDarwin [coreutils-prefixed];
 
   fonts.packages = with pkgs.nerd-fonts; [
-    # doom-font in dots/doom/config.el
+    # doom-font and doom-variable-pitch-font in dots/doom/config.el
+    iosevka
+    (pkgs.iosevka-bin.override {variant = "Aile";})
+    # ghostty's font (dots/ghostty/config); darwin has no fonts.nix to get it from
     blex-mono
     # the icon font Doom's modeline and dashboard draw with (nerd-icons)
     symbols-only

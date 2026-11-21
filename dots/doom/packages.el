@@ -56,3 +56,9 @@
 ;; Claude Code inside Emacs, wired to the editor over MCP; set up in config.el
 (package! claude-code-ide
   :recipe (:host github :repo "manzaltu/claude-code-ide.el"))
+
+;; padding around windows and the frame edge, like ghostty's; set up in config.el
+(package! spacious-padding)
+
+;; variable-pitch prose with monospaced code in org/markdown; hooked in config.el
+(package! mixed-pitch)

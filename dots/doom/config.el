@@ -3,12 +3,26 @@
 ;; Private configuration. Unlike init.el and packages.el, changes here don't
 ;; need a 'doom sync'; 'SPC h r r' (doom/reload) or a restart picks them up.
 
-;; same font as ghostty; installed by modules/common/doom-emacs.nix
-(setq doom-font (font-spec :family "BlexMono Nerd Font" :size 11.0))
+;; all installed by modules/common/doom-emacs.nix. Aile is Iosevka's
+;; proportional sibling, so prose and inline code share the same shapes.
+(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 11.0)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 11.0)
+      ;; `SPC t b' (big-font-mode), for presenting or screen sharing
+      doom-big-font (font-spec :family "Iosevka Nerd Font" :size 16.0))
+
+;; prose in Aile; code blocks, tables and markup stay monospaced
+(add-hook! (org-mode markdown-mode) #'mixed-pitch-mode)
 
 (setq doom-theme 'doom-one
       ;; relative line numbers, as in neovim
       display-line-numbers-type 'relative)
+
+;; line numbers clutter prose, so keep them for code; `SPC t l' toggles them
+(add-hook! (org-mode markdown-mode LaTeX-mode) (display-line-numbers-mode -1))
+
+;; a slightly taller modeline; the bar is the strip marking the active window
+(setq doom-modeline-height 28
+      doom-modeline-bar-width 4)
 
 (setq org-directory "~/org/")
 
