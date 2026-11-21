@@ -23,6 +23,8 @@
       "raycast"
       "spotify"
       "sioyek"
+      # reference manager; add the Better BibTeX plugin from its add-ons menu
+      "zotero"
     ];
   };
 }
