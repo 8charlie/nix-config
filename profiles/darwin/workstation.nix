@@ -9,9 +9,4 @@
     ../../modules/darwin/packages.nix
     ../../modules/darwin/user.nix
   ];
-
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 14d";
-  };
 }

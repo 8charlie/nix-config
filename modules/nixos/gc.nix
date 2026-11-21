@@ -1,13 +1,9 @@
 {
+  # retention lives in modules/common/gc.nix; this is only NixOS scheduling
   nix.gc = {
-    automatic = true;
     dates = "weekly";
     randomizedDelaySec = "45min";
-    options = "--delete-older-than 7d";
   };
 
-  nix.optimise = {
-    automatic = true;
-    dates = [ "weekly" ];
-  };
+  nix.optimise.dates = ["weekly"];
 }
