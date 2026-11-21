@@ -22,7 +22,7 @@ exec --no-startup-id spotify
 assign [class="Spotify"] → workspace "1"
 exec --no-startup-id freetube
 assign [class="freetube"] → workspace "1"
-exec --no-startup-id emacs
+exec --no-startup-id emacsclient -c -a ''
 assign [app_id="emacs"] workspace number 2
 
 # Use pactl to adjust volume in PulseAudio.

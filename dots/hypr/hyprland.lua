@@ -53,7 +53,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("firefox", { workspace = "1 silent" })
 	hl.exec_cmd("spotify", { workspace = "1 silent" })
 	hl.exec_cmd("freetube", { workspace = "1 silent" })
-	hl.exec_cmd("emacs", { workspace = "2 silent" })
+	hl.exec_cmd("emacsclient -c -a ''", { workspace = "2 silent" })
 end)
 
 -- ==================
