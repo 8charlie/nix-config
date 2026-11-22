@@ -25,9 +25,15 @@
         # by FreeTube itself
         ytdl-format = "bestvideo[height<=?1440]+bestaudio/best";
         save-position-on-quit = true;
-        # Fresh googlevideo URLs answer 403 for the first ~4s, and mpv gives
-        # up on the first one; let ffmpeg retry (0s, 1s, 3s, ...) instead.
-        stream-lavf-o-append = "reconnect_on_http_error=403";
+        # ffmpeg options for googlevideo:
+        # - reconnect_on_http_error: fresh URLs answer 403 for the first ~4s
+        #   and mpv gives up on the first one; retry (0s, 1s, 3s, ...) instead
+        # - request_size + multiple_requests: fetch in 10 MB ranges over one
+        #   connection, like yt-dlp. A single open-ended request (ffmpeg's
+        #   default) is throttled to ~1 Mbps, barely above playback speed,
+        #   so mpv buffered only a few seconds ahead and kept stalling;
+        #   ranges come at full speed (176 vs 1.1 Mbps when measured).
+        stream-lavf-o = "reconnect_on_http_error=403,request_size=10485760,multiple_requests=1";
       };
 
       # FreeTube's default speed, for YouTube only (FreeTube's external player

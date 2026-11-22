@@ -314,11 +314,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795346971,
-        "narHash": "sha256-VcU1A6OvZt9Uh7HSp9W2pjVtZaqmzHJBQ9guSBbiZjE=",
+        "lastModified": 1795349805,
+        "narHash": "sha256-be3mlNNFjYwJE8cOUvuUDMIVTESRiw4p2rBn9QPDhfc=",
         "owner": "8charlie",
         "repo": "tube",
-        "rev": "62b7b7af1c454311a85d992717a15e4a9afc6361",
+        "rev": "3013f30a53b57b6ad740b2817b6d8fa6814b8c06",
         "type": "github"
       },
       "original": {
