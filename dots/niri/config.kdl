@@ -242,6 +242,8 @@ binds {
     // === System Controls ===
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
+    Mod+Y hotkey-overlay-title="YouTube (tube)" { spawn "tube"; }
+
 //  === DMS ===
     Mod+Space hotkey-overlay-title="Application Launcher" { 
         spawn "dms" "ipc" "call" "spotlight" "toggle"; 

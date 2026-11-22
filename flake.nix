@@ -20,6 +20,11 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # after pushing a change there, `nix flake update tube`
+    tube = {
+      url = "github:8charlie/tube";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     paperwm-spoon = {
       url = "github:mogenson/PaperWM.spoon";
       flake = false;

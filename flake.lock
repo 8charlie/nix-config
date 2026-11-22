@@ -282,7 +282,8 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "paperwm-spoon": "paperwm-spoon"
+        "paperwm-spoon": "paperwm-spoon",
+        "tube": "tube"
       }
     },
     "rust-overlay": {
@@ -303,6 +304,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "tube": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795346971,
+        "narHash": "sha256-VcU1A6OvZt9Uh7HSp9W2pjVtZaqmzHJBQ9guSBbiZjE=",
+        "owner": "8charlie",
+        "repo": "tube",
+        "rev": "62b7b7af1c454311a85d992717a15e4a9afc6361",
+        "type": "github"
+      },
+      "original": {
+        "owner": "8charlie",
+        "repo": "tube",
         "type": "github"
       }
     }

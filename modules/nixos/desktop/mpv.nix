@@ -1,8 +1,9 @@
 {pkgs, ...}: {
-  # FreeTube's own player keeps reloading on YouTube's SABR requests, so
-  # videos are played in mpv via FreeTube's external player button
-  # (Settings > External Player > mpv). mpv's nixpkgs wrapper already puts
-  # yt-dlp (with a JS runtime for YouTube) on its PATH.
+  # YouTube is watched in mpv (via tube, see ./tube.nix, or FreeTube's
+  # external player button) since FreeTube's own player keeps reloading on
+  # SABR requests.
+  # mpv's nixpkgs wrapper already puts yt-dlp (with a JS runtime for
+  # YouTube) on its PATH.
   home-manager.users.charlie = {
     home.packages = [pkgs.yt-dlp];
 
@@ -12,6 +13,8 @@
         sponsorblock
         # modern OSC: chapter markers and titles on the timeline, chapter menu
         uosc
+        # play/pause/seek from the DMS bar's media controls
+        mpris
       ];
 
       config = {
@@ -25,6 +28,14 @@
         # Fresh googlevideo URLs answer 403 for the first ~4s, and mpv gives
         # up on the first one; let ffmpeg retry (0s, 1s, 3s, ...) instead.
         stream-lavf-o-append = "reconnect_on_http_error=403";
+      };
+
+      # FreeTube's default speed, for YouTube only (FreeTube's external player
+      # button passes --speed itself, which still wins)
+      profiles.youtube = {
+        profile-cond = "path:find('youtube%.com/') or path:find('youtu%.be/')";
+        profile-restore = "copy";
+        speed = 1.5;
       };
 
       scriptOpts.sponsorblock = {

@@ -12,6 +12,7 @@
     ../../modules/nixos/desktop/mpd.nix
     ../../modules/nixos/desktop/mpv.nix
     ../../modules/nixos/desktop/packages.nix
+    ../../modules/nixos/desktop/tube.nix
     ../../modules/nixos/direnv.nix
     ../../modules/nixos/gc.nix
     ../../modules/nixos/man.nix
