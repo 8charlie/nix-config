@@ -41,6 +41,16 @@
 
 (setq org-directory "~/org/")
 
+;; render inline LaTeX in org files on open; org-fragtog shows the source while
+;; the cursor is inside a fragment and re-renders it on leaving
+(after! org
+  (setq org-startup-with-latex-preview t
+        ;; SVG stays crisp at any scale, unlike the default dvipng
+        org-preview-latex-default-process 'dvisvgm)
+  (plist-put org-format-latex-options :scale 1.5))
+
+(add-hook 'org-mode-hook #'org-fragtog-mode)
+
 ;; fish isn't POSIX, which trips up Emacs utilities that run shell commands
 ;; (diff-hl, TRAMP, ...), so run those through bash; terminals still get fish
 (setq shell-file-name (executable-find "bash"))

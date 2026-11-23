@@ -62,3 +62,6 @@
 
 ;; variable-pitch prose with monospaced code in org/markdown; hooked in config.el
 (package! mixed-pitch)
+
+;; auto-toggles org LaTeX previews as the cursor enters/leaves them; hooked in config.el
+(package! org-fragtog)
