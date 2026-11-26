@@ -1,11 +1,20 @@
 {
+  config,
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  # legacyPackages ignores nixpkgs.config (e.g. allowUnfree), so import
+  # unstable with this system's nixpkgs config instead.
+  unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    inherit (config.nixpkgs) config;
+  };
+in {
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     alsa-utils
+    unstable.antigravity-cli
     appimage-run
     baobab
     bat
@@ -48,7 +57,7 @@
     # hotfixes for it often (0.25.2, 0.25.3 and 0.26.0 were all SABR fixes).
     # nixos-26.05 lags behind and leaves the player stuck reloading on
     # "SABR request" errors, so take FreeTube from nixos-unstable instead.
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.freetube
+    unstable.freetube
     fuse
     fzf
     gcc

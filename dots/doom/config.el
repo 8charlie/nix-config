@@ -3,14 +3,14 @@
 ;; Private configuration. Unlike init.el and packages.el, changes here don't
 ;; need a 'doom sync'; 'SPC h r r' (doom/reload) or a restart picks them up.
 
-;; all installed by modules/common/doom-emacs.nix. Aile is Iosevka's
-;; proportional sibling, so prose and inline code share the same shapes.
-(setq doom-font (font-spec :family "Iosevka Nerd Font" :size 11.0)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 11.0)
+;; BlexMono matches ghostty (dots/ghostty/config); IBM Plex Sans is its
+;; proportional sibling so prose and inline code share the same shapes.
+(setq doom-font (font-spec :family "BlexMono Nerd Font" :size 11.0)
+      doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 11.0)
       ;; `SPC t b' (big-font-mode), for presenting or screen sharing
-      doom-big-font (font-spec :family "Iosevka Nerd Font" :size 16.0))
+      doom-big-font (font-spec :family "BlexMono Nerd Font" :size 16.0))
 
-;; prose in Aile; code blocks, tables and markup stay monospaced
+;; prose in IBM Plex Sans; code blocks, tables and markup stay monospaced
 (add-hook! (org-mode markdown-mode) #'mixed-pitch-mode)
 
 (setq doom-theme 'doom-one
@@ -54,12 +54,25 @@
 ;; fish isn't POSIX, which trips up Emacs utilities that run shell commands
 ;; (diff-hl, TRAMP, ...), so run those through bash; terminals still get fish
 (setq shell-file-name (executable-find "bash"))
-(setq-default vterm-shell (executable-find "fish")
+(setq-default ghostel-shell (executable-find "fish")
               explicit-shell-file-name (executable-find "fish"))
+
+(after! ghostel
+  (setq ghostel-timer-delay 0.01               ; 10ms redraw batching (default ~33ms)
+        ghostel-kill-buffer-on-exit t          ; `exit' / C-d closes the buffer cleanly
+        ghostel-max-scrollback (* 10 1024 1024)) ; 10 MiB (ghostel measures bytes, not lines)
+
+  ;; ensure emacsclient works from inside ghostel (e.g. EDITOR=emacsclient on macOS)
+  (require 'server)
+  (unless (server-running-p)
+    (server-start)))
 
 ;; British English spell checking in text modes (markdown, latex, org, ...), as
 ;; in the neovim ftplugins. `z=' corrects, `zg' adds a word, `]s' / `[s' jump.
 (setq ispell-dictionary "en_GB")
+;; and British grammar for LanguageTool (`M-x langtool-check'); the
+;; :checkers grammar module defaults to en-US
+(setq langtool-default-language "en-GB")
 ;; don't flag \cite / \ref / \label keys
 (after! spell-fu
   (cl-callf append (alist-get 'latex-mode +spell-excluded-faces-alist)
@@ -133,16 +146,37 @@
 ;;
 ;;; Claude Code
 
-;; claude-code-ide runs the `claude' CLI in a vterm side window and serves
+;; claude-code-ide runs the `claude' CLI in a ghostel side window and serves
 ;; Emacs to it over MCP, so it sees the current file and selection and can use
 ;; xref, imenu, the project and diagnostics. `SPC o c' opens its menu (start,
 ;; resume, toggle the window, send the region, ...).
 (use-package! claude-code-ide
   :defer t
   :init
+  (setq claude-code-ide-terminal-backend 'ghostel)
   (map! :leader :desc "Claude Code" "o c" #'claude-code-ide-menu)
   :config
   (claude-code-ide-emacs-tools-setup))
+
+;; vterm moves point back to the terminal cursor and recentres the window on
+;; every redraw, and Claude Code redraws all the time (spinner, prompt box), so
+;; scrolling up in normal state snaps straight back down. `vterm-copy-mode'
+;; pauses the terminal instead (pty flow control, so no output is lost), so
+;; tie it to evil's states in Claude buffers, like a neovim terminal: normal
+;; state freezes the transcript to scroll, search and yank; insert state
+;; resumes it, catching up on whatever Claude wrote in the meantime.
+(defun +claude-code-buffer-p ()
+  "Return non-nil if the current buffer is a claude-code-ide vterm session."
+  (and (derived-mode-p 'vterm-mode)
+       (string-prefix-p "*claude-code[" (buffer-name))))
+(add-hook! 'evil-normal-state-entry-hook
+  (defun +claude-code-freeze-h ()
+    (when (and (+claude-code-buffer-p) (not vterm-copy-mode))
+      (vterm-copy-mode 1))))
+(add-hook! 'evil-insert-state-entry-hook
+  (defun +claude-code-thaw-h ()
+    (when (and (+claude-code-buffer-p) vterm-copy-mode)
+      (vterm-copy-mode -1))))
 
 
 ;;
