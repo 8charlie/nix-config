@@ -57,6 +57,21 @@
 (setq-default ghostel-shell (executable-find "fish")
               explicit-shell-file-name (executable-find "fish"))
 
+;; Programs Emacs starts itself (Claude via claude-code-ide, compile, ...) skip
+;; fish's ghostel block and inherit the login EDITOR=nvim, so Claude's `alt+e'
+;; opened nvim nested inside its terminal. Point them at Emacs too, as fish does
+;; in ghostel; `:wq' (or `C-x #') hands the text back.
+(setenv "EDITOR" "emacsclient")
+(setenv "VISUAL" "emacsclient")
+
+;; ghostel's native module is built from source by Nix in
+;; modules/common/doom-emacs.nix and linked into ~/.local/share/ghostel/ (out
+;; of straight's build tree, which a `doom sync' or upgrade can wipe while
+;; Emacs has it loaded). Set before ghostel loads, since that's when it loads
+;; the module.
+(setq ghostel-module-directory (expand-file-name "~/.local/share/ghostel/")
+      ghostel-module-auto-install nil)
+
 (after! ghostel
   (setq ghostel-timer-delay 0.01               ; 10ms redraw batching (default ~33ms)
         ghostel-kill-buffer-on-exit t          ; `exit' / C-d closes the buffer cleanly
@@ -66,6 +81,36 @@
   (require 'server)
   (unless (server-running-p)
     (server-start)))
+
+;; Esc goes to whatever program you're typing into, as in ghostty: Claude Code
+;; (interrupt, close its menus, Esc Esc to rewind), yazi, less, nvim, ... The
+;; one exception is a shell sitting at its prompt: evil is its vi mode there
+;; (fish turns its own off in ghostel, see dots/fish/config.fish), so Esc
+;; enters normal state. `C-g' enters normal state anywhere, to scroll, search
+;; and yank; `i' / `a' go back in. evil-ghostel's default (`auto') instead
+;; decided by whether the app used the alternate screen, which flips
+;; mid-session, and claude-code-ide set its own buffers to `evil', so Esc
+;; depended on the buffer. `C-c C-r' still overrides one buffer.
+(after! evil-ghostel
+  (setq evil-ghostel-escape 'terminal))
+
+(defun +ghostel-shell-at-prompt-p ()
+  "Non-nil if this terminal is a shell at its prompt, with nothing running.
+False in claude-code-ide's buffers, which run `claude' with no shell."
+  (and (bound-and-true-p ghostel--pid)
+       (member (alist-get 'comm (process-attributes ghostel--pid))
+               '("fish" "bash" "zsh" "sh"))
+       (not (ghostel-command-running-p))))
+
+(defadvice! +ghostel-escape-at-shell-prompt-a (fn)
+  "Make Esc enter normal state at an idle shell prompt; see above."
+  :around #'evil-ghostel--escape
+  (let ((evil-ghostel--escape-mode
+         (if (and (eq evil-ghostel--escape-mode 'terminal)
+                  (+ghostel-shell-at-prompt-p))
+             'evil
+           evil-ghostel--escape-mode)))
+    (funcall fn)))
 
 ;; British English spell checking in text modes (markdown, latex, org, ...), as
 ;; in the neovim ftplugins. `z=' corrects, `zg' adds a word, `]s' / `[s' jump.
@@ -105,8 +150,8 @@
 ;; `SPC m l' toggles continuous compilation, like vimtex's `\ll': latexmk -pvc
 ;; rebuilds (running biber when needed) every time a file is saved, and its
 ;; errors and warnings show inline through flymake. texlab's diagnostics stay
-;; with flycheck, so the two don't double up. Open the PDF once with `SPC m v';
-;; zathura reloads it after each build.
+;; with flycheck, so the two don't double up. Open the PDF once with `SPC m v'
+;; (in pdf-tools, below); it reloads after each build.
 (map! :after latex
       :map LaTeX-mode-map
       :localleader
@@ -153,30 +198,30 @@
 (use-package! claude-code-ide
   :defer t
   :init
-  (setq claude-code-ide-terminal-backend 'ghostel)
+  (setq claude-code-ide-terminal-backend 'ghostel
+        ;; nil: follow `evil-ghostel-escape' above rather than its own `evil'
+        claude-code-ide-ghostel-evil-escape nil)
   (map! :leader :desc "Claude Code" "o c" #'claude-code-ide-menu)
   :config
-  (claude-code-ide-emacs-tools-setup))
+  (claude-code-ide-emacs-tools-setup)
 
-;; vterm moves point back to the terminal cursor and recentres the window on
-;; every redraw, and Claude Code redraws all the time (spinner, prompt box), so
-;; scrolling up in normal state snaps straight back down. `vterm-copy-mode'
-;; pauses the terminal instead (pty flow control, so no output is lost), so
-;; tie it to evil's states in Claude buffers, like a neovim terminal: normal
-;; state freezes the transcript to scroll, search and yank; insert state
-;; resumes it, catching up on whatever Claude wrote in the meantime.
-(defun +claude-code-buffer-p ()
-  "Return non-nil if the current buffer is a claude-code-ide vterm session."
-  (and (derived-mode-p 'vterm-mode)
-       (string-prefix-p "*claude-code[" (buffer-name))))
-(add-hook! 'evil-normal-state-entry-hook
-  (defun +claude-code-freeze-h ()
-    (when (and (+claude-code-buffer-p) (not vterm-copy-mode))
-      (vterm-copy-mode 1))))
-(add-hook! 'evil-insert-state-entry-hook
-  (defun +claude-code-thaw-h ()
-    (when (and (+claude-code-buffer-p) vterm-copy-mode)
-      (vterm-copy-mode -1))))
+  ;; claude-code-ide binds its keys with `local-set-key', but every ghostel
+  ;; buffer shares one keymap, so after the first session they reached every
+  ;; terminal (`C-<escape>' in a shell sent Esc to Claude), while in insert
+  ;; state Doom's own S-RET shadowed its newline key. Bind them in a minor mode
+  ;; on Claude's own buffers instead, with S-RET in evil's states so it wins.
+  (defvar-keymap +claude-code-term-mode-map
+    "C-<escape>" #'claude-code-ide-send-escape
+    "C-c C-x"    #'claude-code-ide-clear-selection)
+  (define-minor-mode +claude-code-term-mode
+    "Claude Code's terminal keys, in claude-code-ide's buffers only."
+    :keymap +claude-code-term-mode-map)
+  (map! :map +claude-code-term-mode-map
+        :in "S-<return>" #'claude-code-ide-insert-newline)
+  (defadvice! +claude-code-term-keys-a ()
+    :override #'claude-code-ide--setup-terminal-keybindings
+    (+claude-code-term-mode 1)
+    (evil-normalize-keymaps)))  ; so evil sees the mode's S-RET straight away
 
 
 ;;

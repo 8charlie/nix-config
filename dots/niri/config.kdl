@@ -107,7 +107,6 @@ spawn-at-startup "dms" "run"
 
 spawn-at-startup "bash" "-c" "exec \"$BROWSER\""
 spawn-at-startup "spotify"
-spawn-at-startup "freetube"
 // client of the Emacs daemon; -a "" starts the daemon first if none is running
 spawn-at-startup "emacsclient" "-c" "-a" ""
 
