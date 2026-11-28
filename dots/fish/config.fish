@@ -13,7 +13,8 @@ set -gx VISUAL nvim
 set -U fish_greeting ""
 set fish_cursor_default block
 set fish_cursor_insert line
-export PATH="$HOME/.local/bin:$PATH"
+# fish_add_path skips dirs already on PATH, so nested shells don't stack it
+fish_add_path -g ~/.local/bin
 #export LD_LIBRARY_PATH="$NIX_LD_LIBRARY_PATH"
 
 # Inside Doom's ghostel, evil already gives the buffer a normal mode, so a

@@ -78,7 +78,6 @@ in {
     nix-search-cli
     nodejs
     (p7zip.override {enableUnfree = true;})
-    positron-bin
     proton-vpn
     python3
     qbittorrent
@@ -89,6 +88,7 @@ in {
     spotify
     tmux
     unzip
+    uv
     vesktop
     vim
     (vscode.fhsWithPackages (ps: with ps; [zlib openssl.dev pkg-config]))
